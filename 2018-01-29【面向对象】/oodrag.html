@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+            background: greenyellow;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+</body>
+<script>
+    function Odrag(id) {
+        this.box = document.getElementById(id);
+        this.disX = 0;
+        this.disY = 0;
+        this.fmv = null;
+        this.fup = null;
+        this.down();
+    }
+    Odrag.prototype.down = function (ev) {
+        var _this = this;
+        this.box.addEventListener("mousedown", function (ev) {
+            _this.box.disX = ev.pageX - _this.box.offsetLeft;
+            _this.box.disY = ev.pageY - _this.box.offsetTop;
+            _this.move();
+            _this.up();
+        }, false);
+    }
+    Odrag.prototype.move = function () {
+        var _this = this;
+        // 此种方法声明必须写在使用它之前
+        _this.fmv = function(ev) {
+            _this.box.style.left = ev.pageX - _this.box.disX + "px";
+            _this.box.style.top = ev.pageY - _this.box.disY + "px";
+        }
+        document.addEventListener("mousemove", _this.fmv, false);
+    }
+    Odrag.prototype.up = function () {
+        var _this = this;
+        // 此种方法声明必须写在使用它之前
+        _this.fup = function(){
+            document.removeEventListener("mouseup",_this.fup,false);
+            document.removeEventListener("mousemove", _this.fmv, false);
+        }
+        document.addEventListener("mouseup",_this.fup,false);
+    }
+    var d1 = new Odrag("div1");
+    var d2 = new Odrag("div2");
+
+</script>
+
+</html>

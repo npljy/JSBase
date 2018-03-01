@@ -1,0 +1,41 @@
+.main{
+    width: 100%;
+    height: 900px;
+    text-align: center;
+}
+
+.content{
+    background: #7168C9;
+    width: 900px;
+    height: 550px;
+    margin: 200px auto;
+    overflow: hidden;
+    position: relative;
+}
+#da,#db{
+    height: 400px;
+    width: 300px;
+    background: white;
+    margin: 50px;
+    display: inline-block;
+    resize: none;
+    font-size: 20px;
+    border-radius: 10px;
+}
+#btn{
+    position: absolute;
+    top: 225px;
+    left: 425px;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 10px;
+}
+
+.count{
+    position: absolute;
+    top: 285px;
+    width: 100px;
+    left: 400px;
+    color:#fff;
+}

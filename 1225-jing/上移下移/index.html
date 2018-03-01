@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/main.css">
+	
+</head>
+<body>
+<section class="wrap">
+	<div class="wrap-left">
+		<ul class="list">
+			<li>
+				<span>jQuery</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+			<li>
+				<span>AJAX</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+			<li>
+				<span>JS基础-2</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+			<li>
+				<span>移动端实战</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+			<li>
+				<span>canvas游戏</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="wrap-right">
+		<ul class="list">
+			<li>
+				<span>jQuery</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up"></a>
+					<a href="javascript:;" class="down"></a>
+				</div>
+			</li>
+			<li>
+				<span>小程序</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up"></a>
+					<a href="javascript:;" class="down"></a>
+				</div>
+			</li>
+			<li>
+				<span>jQuery</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up"></a>
+					<a href="javascript:;" class="down"></a>
+				</div>
+			</li>
+			<li>
+				<span>面向对象-上</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up"></a>
+					<a href="javascript:;" class="down"></a>
+				</div>
+			</li>
+			<li>
+				<span>面向对象-下</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up"></a>
+					<a href="javascript:;" class="down"></a>
+				</div>
+			</li>
+		</ul>
+	</div>
+</section>
+<script>
+	var Ulss=document.getElementsByTagName('ul');
+	var L=document.querySelector('.wrap-left');
+	var R=document.querySelector('.wrap-right');
+	var upL=Array.from(Ulss[0].querySelectorAll('.up'));
+	var downL=Array.from(Ulss[0].querySelectorAll('.down'));
+	var upR=Array.from(Ulss[1].querySelectorAll('.up'));
+	var downR=Array.from(Ulss[1].querySelectorAll('.down'));
+	var onoff=true;
+
+	function Pos(Z){
+	var Lis=Array.from(Z.querySelectorAll('li'));
+		Lis.forEach(function(e,i){
+			e.index=e.offsetTop;
+		})
+		Lis.forEach(function(e,i){
+			e.style.position='absolute';
+			e.style.transition='500ms'
+			e.style.top=e.index+'px';
+		})
+	}
+	Pos(L);
+	Pos(R);
+	function Upp(e,X){
+		if(!onoff)return;	
+		onoff=false;
+			if(e.parentNode.parentNode.previousElementSibling){			
+				e.parentNode.parentNode.style.top=e.parentNode.parentNode.previousElementSibling.offsetTop+'px';
+				e.parentNode.parentNode.previousElementSibling.style.top=e.parentNode.parentNode.offsetTop+'px';
+				setTimeout(function(){
+					console.log(1)
+					X.querySelector('.list').insertBefore(e.parentNode.parentNode,e.parentNode.parentNode.previousElementSibling);
+					onoff=true
+				},500)		
+			}else{
+				var children_ul=Array.from(e.parentNode.parentNode.parentNode.children);
+				children_ul.forEach(function(e){
+					if(e!=e.parentNode.firstElementChild){
+						e.style.top=e.previousElementSibling.offsetTop+'px';
+					}
+				})
+				e.parentNode.parentNode.style.top=e.parentNode.parentNode.parentNode.lastElementChild.offsetTop+'px';
+				setTimeout(function(){
+				X.querySelector('.list').appendChild(e.parentNode.parentNode);onoff=true},500)
+			}	
+			upL=Array.from(Ulss[0].querySelectorAll('.up'));
+
+		}
+
+		function Down(e,X){
+		if(!onoff)return;	
+		onoff=false;
+		if(e.parentNode.parentNode.nextElementSibling){	
+				e.parentNode.parentNode.style.top=e.parentNode.parentNode.nextElementSibling.offsetTop+'px';
+				e.parentNode.parentNode.nextElementSibling.style.top=e.parentNode.parentNode.offsetTop+'px';	
+				setTimeout(function(){
+					console.log(1)
+					X.querySelector('.list').insertBefore(e.parentNode.parentNode,e.parentNode.parentNode.nextElementSibling.nextElementSibling);
+					onoff=true
+				},500)					
+			}else{
+				var children_ul=Array.from(e.parentNode.parentNode.parentNode.children);
+				children_ul.forEach(function(e){
+					if(e!=e.parentNode.lastElementChild){
+						e.style.top=e.nextElementSibling.offsetTop+'px';
+					}
+				})
+				e.parentNode.parentNode.style.top=e.parentNode.parentNode.parentNode.firstElementChild.offsetTop+'px';
+				setTimeout(function(){
+					X.querySelector('.list').insertBefore(e.parentNode.parentNode,e.parentNode.parentNode.parentNode.firstElementChild)
+					onoff=true
+				},500)
+				;
+			}
+		}
+
+	upL.forEach(function(e,i){
+		e.onclick=function(){Upp(e,L)}
+	})
+	downL.forEach(function(e,i){
+		e.onclick=function(){Down(e,L)}
+	})
+	upR.forEach(function(e,i){
+		e.onclick=function(){Upp(e,R)}
+	})
+	downR.forEach(function(e,i){
+		e.onclick=function(){Down(e,R)}
+	})
+
+
+
+</script>	
+</body>
+</html>

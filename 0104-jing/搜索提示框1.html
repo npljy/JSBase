@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        input{
+            width: 100%;
+            height: 30px;
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+            display: none;
+        }
+        li{
+            list-style: none;
+            background-color: #009999;
+            margin-top: 3px;
+            line-height: 30px;
+            width: 100%;
+        }
+        a{
+            text-decoration: none;
+            color:white;
+            display: block;
+            width: 100%;
+        }
+        a:hover,.hover{
+            background-color: #00FF99;
+        }
+        #box{
+            width: 500px;
+            margin: 100px auto 0;
+        }
+        .select{
+            background-color: #60625b;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var st=document.getElementById('s');
+            var listu=document.getElementById('list')
+            var As=Array.from(document.getElementsByTagName('a'))
+            var num=-1;
+            st.focus();
+            listu.style.display='block'
+
+            //鼠标事件
+            listu.onclick=function(ev){
+                console.dir(ev)
+                if(ev.target.tagName!=='A')return;
+                if(ev.ctrlKey){
+                    if(ev.target.className=='select')return;
+                    ev.target.className='select'
+                    st.value+=ev.target.innerText+','
+                }
+                else{
+                    if(ev.target.className=='select'){
+                        del(ev.target);
+                    }else{
+                        As.forEach(e=>e.className='')
+                        ev.target.className='select';
+                        st.value=ev.target.innerText+',';
+                    }                    
+                }                       
+            }
+            function del(obj){
+                obj.classList.remove('select');                      
+                var arr=st.value.split(',')
+                st.value='';
+                arr.forEach((e,i)=>{
+                    if(e!=obj.innerText)st.value+=(i!=arr.length-1)?(e+','):e;                    
+                })
+            }
+
+            //键盘事件
+            var onoff=false,numkey=0;
+            document.onkeydown=function(ev){
+                console.log(ev.ctrlKey)
+                //上下键
+                if(ev.keyCode==38||ev.keyCode==40){
+                    if(ev.keyCode==38){num=num<1?(As.length-1):--num; }else{num=num>=(As.length-1)?0:++num;}
+                    As.forEach(e=>e.classList.remove('hover'))
+                    As[num].classList.add('hover');                
+                }
+
+                if(ev.keyCode==13&&!ev.ctrlKey){
+                    onoff=false;
+                    As.forEach((e,i)=>{
+                        if(e.classList.contains('select')&&e.classList.contains('hover')){onoff=true; numkey=i;}
+                    })
+                    if(onoff){                   
+                            del(As[numkey]);
+                    }else{
+                        As.forEach((e,i)=>{                        
+                            e.classList.remove('select')
+                            if(e.className=='hover'){                         
+                                st.value=e.innerText+',';
+                                e.classList.add('select') 
+                            }                       
+                        })
+                    }
+                }
+                if(ev.keyCode==13&&ev.ctrlKey){
+                    As.forEach((e,i)=>{
+                        if(e.className=='hover'){
+                            st.value+=e.innerText+',';
+                            e.classList.add('select')
+                        }
+                    })
+                }
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="box">
+    <input type="text" id="s"/>
+    <ul id="list">
+        <li><a href="javascript:;">《第七个读者》</a></li>
+        <li><a href="javascript:;">《 心理罪 画像》</a></li>
+        <li><a href="javascript:;">《 心理罪 教化场》</a></li>
+        <li><a href="javascript:;">《 心理罪 暗河》</a></li>
+        <li><a href="javascript:;">《 心理罪 城市之光》</a></li>
+        <li><a href="javascript:;">《地球往事》</a></li>
+        <li><a href="javascript:;">《黑暗森林》</a></li>
+        <li><a href="javascript:;">《死神永生》</a></li>
+        <li><a href="javascript:;">《乡村教师》</a></li>
+        <li><a href="javascript:;">《地球大炮》</a></li>
+    </ul>
+</div>
+</body>
+</html>

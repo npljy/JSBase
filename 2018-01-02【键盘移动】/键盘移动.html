@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            overflow: hidden;
+        }
+        div{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>   
+    <script>
+        var box = document.getElementById("box");
+        var keys = {
+            l:false, // left
+            u:false, // up
+            r:false, // right
+            d:false // down
+        }
+
+        var t1 = null , t2 = null , t3 = null , t4 = null;
+
+        document.onkeydown = function(ev){
+            ev.keyCode == 37 && ( keys.l = true) ;
+            ev.keyCode == 38 && ( keys.u = true) ;
+            ev.keyCode == 39 && ( keys.r = true) ;
+            ev.keyCode == 40 && ( keys.d = true) ;
+            clearInterval(t1);
+            clearInterval(t2);
+            clearInterval(t3);
+            clearInterval(t4);
+
+            keys.l && (t1 = setInterval(function(){
+                box.style.left = box.offsetLeft > 0 ? box.offsetLeft - 10 + "px" : 0;
+            },20));
+            keys.u && (t2 = setInterval(function(){
+                box.style.top = box.offsetTop > 0 ? box.offsetTop - 10 + "px" : 0 ;
+            },20));
+            keys.r && (t3 = setInterval(function(){
+                box.style.left = box.offsetLeft < window.innerWidth - box.offsetWidth ? box.offsetLeft + 10 + "px" : window.innerWidth ;
+            },20));
+            keys.d && (t4 = setInterval(function(){
+                box.style.top = box.offsetTop < window.innerHeight - box.offsetHeight ? box.offsetTop + 10 + "px" : window.innerHeight ;
+            },20));
+        }
+
+        document.onkeyup = function(ev){
+            ev.keyCode == 37 && ( keys.l = false , clearInterval(t1) ) ;
+            ev.keyCode == 38 && ( keys.u = false , clearInterval(t2) ) ;
+            ev.keyCode == 39 && ( keys.r = false , clearInterval(t3) ) ;
+            ev.keyCode == 40 && ( keys.d = false , clearInterval(t4) ) ;
+        }
+    </script>
+</body>
+</html>

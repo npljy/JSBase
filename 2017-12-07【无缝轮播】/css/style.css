@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.main{
+    width: 100%;
+    height: 700px;
+    /* background: yellow; */
+    overflow: hidden;
+
+}
+.content{
+    overflow: hidden;
+    margin: 200px auto;
+    width: 600px;
+    height: 400px;
+
+}
+ul{
+    width: 1850px;
+    transition: 0.5s;
+    margin-left: -600px;
+    zoom:1;
+}
+ul::after{
+    content:"";
+    display: block;
+    width: 100%;
+    height: 0;
+    clear: both;
+}
+ul li{
+    list-style: none;
+    float: left;
+}

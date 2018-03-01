@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            overflow: hidden;
+        }
+        div{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>   
+    <script>
+        var box = document.getElementById("box");
+        var keys = {
+            l:false, // left
+            u:false, // up
+            r:false, // right
+            d:false // down
+        }
+
+        var timer = null;
+
+        document.onkeydown = function(ev){
+            ev.keyCode == 37 && ( keys.l = true) ;
+            ev.keyCode == 38 && ( keys.u = true) ;
+            ev.keyCode == 39 && ( keys.r = true) ;
+            ev.keyCode == 40 && ( keys.d = true) ;
+            clearInterval(timer);
+            mv();
+        }
+
+        document.onkeyup = function(ev){
+            clearInterval(timer);
+            ev.keyCode == 37 && (keys.l = false);
+            ev.keyCode == 38 && (keys.u = false);
+            ev.keyCode == 39 && (keys.r = false);
+            ev.keyCode == 40 && (keys.d = false);
+        }
+
+        function mv() {
+            timer = setInterval(function () {
+                keys.l && (box.style.left = box.offsetLeft > 0 ? box.offsetLeft - 10 + "px" : 0);
+                keys.u && (box.style.top = box.offsetTop > 0 ? box.offsetTop - 10 + "px" : 0);
+                keys.r && (box.style.left = box.offsetLeft < window.innerWidth - box.offsetWidth ? box.offsetLeft + 10 + "px" : window.innerWidth);
+                keys.d && (box.style.top = box.offsetTop < window.innerHeight - box.offsetHeight ? box.offsetTop + 10 + "px" : window.innerHeight);
+            }, 20);
+            // if((!box.offsetLeft && !box.offsetTop) || (box.offsetLeft == window.innerWidth - box.offsetWidth && box.offsetTop == window.innerHeight - box.offsetHeight))clearInterval(timer);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        git和github
+
+        git 工具
+            版本控制工具
+
+        github  社交网站（程序员们的基友网站）
+            可以作为代码托管
+
+        A(id:0)   AB(id:1)
+
+        AB  AB-(id:2)
+
+        A  A+
+
+        SVN集成式版本控制:
+            缺点:
+                依赖网络，范围小，如果中央服务器挂了，代码就没有了
+        git分布式版本控制:
+                不依赖网络，如果加上github 范围大（只要有网络就能）
+
+        1.工具的安装
+        2.github账号创建
+        3.git与github进行关联
+
+        生成秘钥:
+            ssh-keygen -t rsa -C "注册邮箱"
+
+        查看关联
+            ssh -T git@github.com
+
+        进入盘符：
+            cd d:
+
+        返回上一层:
+            cd ..
+
+        进入文件夹:
+            cd class
+
+        
+
+        ls || ll -> 查看当前文件夹有哪些文件
+
+        
+
+
+        创建项目:
+            进入github,点击头像旁边的+号 
+            进入new repository创建项目
+
+            点击download按钮
+                复制地址 git@github.com:nizp/2017-11-22-Class.git
+            
+
+            在指定文件夹下打开git
+                git clone git@github.com:nizp/2017-11-22-Class.git 粘贴地址
+            
+            下载文件成功之后进入该文件夹
+                然后开始工作区 -> 暂存区 -> 版本区
+
+        设置贡献者信息:
+            git config --global user.name "你的名字"
+
+            git config --global user.email "你的邮箱"
+
+        清屏clear
+
+
+
+        git的三个区
+            工作区
+            暂存区
+            作为过渡层
+            避免误操作
+            保护工作区和版本区
+            分支处理
+            版本区（库）
+
+
+
+        git status:
+            查看状态
+
+        按tab自动补全
+
+        工作区到暂存区
+            git add 文件名
+            git add .  批量提交到暂存区
+
+        暂存区到版本区
+            git commit -m "本次提交代码的描述注释"
+
+        通过git log查看版本
+
+        返回按 q 键
+
+        如果修改之前提交过的文件中的内容可以使用快捷提交版本区的方式提交
+
+            git commit -a -m "注释"
+
+        
+        查看区别:
+            工作区与暂存区的区别
+                git diff
+
+            暂存区与版本区的区别
+                git diff --cached
+
+            工作区与版本区的区别
+                git diff master
+
+        撤销:
+            把暂存区的内容撤销到工作区
+                git reset HEAD 文件名
+            
+            把工作区的代码还原成暂存区
+                git checkout -- 文件名
+
+            如果有多个文件，提交到版本区之后发现还有文件忘记
+            提交，这个时候可以使用
+                1.先把遗漏的文件提交到暂存区
+                2.git commit -m "注释" --amend
+            就把最近一次的版本区拉回，和暂存区的代码一起形成新的版本
+
+        删除（提交工作区文件到暂存区）
+            git rm <file.name>  (工作区手动删除之后也想删除暂存区)
+            git rm -f <file.name> (删除工作区及暂存区的文件)
+            rm -rf 文件夹名字 (删除整个**文件夹**) 
+
+        还原:
+            还原指定的文件：
+                git checkout 历史记录ID 文件名
+
+            还原整个历史记录:
+                git reset --hard 历史记录
+
+        同步到远程仓库
+            git remote     (查看远程仓库的名字)
+            git remote -v  (查看远程仓库对应的地址)
+            git push origin master （将版本库中的文件提交到远程仓库）
+            
+            git remote add 名字 地址（url） 创建远程仓库的名字
+
+        
+        多人协作开发：
+                1.进入项目，点击settings 最左边coll...
+                2.添加合伙人
+                3.合伙人需要邮箱确认
+                4.合伙人需要把项目克隆到本地
+                5.合作开发
+            遇到了冲突:
+                git fetch  拉取远程仓库的代码
+                git diff master origin/master 查看对比冲突
+                git merge origin/master  合并冲突，人为去删除冲突代码
+                再次提交代码到版本区 -> push
+
+    长期存储密码：
+		git config --global credential.helper store
+        增加远程地址的时候带上密码也是可以的。(推荐)
+
+            下课件步骤:
+            
+            首次下载:
+                fork nizp  2017-11-22项目
+                git clone fork的项目
+
+            以后下载:
+                进入自己的2017-11-22 点击settings 删除
+                再fork nizp  2017-11-22项目
+                输入git pull
+                就拿到了当天的课件
+
+
+
+                
+
+                
+                
+
+
+            
+
+        
+
+    */
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>播放列表</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 100%;
+            height: 1000px;
+            overflow: hidden;       
+            background: #764967;
+        }
+        .content{
+            width: 500px;
+            background: #fff;
+            margin: 200px auto;
+            border-radius: 10px;
+        }
+        .lsit::after{
+            content:"";
+            display: block;
+            width:100%;
+            height: 0;
+            max-height: 0;
+            clear: both;
+        }
+        .list{
+            zoom: 1;
+        }
+        .list li{
+            list-style: none;
+            padding-left: 2em; 
+            height: 50px;
+            line-height: 50px;
+        }
+        
+        .list label{
+            display: block;
+        }
+        .list label:nth-child(even){
+            background: #f5f5f5;
+        }
+        .list label:hover{
+            background: #DE4A63;
+        }
+        .list span{
+            display: inline-block;
+            padding-left: 2em;   
+        }
+        .list li span:last-child{
+            float: right;
+            padding-right: 2em;      
+        }
+        .bottom{
+            padding-left: 2em;
+            height: 50px;
+            line-height: 50px;
+            background: #DE4A63;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .bottom label{
+            display: inline-block;
+        }
+        .bottom span{
+            display: inline-block;
+            width: 90px;
+            margin-left: 10px;
+        }
+        input{
+            background: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="content">
+            <ul class="list">     
+                <label><li><input type="checkbox"><span>答应不爱你</span><span>郑中基</span></li></label>
+                <label><li><input type="checkbox"><span>答应不爱你</span><span>郑中基</span></li></label>
+                <label><li><input type="checkbox"><span>答应不爱你</span><span>郑中基</span></li></label>
+                <label><li><input type="checkbox"><span>答应不爱你</span><span>郑中基</span></li></label>
+                <label><li><input type="checkbox"><span>答应不爱你</span><span>郑中基</span></li></label>
+                <label><li><input type="checkbox"><span>答应不爱你</span><span>郑中基</span></li></label>
+            </ul>
+            <div class="jiage"></div>
+            <div class="bottom">
+               <label> <input type="checkbox" name="all" id="all"><span>全选</span> </label> 
+               <span>收藏</span>
+               <span>添加</span>
+               <span>删除</span>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var labels = document.querySelector(".list").querySelectorAll("label");
+    var ipts = document.querySelector(".list").querySelectorAll("input");
+    var lbLen = labels.length;
+    var all = document.getElementById("all");
+    var num = 0;
+    all.onclick = function()
+    {
+        for(var i = 0 ; i < lbLen ; i++)
+        {
+            if(all.checked){
+                ipts[i].checked = true;
+                labels[i].style.background = "#DE4A63";
+                num = lbLen;
+            }
+            else
+            {
+                ipts[i].checked = false;
+                labels[i].style.background = "";
+                num = 0;
+            }
+        }
+    }
+
+    for(var j = 0 ; j < lbLen ; j++)
+    {
+        btnClick(j);
+        function btnClick(n)
+        {
+            ipts[n].onclick = function()
+            {
+                this.checked ? (num++,labels[n].style.background = "#DE4A63") : (num--,labels[n].style.background = "");
+                num==lbLen ? all.checked = true : all.checked = false;
+            }
+        }
+    }
+
+</script>
+</html>

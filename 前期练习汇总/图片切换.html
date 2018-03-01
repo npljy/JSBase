@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style>
+        .content {
+            width: 100%;
+            margin: 0;
+        }
+
+        .center {
+            width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .biaoti,
+        .jieshao {
+            font-size: 24px;
+            color: yellow;
+            position: absolute;
+            margin: 0;
+            background-color: black;
+            width: 100%;
+            text-align: center;
+        }
+
+        .biaoti {
+            top: 0;
+        }
+
+        .jieshao {
+            bottom: 0;
+        }
+
+        .anniu {
+            position: absolute;
+            left: 380px;
+            bottom: 20px;
+            list-style: none;
+            zoom: 1;
+        }
+
+        .anniu::after {
+            content: "";
+            display: block;
+            height: 0;
+            visibility: hidden;
+            overflow: hidden;
+            clear: both;
+
+        }
+
+        .anniu li {
+            font-size: 24px;
+            background: #000;
+            color: yellow;
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            text-align: center;
+            cursor: pointer;
+            float: left;
+            border-radius: 30px;
+        }
+
+        .now {
+            color: black !important;
+            background: yellow !important;
+            border: 1px solid #000;
+            box-sizing: border-box;
+        }
+
+        .prev,
+        .next {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            position: absolute;
+            top: 33%;
+            ;
+            z-index: 9999;
+            cursor: pointer;
+            filter: alpha(opacity=70);
+            opacity: 0.7;
+        }
+
+        .prev:hover,
+        .next:hover {
+            filter: alpha(opacity=100);
+            opacity: 1;
+        }
+
+        .prev {
+            left: 26%;
+            border-left: 500px;
+            width: 0;
+            height: 0;
+            border-top: 25px solid transparent;
+            border-right: 50px solid red;
+            border-bottom: 25px solid transparent;
+        }
+
+        .next {
+            right: 26%;
+            width: 0;
+            height: 0;
+            border-left: 50px solid red;
+            border-top: 25px solid transparent;
+            border-bottom: 25px solid transparent;
+        }
+
+        .checked {
+            font-weight: bold;
+            background: blue;
+            border: 1px solid black;
+            box-sizing: border-box;
+        }
+
+        .xhbtn {
+            margin: 20px auto;
+            ;
+            ;
+            width: 100%;
+            text-align: center;
+        }
+
+        .xhbtn button {
+            font-size: 20px;
+            font-family: "微软雅黑";
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var myimgs = ["images/1.jpg", "images/2.jpg", "images/3.jpg", "images/4.jpg", "images/5.jpg"];
+            var myjieshao = ["风景1风景1风景1风景1风景1", "风景2风景2风景2风景2风景2风景2", "《魔兽世界》巫妖王：阿尔萨斯", "风景3风景3风景3风景3风景3风景3", "风景4风景4风景4风景4风景4风景4风景4"]
+            var oCenter = document.querySelectorAll(".center");
+            var oImg = document.getElementsByTagName("img")[0];
+            var biaoti = document.getElementById("biaoti");
+            var jieshao = document.getElementById("jieshao");
+            var oUl = document.getElementsByTagName("ul")[0];
+            var oLis = oUl.getElementsByTagName("li"); // getElementsByTagName 动态获取，下面的JS生成之后仍能获取到。
+            var oPrev = document.getElementById("prev");
+            var oNext = document.getElementById("next");
+            var yes = document.getElementById("yes");
+            var no = document.getElementById("no");
+            var num = 0, oLen = myimgs.length, oldLi = null, xunhuan = true /*true 为循环播放，false为不循环播放 */;
+
+            yes.onclick = function () {
+                xunhuan = true;
+                no.className = "";
+                this.className = "checked";
+            }
+            no.onclick = function () {
+                xunhuan = false;
+                yes.className = "";
+                this.className = "checked";
+            }
+            //初始化
+            for (var i = 0; i < oLen; i++) {
+                oUl.innerHTML += "<li>" + (i + 1) + "</li>";
+            }
+            oldLi = oLis[num];//存储当前选中的
+            myTab(num);//初始化填充
+
+            //轮播
+            var mytimer = setInterval(imgSwitch, 2000);
+            oImg.onmouseout = function () {
+                mytimer = setInterval(imgSwitch, 2000);
+            }
+            oImg.onmouseover = function () {
+                clearInterval(mytimer);
+            }
+
+            for (var i = 0; i < oLen; i++) {
+                oLis[i].index = i;
+                //按钮点击
+                oLis[i].onclick = function () {
+                    num = this.index;
+                    myTab(num);
+                }
+
+                oPrev.onmouseover = oNext.onmouseover = oLis[i].onmouseover = function () {
+                    clearInterval(mytimer);
+                }
+                oPrev.onmouseout = oNext.onmouseout = oLis[i].onmouseout = function () {
+                    mytimer = setInterval(imgSwitch, 2000);
+                }
+            }
+
+            oNext.onclick = function () {
+                //当前已经存在，所以先要计算下一张，不然第一次点的时候要点两次
+                num === oLen - 1 ? xunhuan ? (num = 0) : (num = oLen - 1) : num++;
+                myTab(num);
+            };
+
+            oPrev.onclick = function () {
+                //当前已经存在，所以先要计算下一张，不然第一次点的时候要点两次
+                num === 0 ? xunhuan ? (num = oLen - 1) : (num = 0) : num--;
+                myTab(num);
+            };
+
+            //切换，向后
+            function imgSwitch() {
+                oldLi.className = "";
+                oLis[num].className = "now";
+                oldLi = oLis[num]; // 将当前选中的存储起来
+                myTab(num);
+                num === oLen - 1 ? xunhuan ? (num = 0) : (num = oLen - 1) : num++;
+            }
+
+            //初始化
+            function myTab(mynum) {
+
+                oldLi.className = "";
+                oLis[mynum].className = "now";
+                oldLi = oLis[mynum]; // 将当前选中的存储起来
+
+                oImg.src = myimgs[mynum];
+                biaoti.innerHTML = (mynum + 1) + " / " + oLen;
+                jieshao.innerHTML = myjieshao[mynum];
+
+            }
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="xhbtn">
+        <button id="yes" class="checked">循环播放</button>
+        <button id="no">顺序播放</button>
+    </div>
+    <div class="content">
+        <div id='prev' class='prev'></div>
+        
+        <div  class="center">
+            <p id="biaoti" class="biaoti"></p>
+            <img src="" alt="" width="100%" height="560">
+            <p id="jieshao" class="jieshao"></p>
+            <ul class="anniu">
+            </ul>
+        </div>
+        <div id='next' class='next'></div>
+    </div>
+    <p style="display:none; width:100%; color:red; font: bold  20px  '微软雅黑' ; text-align:center;">
+        自动轮播，鼠标进入停止轮播，鼠标移除继续轮播； 点击右边序号直接跳转到对应图片； 点击左右点头，跳转上一张下一张。
+    </p>
+
+</body>
+
+</html>

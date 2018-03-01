@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title></title>
+<style>
+body { background:#f1f1f1; }
+#box { width:640px; height:320px; position:relative; top:100px; margin:0 auto;overflow:hidden; box-shadow:0 0 20px rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.5); }
+#box a { width:28px; height:100px; line-height:100px; text-align:center; background:rgba(0,0,0,0.2); color:#fff; font-size:26px; text-decoration:none; position:absolute; top:110px; z-index:2; transition:0.3s; }
+#box a:hover { background:rgba(0,0,0,0.6); transform:scale(1.1); font-size:32px; }
+#box .prev { left:-1px; border-radius:0 8px 8px 0; }
+#box .next { right:-1px; border-radius:8px 0 0 8px; }
+#box ul {transition:.5s ;padding:0; margin:0; width:1920px; position:absolute; top:0; left:-640px; }
+#box li { list-style:none; float:left; width:640px; }
+#box img { width:640px; height:320px; }
+</style>
+</head>
+
+<body>
+
+<div id="box">
+	<a class="prev" href="javascript:;">&lt;</a>
+	<a class="next" href="javascript:;">&gt;</a>
+	<ul>
+		<li><img src="img/0.jpg" /></li>
+		<li><img src="img/0.jpg" /></li>
+		<li><img src="img/0.jpg" /></li>
+	</ul>
+</div>
+
+<script>
+	var oBox = document.getElementById('box');
+	var btns = oBox.getElementsByTagName('a');
+	var oUl = oBox.getElementsByTagName('ul')[0];
+	var aImg = oBox.getElementsByTagName('img');
+	let num = 0;
+	let onoff =true;
+	btns[1].onclick = function(){
+		if(!onoff)return;
+		onoff = false;
+		num ++;
+		num%=9;
+		aImg[2].src = 'img/'+num+'.jpg';
+
+		oUl.style.left = -1280 + 'px';
+
+		setTimeout(function(){
+			aImg[1].src = 'img/'+num+'.jpg';
+			oUl.style.transition = 'none';
+			setTimeout(function(){
+				oUl.style.left = -640+"px";
+				setTimeout(function(){
+					oUl.style.transition = '.5s';
+					onoff = true;
+				},80);
+			},50);
+		},520);
+	}
+
+	btns[0].onclick = function(){
+		if(!onoff)return;
+		onoff = false;
+		num --;
+		num < 0 && (num=8)
+		aImg[0].src = 'img/'+num+'.jpg';
+
+		oUl.style.left = 0;
+
+		setTimeout(function(){
+			aImg[1].src = 'img/'+num+'.jpg';
+			oUl.style.transition = 'none';
+			setTimeout(function(){
+				oUl.style.left = -640+"px";
+				setTimeout(function(){
+					oUl.style.transition = '.5s';
+					onoff = true;
+				},80);
+			},50);
+		},520);
+	}
+
+</script>
+
+</body>
+</html>

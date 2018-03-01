@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模拟短信发送</title>
+    <style>
+        #cnt {
+            height: 500px;
+            width: 300px;
+            border: 1px solid black;
+            overflow-x: none;
+            overflow-y: scroll;
+        }
+
+        #cnt p {
+            width: 280px;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        textarea {
+            width: 240px;
+            height: 20px;
+            float: left;
+            resize: none;
+        }
+
+        .ipt-area {
+            padding: 2px;
+            width: 300px;
+            overflow: hidden;
+        }
+
+        #send {
+            border: none;
+            height: 24px;
+            float: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='cnt'></div>
+    <div class="ipt-area">
+        <textarea name="" id="ipt" cols="30" rows="10"></textarea>
+        <button id='send'>发送</button>
+    </div>
+    <div>
+        <input type="button" id='qh' value='甲' title="点击切换用户">
+        <label title="向上滚动">
+            <input class="radio" type="radio" name="fx" value="up" checked> 向上 </label>
+        <label title="向下滚动">
+            <input class="radio" type="radio" name="fx" value="down"> 向下 </label>
+    </div>
+    <div style="clear:both;"></div>
+</body>
+<script>
+    let oIpt = document.getElementById('ipt');
+    let oSend = document.getElementById('send');
+    let oCnt = document.getElementById('cnt');
+    let oQh = document.getElementById('qh');
+    let fxIpt = document.getElementsByTagName("input");
+    var fxLen = fxIpt.length;
+    let cntP = null;
+    let fx = null;
+    let qh = 'left';
+    let tNode2 = null;
+
+    oQh.onclick = function () {
+        if (qh == 'left') {
+            qh = 'right';
+            oQh.value = "乙";
+        }
+        else {
+            qh = 'left';
+            oQh.value = "甲";
+        }
+    }
+
+    oSend.onclick = function () {
+        let mText = oIpt.value;
+
+        if (mText.replace(/(^\s*)|(\s*$)/g, "") == "") {
+            alert("消息不能为空");
+            return false;
+        }
+
+        for (var i = 0; i < fxLen; i++) {
+            if (fxIpt[i].checked) { fx = fxIpt[i].value; }
+        }
+
+        qh == 'left' ? tNode2 = document.createTextNode(oQh.value + ':') : tNode2 = document.createTextNode(':' + oQh.value);
+
+        let pNode2 = document.createElement("p");
+        pNode2.style.textAlign = qh;
+        pNode2.appendChild(tNode2);
+
+        let tNode = document.createTextNode(mText);
+        let pNode = document.createElement("p");
+        pNode.style.textAlign = qh;
+        pNode.appendChild(tNode);
+
+        if (fx == "up" || fx == null) {
+            oCnt.appendChild(pNode2).appendChild(pNode); //向上滚动
+        }
+
+        //向下滚动
+        if (fx == "down") {
+            if (oCnt.innerText.replace(/(^\s*)|(\s*$)/g, "") == "") {
+                oCnt.innerHTML = "<p style='display:none;'></p>";
+            }
+            cntP = oCnt.getElementsByTagName("p")[0];
+            oCnt.insertBefore(pNode, cntP);
+            oCnt.insertBefore(pNode2, pNode);
+        }
+
+        oIpt.value = '';
+    }
+</script>
+
+</html>

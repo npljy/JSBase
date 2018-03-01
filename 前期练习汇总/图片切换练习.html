@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .checked {
+            background: skyblue;
+            border: 1px solid black;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div>
+            <button id="yes" class="checked">循环播放</button>
+            <button id="no">顺序播放</button>
+        </div>
+        <br>
+        <br>
+        <img id="img1" src="" alt="" width="500" height="300">
+        <br>
+        <br>
+        <div>
+            <button id="btn1">上</button>
+            <button id="btn2"=>下</button>
+        </div>
+
+
+
+    </div>
+    <script>
+        let imgs = ["images/1.jpg", "images/2.jpg", "images/3.jpg", "images/4.jpg", "images/5.jpg"];
+        var btn1 = document.getElementById("btn1");
+        var btn2 = document.getElementById("btn2");
+        var yes = document.getElementById("yes");
+        var no = document.getElementById("no");
+        var img1 = document.getElementById("img1");
+        var imgsLen = imgs.length;
+        var xunhuan = true;
+        var num = 0;
+        img1.src = imgs[num];
+
+        yes.onclick = function () {
+            xunhuan = true;
+            no.className = "";
+            this.className = "checked";
+        }
+        no.onclick = function () {
+            xunhuan = false;
+            yes.className = "";
+            this.className = "checked";
+        }
+        btn2.onclick = function () {
+            if (num < imgsLen - 1) {
+                num++;
+            }
+            else {
+                if (xunhuan) {
+                    num = 0;
+                }
+                else {
+                    return false;
+                }
+            }
+            img1.src = imgs[num];
+        };
+
+        btn1.onclick = function () {
+            if (num > 0) {
+                num--;
+            }
+            else {
+                if (xunhuan) {
+                    num = imgsLen - 1;
+                }
+                else {
+                    return false;
+                }
+            }
+            img1.src = imgs[num];
+        };
+
+    </script>
+
+
+</body>
+
+</html>

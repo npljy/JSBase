@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+    <style>
+        
+        html,body,ul{
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .header{
+            background: #425A7B;
+            width: 90%;
+            height: 50px;
+            line-height: 50px;
+            margin: 0 auto;
+            color:#fff;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+        .header span:first-child{
+            float: left;
+            padding-left: 2em;
+        }
+        .header span:last-child{
+            float: right;
+            padding-right: 2em;
+            cursor: pointer;
+        }
+        .main{
+            width: 500px;
+            height: 1000px;
+            background: skyblue;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .main input {
+            width: 90%;
+            height: 50px;
+        }
+        .main .content{
+            width: 90%;
+            height: 800px;
+            background: red;
+            margin: 0 auto;
+        }
+        .content{
+            overflow: hidden;
+        }
+        .content ul{
+            margin-top: 20px;
+        }
+        .content li{
+            list-style: none;
+        }
+        .content img{
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <span>妙味课堂</span><span>>>更多</span>
+        </div>
+            <input type="button" value="点击向上滚动">
+            
+                <div class="content">
+                    <ul>
+                        <li><img src="imgs/1.jpg" alt=""  height="400px"></li>
+                        <li><img src="imgs/2.jpg" alt=""  height="400px"></li>
+                        <li><img src="imgs/3.jpg" alt=""  height="400px"></li>
+                        <li><img src="imgs/4.jpg" alt=""  height="400px"></li>
+                        <li><img src="imgs/5.jpg" alt=""  height="400px"></li>
+            
+                    </ul>
+                  
+                </div>
+            
+            <input type="button" value="点击向下滚动">
+
+    </div>
+    <script>
+        var btns = document.getElementsByTagName("input");
+        var oul = document.getElementsByTagName("ul")[0];
+        var n = 0;
+        var timer1 = null ,timer2 = null;
+        btns[0].onmousedown = function(){
+            timer1 = setInterval(function(){
+                n -= 4;
+                if(n<-20){clearInterval(timer1);n=-20;alert("到顶了！");return;}
+                oul.style.marginTop = -n +"px";
+            },10);
+            document.onmouseup = function(){
+                clearInterval(timer1);
+            }
+        }
+        btns[1].onmousedown = function(){
+            timer2 = setInterval(function(){
+                n += 4
+                if(n>1200){clearInterval(timer2);n=1200;alert("然后就没有然后了。。");return;}
+                oul.style.marginTop = -n +"px";
+            },10);
+            document.onmouseup = function(){
+                clearInterval(timer2);
+                console.log(n);
+            }
+        }
+
+      
+    </script>
+</body>
+</html>

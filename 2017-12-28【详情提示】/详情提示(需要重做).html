@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>无标题文档</title>
+    <style>
+        body { margin: 0; line-height: 26px; }
+        span { color: #06F; text-decoration: underline; }
+        #box { width: 300px; height: auto; border: 1px solid #6C0; padding: 10px; display: none; position: absolute; background: #FFF; font-size: 12px; overflow: hidden; }
+        #div1 { width: 550px; margin: 100px auto 0; border: 20px solid #888; padding: 5px; position: relative; }
+        #div1 p {text-indent: 2em;}
+        #box a { text-decoration: none; color: #1176ED; }
+        #box a:hover { color: red; }
+    </style>
+
+</head>
+
+<body>
+<div id="div1">
+    <p>1975年7月31日，3号<span  c="台风（typhoon），和飓风都是产生于热带洋面上的一种强烈的气旋，只是发生地点不同，叫法不同，在北太平洋西部、国际日期变更线以西，包括南中国海范围内发生的强热带气旋（其中风速要超过３２．６米／秒）称为台风；而在大西洋或北太平洋东部的热带气旋则称飓风，也就是说在美国一带称飓风，在菲律宾、中国、日本一带叫台风。" l="http://www.hudong.com/wiki/%E5%8F%B0%E9%A3%8E">台风</span>在太平洋上空形成。8月7日，台风进入驻马店地区。</p>
+    <p>在台风尚未到达时，<span c="区号： 0396 邮编：463000 位置：位于河南省南部 面积：1.5万平方公里 人口：795万 行政区划：辖驻马店市和汝南、确山、上蔡、西平、遂平、平舆、正阳、泌阳九县 概况" l="http://www.hudong.com/wiki/%E9%A9%BB%E9%A9%AC%E5%BA%97%E5%B8%82">驻马店</span>地区就已经普降暴雨。8月4日至8日，暴雨中心最大过程雨量达1631毫米，8月5日至7日3天的最大降雨量为1605毫米，相当于驻马店地区年平均雨量的1.8倍。4日至8日，超过400毫米的降雨面积达19410平方公里，大于1000毫米的降水区集中在<span c="京广铁路是指从北京到广东广州的铁路，全长2324千米。原分为北南两段。北段从北京到湖北汉口，称为"京汉铁路"，1906年4月建成。南段从广东广州到湖北武昌，称为"粤汉铁路"，于1936年4月建成。在1957年武汉长江大桥通车后，两条铁路接轨，并改名为京广铁路。" l="http://www.hudong.com/wiki/%E4%BA%AC%E5%B9%BF%E9%93%81%E8%B7%AF">京广铁路</span>以西板桥水库、石漫滩水库到方城一带。暴雨的降水强度，在暴雨中心——位于板桥水库的林庄，最大6小时<span c='从气象学上的角度来讲，所谓雨量，就是在一定时段内，降落到水平面上（无渗漏、蒸发、流失等）的雨水深度。用雨量计测定。以毫米为单位。气象台站在有降水的情况下，每隔6小时测量一次。' l='http://baike.baidu.com/link?url=2JJ3gg2srLtRwt_FEdCvmu7rLhz0bE5EaEncKM2UhBFteO84dsbkHDjIuchRZOKk'>雨量</span>为830毫米，超过了当时世界最高记录——美国宾州密士港的782毫米；最大24小时雨量为1060毫米，也创造了<span c='中国（China），位于东亚，是一个以华夏文明为主体、中华文化为基础，以汉族为主要民族的统一多民族国家，通用汉语。中国疆域内的各个民族统称为中华民族，龙是中华民族的象征。' l='http://baike.baidu.com/view/61891.htm'>中国</span>同类指标的最高记录。</p>
+</div>
+
+<div id="box">
+    中国（China），位于东亚，是一个以华夏文明为主体、中华文化为基础，以汉族为主要民族的统一多民族国家，通用汉语。中国疆域内的各个民族统称为中华民族，龙是中华民族的象征。<a href="http://baike.baidu.com/view/61891.htm">详情</a>
+</div>
+
+<!--华丽的分割线-->
+
+</body>
+</html>
+
+<script>
+    /*
+        1、鼠标移入的时候显示提示框
+        2、从span上取出对应的数据。
+        3、对提示框进行定位。
+
+        getAttribute
+        //alert(oSpan.getAttribute('c'))
+
+            
+        clientWidth - (clientY - getBoundingClientRect().height)
+            
+    */
+
+    var div1 = document.getElementById("div1");
+    var box = document.getElementById("box");
+    var spans = Array.from(div1.getElementsByTagName("span"));
+    var bw = 0;
+    var bh = 0;
+    spans.forEach(e => {
+        e.onmouseover = function(){
+            console.log(e.getBoundingClientRect().top)
+            
+            
+        }
+        e.onmouseout = function(){
+            box.style.display = "none"; 
+        }
+        box.onmouseover = function(){
+            box.style.display = "block";
+        }
+        box.onmouseout = function(){
+            box.style.display = "none";
+        }
+    });
+</script>
+

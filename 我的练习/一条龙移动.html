@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{
+            width:200px;
+            height: 200px;
+            position: absolute;
+            background: red;
+            left:50%;
+            top:50%;
+        }
+    </style>
+</head>
+<body>
+
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+
+</body>
+<script >
+    /*
+        左37 上38 右39 下40
+    */
+    ds = Array.from(document.getElementsByTagName("div"));
+    document.onmousemove = function(e){
+        ds[0].style.top = e.pageY+"px";
+        ds[0].style.left = e.pageX+"px";
+        for(var i = ds.length-1 ; i > 0 ; i--){
+            ds[i].style.top = ds[i-1].offsetTop+"px";
+            ds[i].style.left = ds[i-1].offsetLeft+"px";
+        }
+    }
+    
+ 
+</script>
+</html>

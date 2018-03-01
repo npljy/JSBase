@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        img{
+            position: absolute;
+            top: 50px;
+            left: 0;
+        }
+    </style>
+</head>
+<body id="body">
+    <input type="button" value="回放" id="btn">
+    <img src="wenjian.png" id="img">
+    <script>
+        var body = document.getElementById("body");
+        var btn = document.getElementById("btn");
+        var img = document.getElementById("img");
+        var cImg = img.cloneNode(true);
+            cImg.removeAttribute("id");
+        var ox = [];
+        var oy = [];
+        var timer = null;
+        img.onmousedown = function(ea){
+            ea.preventDefault();
+            var cx = ea.pageX - this.offsetLeft;
+            var cy = ea.pageY - this.offsetTop;
+            document.onmousemove = function(eb){
+                img.style.left = eb.pageX - cx + "px";
+                img.style.top = eb.pageY - cy + "px";
+                ox.push(eb.pageX - cx);
+                oy.push(eb.pageY - cy);
+                document.onmouseup = function(){
+                    document.onmousemove = document.onmouseup = null ;
+                }
+            }
+            return false;
+        }
+        btn.onclick = function () {
+            
+            timer = setInterval(function(){
+                if(ox.length==0 || oy.length==0) clearInterval(timer);
+                img.style.left = ox.pop() + "px";
+                img.style.top = oy.pop() + "px";
+                console.log(1)
+            },15);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style>
+		body{
+			margin: 0;
+		}
+		#warp {
+			width: 700px;
+			height: 500px;
+			margin: 30px auto;
+			background: url(img/warp.png) no-repeat;
+			position: relative;
+			/*text-align: center;*/
+		}	
+		#files {
+			position: absolute;
+			left: 148px;
+			width:420px;
+			height: 128px;
+			top: 200px;
+			overflow: auto;
+		}
+		.add {
+			width: 132px;
+			height: 47px;
+			display: inline-block;
+			text-decoration: none;
+			background: url(img/addberfor.png) no-repeat;
+			background-size: cover;
+			position: absolute;
+			left: 290px;
+			bottom: 102px;
+		}
+		.del{
+			width: 132px;
+			height: 48px;
+			display: inline-block;
+			text-decoration: none;
+			background: url(img/add.png) no-repeat;
+			position: absolute;
+			left: 295px;
+			bottom: 50px;
+		}
+		.file{
+			width: 116px;
+			height: 118px;
+			border: 2px solid rgba(0,0,0,0);
+			position: relative;
+			border-radius: 10%;
+			float: left;
+			margin-right: 10px;
+			
+		}
+		.fileActive{
+			border-color:#b5a3c2 ;
+			background:#6f5872 ;
+		}
+		.file .ico{
+			margin: 20px auto 0;
+			width:70px;
+			height: 57px;
+			background: url(img/wenjian.png) no-repeat;
+			background-size: cover;
+		}
+		.file .check{
+			position: absolute;
+			left: 0;
+			top: 0;
+			display: none;
+		}
+		.fileActive .check{
+			display: block;
+		}
+		.file span{
+			display: block;
+			font: 16px/34px "微软雅黑";
+			text-align: center;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			color: #fff;
+			
+		}
+		.file .text{
+			position: absolute;
+			left: 12px;
+			top: 82px;
+			height: 20px;
+			padding: 1px;
+			display: none;
+			width: 80px;
+			font: 16px/34px "微软雅黑";
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<section id="warp">
+		<div id="files">
+			<!-- <div class="file">
+				<div class="ico"></div>
+				<input type="checkbox" class="check">
+				<span>新建文件夹</span>
+				<input type="text" class="text" style="display: none;" >
+			</div>
+			<div class="file">
+				<div class="ico"></div>
+				<input type="checkbox" class="check">
+				<span>新建文件夹</span>
+				<input type="text" class="text" style="display: none;">
+			</div>
+			<div class="file">
+				<div class="ico"></div>
+				<input type="checkbox" class="check">
+				<span>新建文件夹</span>
+				<input type="text" class="text" style="display: none;">
+			</div> -->
+		</div>
+		<a href="javascript:;" class="add"></a>
+		<a href="javascript:;" class="del"></a>
+	</section>
+	<script>
+		var As=document.querySelectorAll('a');
+		var Files=document.getElementById('files');
+		var num=0;
+		var Spans=document.getElementsByTagName('span')
+
+		function double(){
+			console.log(1)
+			Span=Array.from(Spans);
+			Span.forEach(function(e,i){
+				e.ondblclick=function(){
+					console.log(1)
+					e.nextElementSibling.style.display='block'
+				}
+			})
+		}
+		double()
+
+		As[0].onclick=function(){	
+					
+			var Divs=document.createElement('div');
+			var Ico=document.createElement('div')
+			var checkBox=document.createElement('input');
+			var Span=document.createElement('span')
+			var Text1=document.createElement('input')
+			Divs.className='file';
+			Ico.className='ico';
+			checkBox.className='check';
+			checkBox.type='checkbox';
+			Text1.type='text';
+			Text1.className='text';
+			num?Span.innerText='新建文件夹'+num:Span.innerText='新建文件夹';			
+			Divs.appendChild(Ico);
+			Divs.appendChild(checkBox);
+			Divs.appendChild(Span);
+			Divs.appendChild(Text1);
+			Files.appendChild(Divs)
+			var DIV=Array.from(document.querySelectorAll('.file'));
+			DIV.forEach(function(e,i){
+				var Box=e.querySelector('.check')
+				e.onmouseenter=function(){				
+					e.classList.add('fileActive');
+					console.log(e.querySelector('.check'))
+					Box.style.display='block';				
+				}
+				e.onmouseleave=function(){
+					console.log(Box.checked)
+					if(Box.checked==false){
+						e.classList.remove('fileActive');
+						Box.style.display='none';
+					}
+				}
+				double()
+			})
+			num++;
+		}
+
+		As[1].onclick=function(){
+			var Cbox=Array.from(Files.querySelectorAll('.check'));
+			Cbox=Cbox.filter(function(e,i){
+				if(e.checked==true){return true;}
+			})
+			Cbox.forEach(function(e,i){
+				Files.removeChild(e.parentNode)
+			})
+
+		}
+			
+	</script>
+</body>
+</html>

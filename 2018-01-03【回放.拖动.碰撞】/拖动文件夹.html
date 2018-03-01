@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        img{
+            position: absolute;
+        }
+    </style>
+</head>
+<body id="body">
+    <img src="wenjian.png" id="img">
+    <script>
+        var body = document.getElementById("body");
+        var img = document.getElementById("img");
+        var cImg = img.cloneNode(true);
+        cImg.removeAttribute("id");
+        var cx = 0;
+        var cy = 0;
+        img.onmousedown = function(ea){
+            ea.preventDefault();
+            cx = ea.pageX - this.offsetLeft;
+            cy = ea.pageY - this.offsetTop;
+            document.onmousemove = function(eb){
+                img.style.left = eb.pageX - cx + "px";
+                img.style.top = eb.pageY - cy + "px";
+                document.onmouseup = function(){
+                    document.onmousemove = document.onmouseup = null ;
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>

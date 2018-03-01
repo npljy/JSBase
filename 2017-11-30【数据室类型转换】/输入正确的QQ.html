@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title></title>
+	<style>
+		html {
+			height: 100%;
+		}
+
+		body {
+			margin: 0;
+			height: 100%;
+			font-family: '微软雅黑';
+		}
+
+		.main {
+			width: 100%;
+			height: 100%;
+			background: -webkit-linear-gradient( left, #ada994, #e59a9b);
+			overflow: hidden;
+		}
+
+		.content {
+			width: 478px;
+			height: 208px;
+			background: url(./image/bg3.png) no-repeat;
+			margin: 30px auto;
+			overflow: hidden;
+		}
+
+		.testQQ {
+			width: 400px;
+			height: 40px;
+			margin: 80px auto 0;
+			font-size: 16px;
+			color: #fff;
+		}
+
+		.testQQ label {
+			margin-right: 4px;
+		}
+
+		.testQQ input {
+			border-radius: 5px;
+		}
+
+		.testQQ input[type='button'] {
+			height: 40px;
+			width: 70px;
+			background: #e05672;
+			border: none;
+			color: #fff;
+			font-size: 16px;
+			margin-left: 10px;
+		}
+
+		.inputText {
+			padding-left: 5px;
+			width: 175px;
+			height: 40px;
+			border: none;
+			border: 2px solid #fff;
+			color: #fff;
+			background: #4c075f;
+		}
+
+		.tips {
+			width: auto;
+			height: 40px;
+			background: #17021d;
+			line-height: 40px;
+			text-align: center;
+			font-size: 16px;
+			border-radius: 5px;
+			position: relative;
+			left: 167px;
+			top: 15px;
+			float: left;
+			display: none;
+		}
+
+		.tip {
+			padding: 0px 10px;
+			display: block;
+			color: #fff;
+		}
+
+		#san {
+			width: 0px;
+			height: 0;
+			border-left: 5px solid transparent;
+			border-right: 5px solid transparent;
+			border-bottom: 5px solid #17021d;
+			position: absolute;
+			left: 18px;
+			top: -5px;
+		}
+	</style>
+	<script>
+
+	</script>
+</head>
+<!-- 
+
+作业需求：
+1.请输入内容
+2.前后不能有空格
+3.请输入数字
+4.不能有0在前面
+5.不能是小数
+6.输入的数字必须在5位以上、10位以内
+7.QQ通过
+ -->
+
+<body>
+	<div class="main">
+		<div class="content">
+			<div class="testQQ">
+				<label>请输入QQ号码：</label>
+				<input class="inputText" />
+				<input type="button" value="检测" class="btn" />
+			</div>
+			<div id="tips" class="tips">
+				<div id="san"></div>
+				<span id="tip" class="tip"></span>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	var ipts = document.querySelectorAll("input");
+	var iptsLen = ipts.length;
+	var tips = document.getElementById("tips");
+	var tip = document.getElementById("tip");
+	var QQ = "";
+
+	ipts[1].onclick = testQQ;
+	function testQQ() {
+		QQ = ipts[0].value;
+
+		if (!QQ) {
+			tips.style.display = "block"; tip.innerText = "请输入内容";
+		}
+		else if (Number(QQ) == 0 && isNaN(parseInt(QQ))) {
+			tips.style.display = "block"; tip.innerText = "不能只有空格";
+		}
+		else if (Number(QQ) == 0 && parseInt(QQ) == 0) {
+			tips.style.display = "block"; tip.innerText = "不能只有0";
+		}
+		else if ( !isNaN(Number(QQ)) && QQ.length > ("" + Number(QQ)).length && isNaN(  Number(1 + QQ + 1)  )    ) {
+			tips.style.display = "block"; tip.innerText = "前后不能有空格";
+		}
+		else if (  parseInt(QQ + 1) == Number(QQ + 1) && !isNaN(Number(QQ)) && QQ.length > ("" + Number(QQ)).length && !isNaN(Number(1 + QQ + 1))) {
+			tips.style.display = "block"; tip.innerText = "开头不能为0";
+		}
+		else if ( isNaN(Number(QQ)) ) {
+			tips.style.display = "block"; tip.innerText = "输入的不是数字";
+		}
+		else if (  parseInt(QQ + 1) != parseFloat(QQ + 1)  ) {
+			tips.style.display = "block"; tip.innerText = "不能输入小数";
+		}
+		else if (   ("" + Number(QQ)).length < 6 || ("" + Number(QQ)).length > 10  ) {
+			tips.style.display = "block"; tip.innerText = "输入的数字必须在5位以上、10位以内";
+		}
+		else {
+			tips.style.display = "block"; tip.innerText = "QQ测试通过";
+		}
+		console.log(tip);
+	}
+
+</script>
+
+</html>

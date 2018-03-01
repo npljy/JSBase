@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<link rel="stylesheet" type="text/css" href="slide.css" />
+		<style type="text/css">
+			body{
+				background-color: #ffd800;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="slide">
+			<div class="pic">
+				
+			</div>
+			<div class="prev"></div>
+			<div class="next"></div>
+			<div class="nav">
+				<span>
+					<a href="javascript:;">
+						<img src="ads/1.png"/>
+					</a>
+				</span>
+			</div>
+		</div>
+		<script>
+			var data = ['ads/1.png', 'ads/2.png', 'ads/3.png', 'ads/4.png', 'ads/5.png'];
+			
+			
+			let nav = document.querySelector('.nav');
+			let prev = document.querySelector('.prev');
+			let next = document.querySelector('.next');
+			let pic = document.querySelector('.pic');
+			
+
+			//生成span
+			let str = '';
+			let str2 = '';
+			let num = 0;
+			for(var i=0;i<data.length;i++){
+				str += `<span class="${i==0?'active':''}">
+					<a href="javascript:;">
+						<img src="${data[i]}"/>
+					</a>
+				</span>`;
+				str2 += `<img style="opacity:${i==0?1:0}" src="${data[i]}" />`;
+			}
+
+			nav.innerHTML = str;
+			pic.innerHTML = str2;
+
+			let spans = nav.getElementsByTagName('span');
+			let imgs = pic.getElementsByTagName('img');
+			for(var i=0;i<spans.length;i++){
+				spans[i].index = i;
+				spans[i].onmouseover = function(){
+					for(var i=0;i<spans.length;i++){
+						spans[i].className = '';
+						spans[i].getElementsByTagName('a')[0].style.display = 'none';
+					}
+					this.className = 'active';
+					this.getElementsByTagName('a')[0].style.display = 'block';
+
+				}
+
+				spans[i].onmouseout = function(){
+					for(var i=0;i<spans.length;i++){
+						spans[i].getElementsByTagName('a')[0].style.display = 'none';
+					}
+				}
+
+				spans[i].onclick = function(){
+					num = this.index;
+					tab(this.index);
+				}
+			}
+
+			function tab(num){
+				for(var i=0;i<imgs.length;i++){
+					imgs[i].style.opacity = '0';
+					spans[i].className = '';
+					spans[i].getElementsByTagName('a')[0].style.display = 'none';
+				}
+				imgs[num].style.opacity = 1;
+				spans[num].className = 'active';
+
+			}
+
+			next.onclick = function(){
+				num ++;
+				num %= spans.length;
+				tab(num);
+			}
+			prev.onclick = function(){
+				num --;
+				if(num < 0) num = spans.length - 1;
+				tab(num);
+			}
+
+			var timer = setInterval(function(){
+				num ++;
+				num %= spans.length;
+				tab(num);
+			},2000);
+
+			pic.onmouseover = nav.onmouseover = prev.onmouseover = next.onmouseover = function()
+			{
+				clearInterval(timer);
+			}
+
+			pic.onmouseout = nav.onmouseout = prev.onmouseout = next.onmouseout =function()
+			{
+				timer = setInterval(function(){
+				num ++;
+				num %= spans.length;
+				tab(num);
+				},2000);
+
+			}
+		</script>
+	</body>
+
+</html>

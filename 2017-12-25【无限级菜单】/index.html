@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<link rel="stylesheet" href="css/style.css">
+		
+	</head>
+
+	<body>
+		<div class="main">
+			<a href="http://www.miaov.com" class="logo"></a>
+			<div class="tree">
+				<ul id="oUl">
+				
+					
+				</ul>
+			</div>
+
+		</div>
+	</body>
+
+
+	<script>
+				
+		var arr = [
+		{
+			title : "第一级菜单",  //h2
+			child : [
+				{title:"第二集菜单"}, //h2
+				{title:"第二集菜单",  // h2
+				child:[
+						{title:"第三集菜单"}, //h2
+						{title:"第三集菜单",  // h2
+							child:[
+								{title:"第四集菜单"}, //li
+								{title:"第四集菜单"}, //li
+								{title:"第四集菜单"}  //li
+							]
+						},
+						{title:"第三集菜单"}  //h2
+					]
+				},
+				{
+					title:"第二集菜单",
+					child:[
+						{title:"第三集菜单"}, //h2
+						{title:"第三集菜单"}  //h2
+					]
+				}
+			]
+		},
+		{
+			title : "第一级菜单",
+			child : [
+				{title:"第二集菜单"},
+				{title:"第二集菜单",
+				child:[
+						{title:"第三集菜单"},
+						{title:"第三集菜单",
+							child:[
+								{title:"第四集菜单"},
+								{title:"第四集菜单"},
+								{title:"第四集菜单"}
+							]
+						},
+						{title:"第三集菜单"}
+					]
+				},
+				{
+					title:"第二集菜单",
+					child:[
+						{title:"第三集菜单"},
+						{title:"第三集菜单"}
+					]
+				}
+			]
+		},
+		{
+			title:"第一集菜单",
+			child : [
+				{title:"第二集菜单"},
+				{title:"第二集菜单",
+				
+				},
+				{
+					title:"第二集菜单",
+					child:[
+						{title:"第三集菜单"},
+						{title:"第三集菜单"}
+					]
+				}
+			]
+			 
+		}
+	];
+	
+
+		var oul = document.getElementById("oUl");
+		var str = "";
+		var _this = null;
+		loop(arr);
+		function loop(obj) {
+			obj.forEach(function (e) {
+				e.title && (str += "<li><span>" + e.title + "</span></li>");
+				e.child && (str += "<ul>", loop(e.child), str += "</ul>");
+			});
+		}
+		oul.innerHTML = str;
+
+		// 添加点击效果
+		var lis = Array.from(oul.getElementsByTagName("li"));
+		lis.forEach(function (e, i) {
+
+			if (e.nextElementSibling && e.nextElementSibling.tagName == "UL") {
+				e.style.cursor = "pointer";
+				e.firstElementChild.className = "add";
+				e.onclick = function () {
+					_this = this;
+					Array.from(e.parentElement.querySelectorAll("li")).forEach(function (e) {
+						e != _this && e.nextElementSibling && e.nextElementSibling.tagName == "UL" && (e.nextElementSibling.style.display = "", e.firstElementChild.className = "add");
+					});
+					e.firstElementChild.className == "add" ? e.firstElementChild.className = "line" : e.firstElementChild.className = "add";
+					e.nextElementSibling.style.display == "" ? e.nextElementSibling.style.display = "block" : e.nextElementSibling.style.display = "";
+				}
+			}
+			else {
+				e.style.cursor = "default";
+				e.firstElementChild.className = "line";
+			}
+		});
+	</script>
+
+</html>

@@ -1,0 +1,81 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.listDiv{
+    height: 400px;
+    width: 150px;
+    border: 1px solid #000;
+    position: relative;
+    box-sizing: border-box;
+    margin: 10px auto;
+    overflow: hidden;
+}
+
+ul{
+    list-style: none;
+    width: 132px;
+    height: 400px;
+    box-sizing: border-box;
+    text-align: center;
+}
+.barDiv{
+    position: absolute ;
+    z-index: 10;
+    top: 9px;
+    right: 0;
+    width: 16px;
+    height: 379px;
+    border: 1px solid red;
+    box-sizing: border-box;
+    background: rgb(161, 161, 161);
+}
+.barDot{
+    position: absolute;
+    top:0;
+    z-index: 20;
+    width: 16px;
+    background: skyblue;
+    height: 60px;
+    position: absolute;
+    border-radius: 8px;
+}
+.up,.down{
+    width: 16px;
+    height: 10px;
+    box-sizing: border-box;
+    background: rgb(161, 161, 161);
+    position: absolute;
+    right: 0;
+}
+.up{
+    top: 0;
+}
+.down{
+    bottom: 0;
+}
+.barUp{
+    border-bottom: 10px solid #000;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-top: none;
+}
+.barDown{
+    border-top: 10px solid #000;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: none;
+}
+.clear::after{
+    content: ".";
+    display: block;
+    visibility: hidden;
+    width: 100%;
+    height: 0;
+    max-height: 0;
+    clear: both;
+}
+.clear{
+    zoom:1;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #cnt {
+            width: 300px;
+            height: 300px;
+            background: red;
+            transition: all 200ms;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="btn1"> +
+    <input type="text" id='btn2'> &nbsp;
+    <input type="button" id="ok" value='确定'>
+    <br>
+    <br>
+    <div id='cnt'></div>
+
+    <script>
+        let oBtn1 = document.getElementById("btn1");
+        let oBtn2 = document.getElementById("btn2");
+        let oSure = document.getElementById("ok");
+        let oCnt = document.getElementById("cnt");
+
+        oSure.onclick = sure;
+
+        function sure() {
+            let kv = oBtn1.value;
+            let vv = oBtn2.value;
+
+            oCnt.style[kv] = vv;
+
+        }
+
+    </script>
+</body>
+
+</html>

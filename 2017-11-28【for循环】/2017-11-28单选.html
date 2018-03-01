@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #content {
+            width: 100%;
+            height: 1000px;
+            background: skyblue;
+            overflow: hidden;
+        }
+
+        #box {
+            width: 500px;
+            height: 300px;
+            background: white;
+            margin: 200px auto;
+            border-radius: 20px;
+            border: 10px solid red;
+            text-align: center;
+            padding-top: 60px;
+            box-sizing: border-box;
+            /*css3*/
+        }
+
+        span {
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            cursor: pointer;
+        }
+
+        .now {
+            background: url(img/now.png) round;
+        }
+
+        .nonow {
+            background: url(img/nonow.png) round;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <div id="box">
+            <h1>妙味课堂</h1>
+            <p>
+                <span class="nonow">男</span>
+                <span class="nonow">女</span>
+                <span class="now">保密</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        var oSpans = document.querySelectorAll("span");
+        var sLen = oSpans.length;
+        var oldSpan = null ;
+        
+        oldSpan = oSpans[2];
+        for(var i = 0 ; i < sLen ; i ++ )
+        {
+            oSpans[i].onclick = function()
+            {
+                oldSpan.className = "nonow";
+                this.className = "now";
+                oldSpan = this;
+            }
+        }
+    </script>
+</body>
+
+</html>

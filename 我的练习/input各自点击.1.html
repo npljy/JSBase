@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<input type="button" value="1" >&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="2" >&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="3" >&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="4" >&nbsp;&nbsp;&nbsp;&nbsp;
+<script>
+    window.onload = function()
+    {
+        var ipts = document.getElementsByTagName("input");
+        for(var i = 0 ; i < ipts.length ; i++)
+        {
+            ipts[i].num = 0 ; // 非系统自带
+            ipts[i].onclick = function()
+            {
+                this.num ++ ;
+                if(this.num >= 3)
+                {
+                    this.disabled = true ;
+                }
+            }
+        }
+
+    }
+</script>
+
+</body>
+</html>

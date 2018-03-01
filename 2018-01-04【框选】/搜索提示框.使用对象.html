@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        input{
+            width: 100%;
+            height: 30px;
+        }
+        ul{
+            margin: 0;
+            padding: 0;
+            display: none;
+        }
+        li{
+            list-style: none;
+            background-color: #009999;
+            margin-top: 3px;
+            line-height: 30px;
+            width: 100%;
+        }
+        a{
+            text-decoration: none;
+            color:white;
+            display: block;
+            width: 100%;
+        }
+        a:hover,.hover{
+            background-color: #00FF99;
+        }
+        #box{
+            width: 500px;
+            margin: 100px auto 0;
+        }
+        .select{
+            background-color: #60625b;
+        }
+    </style>
+    <script>
+    </script>
+</head>
+<body>
+<div id="box">
+    <input type="text" id="s"/>
+    <ul id="list">
+        <li><a href="javascript:;">《第七个读者》</a></li>
+        <li><a href="javascript:;">《 心理罪 画像》</a></li>
+        <li><a href="javascript:;">《 心理罪 教化场》</a></li>
+        <li><a href="javascript:;">《 心理罪 暗河》</a></li>
+        <li><a href="javascript:;">《 心理罪 城市之光》</a></li>
+        <li><a href="javascript:;">《地球往事》</a></li>
+        <li><a href="javascript:;">《黑暗森林》</a></li>
+        <li><a href="javascript:;">《死神永生》</a></li>
+        <li><a href="javascript:;">《乡村教师》</a></li>
+        <li><a href="javascript:;">《地球大炮》</a></li>
+    </ul>
+</div>
+</body>
+<script>
+    var box = document.getElementById("box");
+    var ipt = document.getElementById("s");
+    var ul = document.getElementById("list");
+    var as = Array.from(ul.getElementsByTagName("a"));
+    var idx = -1;
+    var aidx = as.findIndex(e => e.className === "hover");
+    var keys = {
+        c : false,
+        d : false,
+        e : false,
+        u : false
+    }
+
+    ipt.onfocus = function () {
+        ul.style.display = "block";
+    }
+
+    as.forEach((e,i) => {
+        e.dataset.has = "0";
+        e.onclick = function(){
+            console.log(e.dataset.has)
+            idx = i;
+            if(e.dataset.has == "0"){
+                as.forEach(ea => ea.className = "");
+                this.className = "hover";
+                ipt.value = e.innerText;
+                e.dataset.has = "1";
+            }
+            else {
+                this.className = "";
+                ipt.value = ipt.value.split(e.innerText).join("");
+                e.dataset.has = "0";
+            }
+        }
+    });
+
+    document.onkeydown = function(ed){
+        ed.keyCode === 13 && (keys.e = true);
+        ed.keyCode === 38 && (keys.u = true);
+        ed.keyCode === 40 && (keys.d = true);
+        ed.ctrlKey  && (keys.c = true);
+
+        keys.c &&
+            as.forEach((e,i) => {
+                e.onclick = function () {
+                    if (e.dataset.has == "0") {
+                        idx = i;
+                        this.className = "hover";
+                        ipt.value += e.innerText;
+                        e.dataset.has = "1";
+                    } else {
+                        this.className = "";
+                        ipt.value = ipt.value.split(e.innerText).join("");
+                        e.dataset.has = "0";
+                    }
+                }
+            });
+
+        !keys.e && !keys.d && keys.u && 
+        (
+            as.forEach(e => e.className = ""),
+            --idx < 0 && (idx = as.length - 1), 
+            as[idx].className = "hover"
+        )
+
+        !keys.e && keys.d && !keys.u && 
+        (
+            as.forEach(e => e.className = ""),
+            ++idx > as.length - 1 && (idx = 0),
+            as[idx].className = "hover"
+        )
+
+        if(keys.e && !keys.c && !keys.d && !keys.u && as[idx]){
+            if (as[idx].dataset.has == "1") {
+                ipt.value = ipt.value.split(as[idx].innerText).join("");
+                as[idx].dataset.has = "0";
+            } 
+            else {
+                as.forEach(e => e.className = "");
+                as[idx].className = "hover";
+                ipt.value = as[idx].innerText;
+                as[idx].dataset.has = "1";
+            }   
+        }
+
+        if(keys.e && keys.c && as[idx]){
+            if (as[idx].dataset.has == "1") {
+                console.log(as[idx].dataset.has)
+                ipt.value = ipt.value.split(as[idx].innerText).join("");
+                as[idx].dataset.has = "0";
+            } 
+            else {
+                as.forEach(e => e.className = "");
+                as[idx].className = "hover";
+                ipt.value += as[idx].innerText;
+                as[idx].dataset.has = "1";
+            }   
+        }
+
+        return false;
+    }
+    
+    document.onkeyup = function(eu){
+        eu.keyCode === 13 && (keys.e = false);
+        eu.keyCode === 38 && (keys.u = false);
+        eu.keyCode === 40 && (keys.d = false);
+        eu.ctrlKey  && (keys.c = false);
+
+        as.forEach((e,i) => {
+            e.onclick = function(){
+                console.log(e.dataset.has)
+                idx = i;
+                if(e.dataset.has == "0"){
+                    as.forEach(ea => ea.className = "");
+                    this.className = "hover";
+                    ipt.value = e.innerText;
+                    e.dataset.has = "1";
+                }
+                else {
+                    this.className = "";
+                    ipt.value = ipt.value.split(e.innerText).join("");
+                    e.dataset.has = "0";
+                }
+            }
+        });
+        return false;
+    }
+</script>
+</html>

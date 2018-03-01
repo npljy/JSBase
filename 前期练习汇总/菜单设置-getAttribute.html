@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {
+            padding-left: 15%;
+            padding-top: 5%;
+        }
+
+        .menu {
+            width: 240px;
+            border: 10px solid #854e4e;
+            transition: all 500ms;
+            position: absolute;
+            left: 40%;
+            top: -100%;
+            padding: 10px;
+            z-index: 999;
+            background: #fff;
+            text-align: center;
+        }
+
+        .menu p {
+            margin: 10px;
+        }
+
+        .menu button {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            border: none;
+        }
+
+        .content {
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            transition: all 500ms;
+            text-align: center;
+
+        }
+
+        #mengban {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10000px;
+            height: 20000px;
+            display: none;
+            background: #000;
+            z-index: -999;
+            opacity: 0.6;
+            filter: Alpha(opacity=60);
+        }
+
+        input {
+            min-width: 40px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input id="btn" value="点击设置" type="button">
+    <br>
+    <br>
+    <div id="content" class="content"></div>
+    <br>
+    <br>
+    <br>
+    <div id="mengban"></div>
+    <div style="clear:both"></div>
+    <div id="menu" class="menu">
+        <p>
+            <span>颜色：</span>
+            <button data-cnt="background-color:red" style="background-color:red">红</button>
+            <button data-cnt="background-color:green" style="background-color:green">绿</button>
+            <button data-cnt="background-color:blue" style="background-color:blue">蓝</button>
+        </p>
+
+        <p class="wordcolor">
+            <span>宽度</span>：
+            <button data-cnt="width:200px;">200</button>
+            <button data-cnt="width:300px;">300</button>
+            <button data-cnt="width:400px;">400</button>
+        </p>
+        <p class="wordcolor">
+            <span>宽度：</span>
+            <button data-cnt="height:200px;">200</button>
+            <button data-cnt="height:300px;">300</button>
+            <button data-cnt="height:400px;">400</button>
+        </p>
+
+        <input type="button" id="reset" value="重置">
+        <input type="button" id="sure" value="确定">
+
+    </div>
+    <div style="clear:both"></div>
+    <script>
+        window.onload = function () {
+            var oBtn = document.getElementById("btn");
+            var oBtn2 = document.getElementById("btn2");
+            var oMenu = document.getElementById("menu");
+            var oContent = document.getElementById("content");
+            var oBtns = document.getElementsByTagName("button");
+            var bLen = oBtns.length;
+            var oReset = document.getElementById("reset");
+            var oSure = document.getElementById("sure");
+            var oMb = document.getElementById("mengban");
+
+            oBtn.onclick = function (evt) {
+                evt.cancelBubble;
+                evt.stopPropagation();
+                var mTop = oMenu.style.top;
+                if (mTop == "-25%" || mTop == '') {
+                    oMenu.style.top = "15%";
+                    oMb.style.display = "block";
+                }
+                else {
+                    oMenu.style.top = "-25%";
+                    oMb.style.display = "none";
+                }
+            }
+
+            for (var i = 0; i < bLen; i++) {
+                oBtns[i].onclick = function () {
+                    var cntcss = oContent.style.cssText;
+                    cntcss += this.getAttribute("data-cnt");
+                    oContent.style.cssText = cntcss;
+                }
+            }
+
+            oReset.onclick = function () {
+                oContent.style.cssText = "";
+            }
+
+            document.onclick = oSure.onclick = function () {
+                oMenu.style.top = "-25%";
+                oMb.style.display = "none";
+            }
+
+            oMenu.onclick = function (evt) {
+                evt.cancelBubble;
+                evt.stopPropagation();
+            }
+
+            var cntcss2 = null;
+            oContent.onmouseover = function () {
+                cntcss2 = oContent.style.cssText;
+                oContent.style.width = '400px';
+                oContent.style.height = '400px';
+                oContent.style.opacity = '.5';
+            }
+
+            oContent.onmouseout = function () {
+                oContent.style.cssText = cntcss2;
+                oContent.style.opacity = '1';
+            }
+
+        }
+    </script>
+</body>
+
+</html>

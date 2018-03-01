@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加减少</title>
+    <style>
+        #box {
+            position: relative;
+        }
+        ul{
+            padding: 0 ;
+        }
+        img {
+            position: absolute;
+            left: 220px;
+            top: 40px;
+        } 
+        li { 
+            cursor: pointer; 
+            list-style: none;
+            height: 60px;
+            width: 200px;
+            border: 1px solid black;
+            line-height: 60px;
+            box-sizing: border-box;
+            padding: 2px 0 2px 10px;
+            background: skyblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <input type="button" value="增加" id="add">
+        <input type="button" value="减少" id="rmv" disabled>
+        <ul id="oul"></ul>
+        <img id="oimg" src="" alt="" >
+    </div>
+    
+
+    <script>
+        var myimgs = ["img/1.jpg", "img/mmz.jpg", "images/22.jpg", "images/1.jpg", "images/2.jpg", "images/3.jpg", "images/4.jpg", "images/5.jpg"];
+        var add = document.getElementById("add");
+        var rmv = document.getElementById("rmv");
+        var oUl = document.getElementById("oul");
+        var oLis = document.getElementsByTagName("li");
+        var liLen = oLis.length;
+        var oImg = document.getElementById("oimg");
+        var imgLen = myimgs.length;
+        var num = 0;
+        var str = "";
+        var imgIdx = [];
+        
+        oUl.innerHTML = str;
+
+        add.onclick = function() 
+        {
+            rmv.disabled = false;
+            num++;
+            num > imgLen && ( num = imgLen );  // if(num > imgLen)  num = imgLen;
+            
+            initImg();
+            rmvImg();          
+        }
+        rmv.onclick = function() 
+        {
+            add.disabled = false ;
+            num--;
+            num <= 0  && (num = 0) ;
+            
+            initImg();
+            rmvImg();      
+        }
+        function initImg()
+        {
+            str = "";
+            for(var i = 0 ; i < num ; i++)
+            {
+                str += `<li onclick = "oImg.src = this.innerText; oImg.idx = ${i}; oImg.height=600;">${myimgs[i]}</li>`;
+            }
+            oUl.innerHTML = str; 
+        }
+        function rmvImg()
+        {
+            if(oLis.length <= oImg.idx){oImg.src= "";}  //违规了，用了 "索引"
+            if(oLis.length == 0) rmv.disabled = true ;
+            if(oLis.length == imgLen) add.disabled = true ;
+        }
+    </script>
+</body>
+</html>

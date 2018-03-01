@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				font-family: "微软雅黑";
+				
+			}
+		    .bg{
+		    	width:871px;
+		    	height: 553px;
+		    	background: url(img/bg.jpg) no-repeat;
+		    	margin: 0 auto;
+		    }
+		    #oDiv1{
+		    	position:relative;
+		    	top: 128px;
+		    	left: 45px;
+		    	width: 447px;
+		    	height: 295px;
+		    	float: left;
+		    }
+		    span{
+		    	position: absolute;
+		    	left: -11px;
+		    	bottom: 5px;
+		    	
+		    }
+		    #oDiv1 img{
+		    	width:447px ;
+		    	height: 245px;
+		    	position: absolute;
+		    	/* display: none; */
+		    	
+		    }
+		    p{
+		    	position: absolute;
+		    	top: 86%;
+		    	left: 35%;
+		    }
+		    #oDiv2{
+		    	height: 295px;
+		    	width: 248px;
+		    	position:relative;
+		    	top:128px;
+		    	left:115px ;
+		    	float: left;
+		    }
+		    #oDiv2 img{
+		    	width: 248px;
+		    	height: 245px;
+		    	position: absolute;
+		    	left: 0;
+		    	top:0;
+		    	/* display: none; */
+		    }
+		    #prev{
+		    	position: absolute;
+		    	top: 102px;
+		    	left:288px;
+		    }
+		    #next{
+		    	position: absolute;
+		    	top:103px;
+		    	left:345px;
+		    }
+		    a{
+		    	width: 60px;
+		    	height: 60px;
+		    	background-color: #fff;
+		    	opacity: 0.3;
+		    	display: block;
+		    	color: #000;
+		    	font-size: 48px;
+		    	line-height: 60px;
+		    	position: absolute;
+		    	top: 33%;
+		    	text-align: center;
+		    	
+		    }
+		    #before1,#before2{
+		    	left: 0px;
+		    }
+		    #after1,#after2{
+		    	right: 0px;
+		    }
+		    a:link,a:active,a:visited{
+		    	text-decoration: none;
+		    	
+		    }
+		    a:hover{
+		    	opacity: 0.7;
+		    }
+		</style>
+	</head>
+	<body>
+		<div class='bg'>
+			<button id="prev">上一组</button>
+			<button id="next">下一组</button>
+			<div id="oDiv1">
+				<!--  -->
+					<img id="img1" src="" alt="" width="100%" height="560">
+					<span id='span1'></span>
+					<p id="p1"></p>
+					<a href="javascript:;" id="before1"><</a>
+					<a href="javascript:;" id="after1">></a>
+				<!--  -->
+			</div>
+			<div id="oDiv2">
+				<!--  -->
+				<img id="img2" src="" alt="" width="100%" height="560">
+				<span id='span2'></span>
+				<p id="p2"></p>
+				<a href="javascript:;" id="before2"><</a>
+				<a href="javascript:;" id="after2">></a>
+				<!--  -->
+			</div>
+		</div>
+
+		<script>
+			window.onload = function()
+			{
+				var imgs1 = ["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg"] ;
+				var imgs2 = ["img/01.jpg", "img/02.jpg", "img/03.jpg"] ;
+				var imgs1Len = imgs1.length ;
+				var imgs2Len = imgs2.length ;
+				var prev = document.getElementById("prev") ;
+				var next = document.getElementById("next") ;
+				var img1 = document.getElementById("img1") ;
+				var img2 = document.getElementById("img2") ;
+				var s1 = document.getElementById("span1") ;
+				var s2 = document.getElementById("span2") ;
+				var p1 = document.getElementById("p1") ;
+				var p2 = document.getElementById("p2") ;
+				var a1 = document.getElementById("after1") ;
+				var a2 = document.getElementById("after2") ;
+				var b1 = document.getElementById("before1") ;
+				var b2 = document.getElementById("before2") ;
+				var num1 = 0 , num2 = 0 ;
+
+				imgInit1(num1) ;
+				imgInit2(num2) ;
+				a1.onclick = af1 ;	
+				a2.onclick = af2 ;
+				b1.onclick = bf1 ; 
+				b2.onclick = bf2 ;
+				next.onclick = function(){ af1() ; af2() ; } // 为什么 方法体中的方法必须写括号 ？
+				prev.onclick = function(){ bf1() ; bf2() ; } 
+
+				function imgInit1(num)
+				{
+					img1.src = imgs1[num] ;
+					s1.innerText = (num1 + 1)+" / "+ imgs1Len ;
+					p1.innerText = "这是第 "+ (num1 + 1) +" 张图片" ;
+				}
+				function imgInit2(num)
+				{
+					img2.src = imgs2[num] ;
+					s2.innerText = (num2 + 1)+" / "+ imgs2Len ;
+					p2.innerText = "这是第 "+ (num2 + 1) +" 张图片" ;
+				}
+				function af1()
+				{
+					num1 == imgs1Len-1 ? num1 = 0 : num1++ ;
+					imgInit1(num1) ;
+				}
+				function af2()
+				{
+					num2 == imgs2Len-1 ? num2 = 0 : num2++ ;
+					imgInit2(num2) ;
+				}
+				function bf1()
+				{
+					num1 == 0 ? num1 = imgs1Len-1 : num1-- ;
+					imgInit1(num1) ;
+				}
+				function bf2()
+				{
+					num2 == 0 ? num2 = imgs2Len-1 : num2-- ;
+					imgInit2(num2) ;
+				}
+
+			}
+		</script>
+	</body>
+</html>

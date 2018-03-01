@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .act{
+            position: absolute;
+            background: skyblue;
+            border: 1px solid blue;
+            opacity: 0.5;
+            filter:alpha(opacity = 0.5);
+        }
+        #main div{
+            width: 100px;
+            height: 100px;
+            background: red;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body id="body">
+    <div id="main">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <script>
+        var body = document.getElementById("body");
+        var divs = Array.from(document.getElementById("main").getElementsByTagName("div"));
+        var odiv = document.createElement("div");
+        odiv.className = "act";
+        odiv.style.display = "none";
+        odiv.style.width = 0;
+        odiv.style.height = 0;
+        body.appendChild(odiv);
+        document.onmousedown = function (ea) {
+            var dx = ea.pageX;
+            var dy = ea.pageY;
+            document.onmousemove = function (eb) {
+                odiv.style.display = "block";
+                var disX = eb.pageX;
+                var disY = eb.pageY;
+                var w = Math.abs(disX - dx);
+                var h = Math.abs(disY - dy);
+                var l = Math.min(dx, eb.pageX);
+                var t = Math.min(dy, eb.pageY);
+                odiv.style.width = w + "px";
+                odiv.style.height = h + "px";
+                odiv.style.left = l + "px";
+                odiv.style.top = t + "px";
+
+                divs.forEach(e => {
+                    if(boom(odiv,e)){
+                        e.style.backgroundColor = "green";
+                    }
+                    else{
+                        // e.style.backgroundColor = "red";
+                    }
+                })
+                
+            }
+            document.onmouseup = function () {
+                odiv.style.display = "none";
+                document.onmouseup = document.onmousemove = null;
+            }
+        }
+
+        function boom(s,t){
+            // 移动源其余数据 ↓
+            var sl = s.offsetLeft; // s 的offsetLeft
+            var su = s.offsetTop;
+            var sr = sl + s.offsetWidth;
+            var sb = su + s.offsetHeight;
+            // 移动源其余数据 ↑
+            // 被撞目标数据 ↓
+            var tl = t.offsetLeft; // t 的offsetLeft
+            var tu = t.offsetTop; // T要大写
+            var tr = tl + t.offsetWidth;
+            var tb = tu + t.offsetHeight;
+            // 被撞目标数据 ↑
+            //碰撞开始 ↓
+            if (sb < tu || su > tb || sr < tl || sl > tr) {
+                return false;
+            } else {
+                return true;
+            }
+            // 碰撞开始 ↑
+        }
+        
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+#wrap{
+width: 700px;
+height: 500px;
+margin: 30px auto;
+background: url(../img/bg.png) no-repeat;
+}
+#content{
+width: 360px;
+margin: 0 auto;
+height: 100%;
+
+}
+.logo{
+	width: 200px;
+	height: 48px;
+	padding-top: 37px;
+	margin: 0 0 33px 80px;
+}
+.logo img{
+	width: 200px;
+	height: 48px;
+}
+.message{
+float: right;
+width: 320px;
+height: 90px;
+border:none;
+background: url(../img/textBg.png) no-repeat;
+padding: 20px;
+font: 16px/24px "微软雅黑";
+}
+.btn{
+	float: right;
+	width: 100px;
+	height: 30px;
+	margin-top: 10px;
+	border:none;
+	background: url(../img/btnbg.png);
+	color: #fff;
+	font: 16px/26px "微软雅黑";
+}
+#mList{
+	margin-top: 17px;
+	height: 195px;
+	overflow: auto;
+}
+.mText{
+	width: 360px;
+	height: 40px;
+	margin-bottom: 12px;
+}
+.mIcon1{
+	float: left;
+	width: 40px;
+	height: 40px;
+	background: url(../img/mIcon1.png);
+}
+.mIcon2{
+	background: url(../img/mIcon2.png);
+}
+.mComtent{
+	float: left;
+	width: 291px;
+	height: 40px;
+	margin-left: 5px;
+	padding-left: 24px;
+	font: 14px/40px "微软雅黑";
+	color: #fff;
+	overflow: hidden;
+	background: url(../img/mComtent.png);
+}

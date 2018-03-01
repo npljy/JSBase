@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>字符串拼接</title>
+</head>
+
+<body>
+    <div id='box'>
+
+    </div>
+
+    <script>
+        var oBox = document.getElementById('box');
+        var color = 'red';
+        var color2 = 'blue';
+        var w = 'width';
+        var h = 'height';
+        var num1 = 400;
+        var num2 = 200;
+        var bg = 'background';
+
+        oBox.innerHTML = "<div style=\"" + w + ":" + num1 + "px;" + h + ":" + num2 + "px;" + bg + ":" + color + "\"></div>";
+
+        oBox.innerHTML += "<div style='" + w + ":" + num1 + "px;" + h + ":" + num2 + "px;" + bg + ":" + color2 + "'></div>";
+
+    </script>
+</body>
+
+</html>

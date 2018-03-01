@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>V形变换</title>
+    <style>
+        #box { position: relative; margin:100px; border: 1px solid black ;}
+
+        .cnt {
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background: yellow;
+            position: absolute;
+            /* transition: all 1000ms;  */ /*新添加的属性怎么设置动画呢？*/ 
+        }
+
+        #ch {
+            position: absolute;
+            top: 30px;
+            left: 500px;
+        }
+        #iptnum {
+            position: absolute;
+            top: 30px;
+            left: 350px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="box"></div>
+    <br>
+    <br>
+    <div>
+        <input type="number" name="" value="9" id="iptnum" autofocus>
+        <input type="button" value="点击变换" id="ch" >
+        
+        <!-- 
+        <input type="text" value="" id = "iptsjs" >
+        <input type="text" value="" id = "iptcolor" > 
+        -->
+
+    </div>
+    <script>
+
+        window.onload = function () {
+            var arr = 9;
+            var num = 50;//初始宽高
+            var idx = 0; //根据idx 选择 str 和 str2 的值，即：变换 "top", "left", "bottom", "right"
+            var myhtml = "";
+            var cnt = null; // 存储动态生成的box中的div
+            var str = ["top", "left", "bottom", "right"];
+            var str2 = ["left", "top", "right", "bottom"];
+            var colors = ["red","green","yellow","blue","pink","purple","skyblue","yellowgreen"];  
+            var clrLen = colors.length;
+            var suiji = 0 ;
+            var box = document.getElementById("box");
+            var ch = document.getElementById("ch");
+            var iptColor = document.getElementById("iptcolor");
+            var iptSjs = document.getElementById("iptsjs");
+            var oIpt = document.getElementById("iptnum");
+            var iptNum = 0;
+            var box = document.getElementById("box");
+                    
+            change(idx) ;
+
+            ch.onclick = function () {
+                idx < 3 ? idx ++ : idx = 0;
+                change(idx);
+            }
+
+            function change(idx) {
+                iptNum = parseInt(oIpt.value)
+                iptNum > 0 ? iptNum % 2 == 0 ? arr = iptNum + 1 : arr = iptNum : arr = 9; //如果输入的是偶数，+1
+                box.style.cssText = `width:${arr*num}px;height:${arr*num}px;`; //计算box的高度
+                myhtml = "";
+                for (var i = 0; i < arr; i++) {
+                    myhtml += "<div class='cnt'>"+ (i+1) +"</div>";
+                }
+                box.innerHTML = myhtml;
+                cnt = box.getElementsByTagName("div");
+                for (var i = 0; i < arr; i++) 
+                { 
+                    suiji = Math.round( Math.random()*colors.length ) ;
+                    if(i < arr/2)
+                    {
+
+                        cnt[i].style.cssText = `${str[idx]} : ${( num * i )}px`;
+                    }
+                    i > arr/2 && ( cnt[i].style.cssText = `${str[idx]} : ${( num * (arr-1-i) )}px` );
+                   
+                    cnt[i].style.cssText += `${str2[idx]} : ${( num * i ) }px;background:${colors[suiji]}`;
+                }
+
+            }
+
+        }
+    </script>
+</body>
+
+</html>

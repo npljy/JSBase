@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #content {
+            width: 100%;
+            height: 1000px;
+            background: skyblue;
+            overflow: hidden;
+        }
+
+        #box {
+            width: 600px;
+            
+            background: white;
+            margin: 200px auto;
+            border-radius: 20px;
+
+            overflow: hidden;
+            padding-top: 20px;
+            box-sizing: border-box;
+
+        }
+
+        span {
+            display: inline-block;
+            width: 300px;
+            height: 50px;
+            line-height: 50px;
+            cursor: pointer;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        ul {
+            background: black;
+            color: yellowgreen;
+            margin: 0;
+            padding: 0;
+            text-indent: 2em;
+
+        }
+
+        li {
+            list-style: none;
+            height: 90px;
+            line-height: 90px;
+        }
+
+        li:last-child {
+            border-top: 1px dashed white;
+        }
+
+        li img {
+            vertical-align: middle;
+        }
+
+        .in {
+            width: 280px;
+            height: 40px;
+            border-radius: 5px;
+        }
+
+        .btn {
+            height: 40px;
+            border-radius: 5px;
+            width: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <div id="box">
+            <h1>妙味课堂</h1>
+            <ul  id="oul">
+                <li class="oli li1">
+                    <div  >
+                        <span  >hello</span>
+                        <a href="javascript:">
+                            <img height="30" src="img/5.jpg" alt="">
+                        </a>
+                    </div>
+                    <div   style="display:none;">
+                        <input type="text" class="in"  >
+                        <input type="button"  class="btn"  value="确定">
+                        <input type="button"  class="btn" value="取消">
+                    </div>
+                </li>
+                <li class="oli li2">
+                    <div  >
+                        <span  >哈哈哈哈哈哈哈哈</span>
+                        <a href="javascript:">
+                            <img height="30" src="img/5.jpg" alt="">
+                        </a>
+                    </div>
+                    <div   style="display:none;">
+                        <input type="text"  class="in"  >
+                        <input type="button"  class="btn" value="确定">
+                        <input type="button"  class="btn" value="取消">
+                    </div>
+
+                </li>
+                <li class="oli li3">
+                    <div  >
+                        <span  >哈哈哈哈哈哈哈哈</span>
+                        <a href="javascript:">
+                            <img height="30" src="img/5.jpg" alt="">
+                        </a>
+                    </div>
+                    <div   style="display:none;">
+                        <input type="text" class="in"  >
+                        <input type="button" class="btn" value="确定">
+                        <input type="button" class="btn" value="取消">
+                    </div>
+                </li>
+                <li class="oli li3">
+                    <div  >
+                        <span  >哈哈哈哈哈哈哈哈</span>
+                        <a href="javascript:">
+                            <img height="30" src="img/5.jpg" alt="">
+                        </a>
+                    </div>
+                    <div   style="display:none;">
+                        <input type="text" class="in" >
+                        <input type="button" class="btn"  value="确定">
+                        <input type="button" class="btn" value="取消">
+                    </div>
+                </li>
+                <li class="oli li3">
+                    <div  >
+                        <span  >哈哈哈哈哈哈哈哈</span>
+                        <a href="javascript:">
+                            <img height="30" src="img/5.jpg" alt="">
+                        </a>
+                    </div>
+                    <div   style="display:none;">
+                        <input type="text" class="in" >
+                        <input type="button" class="btn"  value="确定">
+                        <input type="button" class="btn" value="取消">
+                    </div>
+                </li> <li class="oli li3">
+                    <div  >
+                        <span  >哈哈哈哈哈哈哈哈</span>
+                        <a href="javascript:">
+                            <img height="30" src="img/5.jpg" alt="">
+                        </a>
+                    </div>
+                    <div   style="display:none;">
+                        <input type="text" class="in" >
+                        <input type="button" class="btn"  value="确定">
+                        <input type="button" class="btn" value="取消">
+                    </div>
+                </li> 
+
+
+
+
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        let lis = document.getElementsByTagName("li");
+        let liLen = lis.length;
+        let imgs = document.getElementsByTagName("img");
+        let ipts = document.getElementsByTagName("input");
+        let spans = document.getElementsByTagName("span");
+        let oul = document.getElementById("oul");
+        let divs = oul.getElementsByTagName("div");
+        for (let i = 0; i < liLen; i++) {
+            imgs[i].onclick = function () {
+                divs[i * 2].style.display = "none";
+                divs[i * 2 + 1].style.display = "";
+                ipts[i * 3].value = spans[i].innerText;
+            }
+            ipts[i * 3 + 1].onclick = function () {
+                if (ipts[i * 3].value.replace(/(^\s*)|(\s*$)/g, "")) {
+                    spans[i].innerText = ipts[i * 3].value;
+                    divs[i * 2].style.display = "";
+                    divs[i * 2 + 1].style.display = "none";
+                }
+            }
+            ipts[i * 3 + 2].onclick = function () {
+                divs[i * 2].style.display = "";
+                divs[i * 2 + 1].style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

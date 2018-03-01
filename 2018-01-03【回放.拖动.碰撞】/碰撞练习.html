@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+        #div1{
+            left: 40%;
+            top: 40%;
+            background: red;
+        }
+        #div2{
+            
+            background: skyblue;
+        }
+        #div1.act{
+            background: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+</body>
+<script>
+    var div1 = document.getElementById("div1"); // 移动源
+    var div2 = document.getElementById("div2"); // 被撞目标
+    kiss(div2, div1)
+    function kiss(srcEle, tarEle) {
+        srcEle.onmousedown = function (es) {
+            // 移动源 ↓
+            _this = this; // 
+            var scl = es.pageX - _this.offsetLeft; // 鼠标按下时到目标源边框的距离
+            var scu = es.pageY - _this.offsetTop;
+            document.onmousemove = function (ed) { 
+                //移动源的位置 ↓
+                _this.style.left = ed.pageX - scl + "px";
+                _this.style.top = ed.pageY - scu + "px";
+                //移动源的位置 ↑
+                //事件解除 ↓
+                if(boom(srcEle,tarEle)){
+                    console.log(1);
+                    tarEle.className = "act";
+                }else{
+                    tarEle.className = "";
+                }
+                document.onmouseup = function () {
+                    document.onmousemove = document.onmouseup = null;
+                }
+                //事件解除 ↑
+                return false;//取消默认事件
+            }
+            // 移动目标 ↑
+        }
+    }
+    //碰撞检测方法 ↓
+    function boom(s,t){
+        // 移动源其余数据 ↓
+        var sl = s.offsetLeft; // s 的offsetLeft
+        var su = s.offsetTop;
+        var sr = sl + s.offsetWidth;
+        var sb = su + s.offsetHeight;
+        // 移动源其余数据 ↑
+        // 被撞目标数据 ↓
+        var tl = t.offsetLeft; // t 的offsetLeft
+        var tu = t.offsetTop; // T要大写
+        var tr = tl + t.offsetWidth;
+        var tb = tu + t.offsetHeight;
+        // 被撞目标数据 ↑
+        //碰撞开始 ↓
+        if (sb < tu || su > tb || sr < tl || sl > tr) {
+            return false;
+        } else {
+            return true;
+        }
+        // 碰撞开始 ↑
+    }
+     //碰撞检测方法 ↑
+</script>
+</html>

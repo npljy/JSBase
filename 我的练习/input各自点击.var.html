@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .now{ background:red;}
+    </style>
+</head>
+<body>
+    <br>
+    <br>
+    <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input class="now" type="button" value="1" >&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="2" >&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="3" >&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="4" >&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="5" >&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="6" >&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="7" >&nbsp;&nbsp;&nbsp;&nbsp;
+<br><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="text" value="" id="iptText">
+<script>
+    window.onload = function()
+    {
+        var ipts = document.querySelectorAll("input[type='button']");
+        var iptText = document.getElementById("iptText");
+        var words = ["星期一","星期二","星期三","星期四","星期五","星期六","星期天"];
+        var an = "";
+        var num = 0 ;
+        an = ipts[0];
+        for( var i = 0 ; i < ipts.length ; i++ )
+        {
+            ipts[i].num = i ;
+            ipts[i].onclick = function()
+            {   
+                num = this.num;
+                tab(this.num);
+            }
+        }
+
+        function tab(n)
+        {
+            an.className = "";
+            an = ipts[n];
+            ipts[n].className = "now";
+            ipts[n].value = words[n];
+            iptText.value = words[n];
+        }
+
+        let timer = setInterval(function(){
+            num++;
+            num %= ipts.length;
+            tab(num);
+
+        },1000);
+    }
+</script>
+
+</body>
+</html>

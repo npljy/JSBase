@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>99乘法表</title>
+    <style>
+        #box span{display: inline-block;  line-height: 40px;text-align: center; height:40px; width:100px; border: 1px solid black ; }
+    </style>
+</head>
+<body>
+    <dvi id="box"></dvi>
+    <script>
+        let num = 9;
+        var num1 = 40;
+        let num2 = 100;
+        let str= "" ;
+        let box = document.getElementById("box");
+        for(var i = 0 ; i < num; i++)
+        {
+            for(var j = 0 ; j <= i ; j++)
+            {
+                str += `<span>${(j+1)}x${(i+1)}=${(i+1)*(j+1)}</span>`;
+            }
+            str += "<br>";
+        }
+        box.innerHTML = str;
+    </script>
+</body>
+</html>

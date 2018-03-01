@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .wrap {
+            width: 900px;
+            height: 600px;
+            background: url('bg.png') no-repeat center center;
+            background-size: cover;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .info {
+            position: absolute;
+            width: 60%;
+            height: 140px;
+            left: 20%;
+            top: 260px;
+            font-size: 14px;
+        }
+
+        #btn {
+            width: 76px;
+            height: 16px;
+            border: 1px solid #fff;
+            border-radius: 20px;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: rgba(0, 0, 0, 0);
+            line-height: 16px;
+            color: #fff;
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        #btn:hover {
+            border-color: #c455e9;
+            color: #f5a2cb;
+        }
+
+        .info span:nth-of-type(odd) {
+            padding-left: 65px;
+            position: relative;
+        }
+
+        .info span:nth-of-type(odd):before {
+            content: "1";
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            position: absolute;
+            left: 45px;
+            top: 0px;
+            text-align: center;
+            line-height: 16px;
+            font-weight: bold;
+            font-size: 12px;
+            color: #000;
+        }
+
+        .info span:nth-of-type(1),
+        .info span:nth-of-type(2) {
+            color: yellow;
+        }
+
+        .info span:nth-of-type(1):before {
+            content: "1";
+            background: yellow;
+        }
+
+        .info span:nth-of-type(3),
+        .info span:nth-of-type(4) {
+            color: #56d9ed;
+        }
+
+        .info span:nth-of-type(3):before {
+            content: "2";
+            background: #56d9ed;
+        }
+
+        .info span:nth-of-type(5),
+        .info span:nth-of-type(6) {
+            color: #ed56a8;
+        }
+
+        .info span:nth-of-type(5):before {
+            content: "3";
+            background: #ed56a8;
+        }
+
+        .info span:nth-of-type(7),
+        .info span:nth-of-type(8) {
+            color: #ffab48;
+        }
+
+        .info span:nth-of-type(7):before {
+            content: "4";
+            background: #ffab48;
+        }
+    </style>
+    <script type="text/javascript">
+
+    </script>
+</head>
+<!-- 
+
+    var arr = ['100px', 'abc' - 6, [], -98765, 34, -2, 0, '300', , function() { alert(1); }, null, document, [], true, '200px'
+- 30, '23.45元', 5, Number('abc'), function() { alert(3); }, 'xyz' - 90];
+
+ -->
+
+<body>
+    <div class="wrap">
+        <div class="info">
+            <div id="btn">开始查找</div>
+            <br><br />
+            <span>所有的数字是:</span>
+            <span ></span>
+            <br /><br />
+            <span>可以转成数字的:</span>
+            <span></span>
+            <br /><br />
+            <span>转成数字的最大值:</span>
+            <span></span>
+            <br /><br />
+            <span>所有运算结果是NaN的位置:</span>
+            <span></span>
+        </div>
+    </div>
+</body>
+<script>
+    var btn = document.getElementById("btn");
+    var spans = document.querySelectorAll("span");
+    var arr = ['100px', 'abc' - 6, [], -98765, 34, -2, 0, '300', , function () { alert(1); }, null, document, [], true, '200px' - 30, '23.45元', 5, Number('abc'), function () { alert(3); }, 'xyz' - 90];
+    var arrLen = arr.length;
+    var idx = "";
+    var nanstr = "";
+    var num = "";
+    var tonum = "";
+    var maxnum = -Infinity;
+    for(var i = 0 ; i < arrLen ; i++)
+    {
+        
+        if( Number(arr[i]) === arr[i] )
+        {
+            num += arr[i] +",";
+        }
+        if(  !isNaN( parseFloat(arr[i]) )  ||  Number(arr[i])  )
+        {  
+            tonum += arr[i]+",";
+        }
+
+
+        if(  !isNaN( parseFloat(arr[i]) ) && maxnum < parseFloat(arr[i])   )
+        {
+            maxnum = parseFloat(arr[i]) ;
+        }
+
+        // if(   isNaN(parseFloat(arr[i])) || Number(arr[i]) )
+        if(  typeof(arr[i])==="number" && isNaN(arr[i]) )
+        {
+            idx += i+",";
+            nanstr += arr[i]+",";
+        }
+        
+        
+    }
+
+
+    console.log(num);
+    console.log(tonum);
+    console.log(maxnum);
+    console.log(idx);
+    console.log(nanstr);
+
+    btn.onclick = function()
+    {
+        spans[1].innerText = num;
+        spans[3].innerText = tonum;
+        spans[5].innerText = maxnum;
+        spans[7].innerText = idx;
+    }
+
+
+ console.log(Number(undefined))   ;// NaN
+</script>
+
+</html>

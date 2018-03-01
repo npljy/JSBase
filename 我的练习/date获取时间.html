@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+    <style>
+        #box {
+            font-size: 50px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box"></div>
+    <script>
+        function getToday() {
+            var week = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+            var box = document.getElementById("box");
+            var today = new Date();
+
+            var yy = today.getFullYear(); //年
+
+            var mm = todouble(today.getMonth() + 1); //月，从0开始，0代表1月份
+
+            var dd = todouble(today.getDate());//日
+
+            var hh = todouble(today.getHours());//时
+
+            var MM = todouble(today.getMinutes());//分
+
+            var ss = todouble(today.getSeconds());//秒
+
+            var ee = today.getDay();//星期。从0开始，0代表周日
+
+            var dddd = yy + "年" + mm + "月" + dd + "日" + "&nbsp;&nbsp;" + hh + ":" + MM + ":" + ss + "&nbsp;&nbsp;" + week[ee];
+
+            box.innerHTML = dddd;
+        }
+        
+        getToday();
+        var timer = setInterval(getToday, 1000);
+
+        function todouble(n) {
+            return n < 10 ? "0" + n : "" + n;
+        }
+
+    </script>
+</body>
+
+</html>

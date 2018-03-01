@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模拟短信发送</title>
+    <style>
+        #main {
+            width: 100%;
+        }
+
+        #content {
+            width: 340px;
+            padding: 0 15px;
+            border-radius: 20px;
+            position: absolute;
+            left: 35%;
+            top: 10%;
+            height: 700px;
+            background: skyblue;
+        }
+
+        #text-cont {
+            height: 520px;
+            background: white;
+            padding: 20px 20px;
+        }
+
+        #text-cont p {
+            overflow: visible;
+            font-size: 20px;
+            display: inline-block;
+            border-radius: 4px;
+            padding: 4px;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .ipt-area {
+            position: relative;
+            padding: 6px;
+        }
+
+        .lipt {
+            float: left;
+        }
+
+        .ript {
+            float: right;
+        }
+
+        .ript button {
+            height: 40px;
+            border: none;
+            background: none;
+            font: 16px 'microsoft yahei';
+        }
+
+        #ipt {
+            border: none;
+            border-radius: 5px;
+            resize: none;
+            font: 20px 'microsoft yahei';
+            height: 36px;
+            width: 242px;
+        }
+
+        .ipt {
+            height: 36px;
+            width: 230px;
+            overflow: hidden;
+            display: inline-block;
+            border-radius: 5px;
+        }
+
+        .header {
+            height: 30px;
+        }
+
+        .header input {
+            background: black;
+            border-radius: 50px;
+            height: 4px;
+            width: 100px;
+            margin: 12px 116px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .box {
+            border: 1px solid black;
+        }
+
+        .box ul {
+            margin: 0;
+            padding: 0;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            width: 316px;
+        }
+
+        .box li {
+            list-style: none;
+            width: 280px;
+        }
+
+        .lcont {
+            float: left;
+            background: url(images/lico.png) left 6px no-repeat;
+            background-size: 30px 30px;
+        }
+
+        .rcont {
+            float: right;
+            background: url(images/rico.png) right 6px no-repeat;
+            background-size: 30px 30px;
+        }
+
+        .lcont p {
+            float: left;
+            background: skyblue;
+            margin: 6px 20px 6px 40px;
+        }
+
+        .rcont p {
+            float: right;
+            background: skyblue;
+            margin: 6px 40px 6px 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main">
+
+        <div id='content'>
+
+            <div class='header'>
+                <input type="text" disabled>
+            </div>
+            <div class="box">
+                <div style="width:340px; overflow: hidden; ">
+                    <ul id='text-cont'>
+                        <!-- 内容 -->
+                    </ul>
+                </div>
+
+                <div class="ipt-area">
+                    <div class='lipt'>
+                        <img src="images/lico.png" alt="" id="img" height="36">
+                        <div class="ipt">
+                            <textarea name="" id="ipt"></textarea>
+                        </div>
+                    </div>
+                    <div class='ript'>
+                        <button id='send'>发送</button>
+                    </div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <div class='footer'>
+                <img src="images/miaov.png" alt="">
+            </div>
+        </div>
+
+
+    </div>
+</body>
+<script>
+    let oIpt = document.getElementById('ipt');
+    let oSend = document.getElementById('send');
+    let oCnt = document.getElementById('text-cont');
+    let oImg = document.getElementById('img');
+    let userid = true;
+    var str = "";
+    oImg.onclick = function () {
+        if (userid) {
+            oImg.src = 'images/rico.png';
+            userid = false;
+        }
+        else {
+            oImg.src = 'images/lico.png';
+            userid = true;
+        }
+
+    }
+
+    oSend.onclick = function () {
+        var iptText = oIpt.value;
+        if (iptText.replace(/(^\s*)|(\s*$)/g, "") == "") {
+            alert("啥也没输入哇");
+            return false;
+        }
+        if (userid) {
+            str += "<li class='lcont'><p>" + oIpt.value + "</p></li>";
+        }
+        else {
+            str += "<li class='rcont'><p>" + oIpt.value + "</p></li>";
+        }
+        oCnt.innerHTML = str;
+        oIpt.value = "";
+
+    }
+
+
+</script>
+
+</html>

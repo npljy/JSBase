@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .act{
+            background: yellowgreen;
+        }
+        div div{
+            display: none;
+        }
+        .show{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="d1">
+        <button class="act">一</button>
+        <button>二</button>
+        <button>三</button>
+        <div class="show">1111</div>
+        <div>2222</div>
+        <div>3333</div>
+    </div>
+    
+    <br>
+
+    <div id="d2">
+        <button class="act">一</button>
+        <button>二</button>
+        <button>三</button>
+        <div class="show">1111</div>
+        <div>2222</div>
+        <div>3333</div>
+    </div>
+    
+</body>
+<script>
+    function Tab(id){
+        var box = document.getElementById(id);
+        this.btns = box.getElementsByTagName("button");
+        this.divs = box.getElementsByTagName("div");
+        this.timer = null;
+        this.num=0;
+    }
+
+    Tab.prototype.Events = function(type="onclick"){
+        var _this = this;
+
+        for(let i = 0 ; i < this.btns.length ; i++){
+            this.btns[i][type] = function(){
+                _this.changeTab(i);
+            }
+        }
+    }
+    Tab.prototype.changeTab = function(idx){
+
+        for(let i = 0 ; i < this.btns.length ; i++){
+            this.btns[i].classList.remove("act");
+            this.divs[i].classList.remove("show");
+        }
+        this.btns[idx].classList.add("act");
+        this.divs[idx].classList.add("show");
+    }
+    Tab.prototype.timeTab = function(){
+
+        this.timer = setInterval(()=>{
+            this.num++;
+            this.num %= this.btns.length;
+            this.changeTab(this.num);
+        },1000)
+    }
+    var t1 = new Tab("d1");
+    t1.Events();
+    t1.timeTab();
+</script>
+</html>

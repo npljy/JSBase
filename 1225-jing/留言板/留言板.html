@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<link rel="stylesheet" type="text/css" href="css/clear.css">
+</head>
+<body>
+<section id="wrap">
+	<div id="content">
+		<h2 class="logo"><img src="img/log.png"></h2>
+		<div class="clearfix">
+			<textarea class="message"></textarea>
+			<input type="button" value="提交" class="btn">
+		</div>
+		<ul id="mList">
+			<li class="mText clearfix">
+				<span class="mIcon1"></span>
+				<p class="mComtent">你好!</p>
+			</li>
+			<li class="mText clearfix">
+				<span class="mIcon1 mIcon2"></span>
+				<p class="mComtent">你好!</p>
+			</li>
+		</ul>
+	</div>
+</section>
+<script>
+	var Mlist=document.getElementById('mList');
+	var Btn=document.querySelector('.btn');
+	var Message=document.querySelector('.message');
+
+	Btn.onclick=function(){
+		if(Message.value==''){alert('请输入内容～')}
+		else{
+			var M=Mlist.firstElementChild.cloneNode(true);
+			M.children[1].innerText=Message.value;
+			if(M.children[0].className=='mIcon1'){M.children[0].className='mIcon1 mIcon2'}else{M.children[0].className='mIcon1'}
+			Mlist.insertBefore(M,Mlist.firstElementChild);
+			Message.value=''
+		}
+		
+
+		
+	}
+
+</script>
+</body>
+</html>

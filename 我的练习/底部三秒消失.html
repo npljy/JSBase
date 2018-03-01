@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style type="text/css">
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+.pay_tips_animation_up
+{
+position: fixed;
+height: 56px;
+background: #FC000C;
+width: 100%;
+bottom: -56px;
+animation:myfirst 3s none;
+animation-direction:alternate;
+animation-iteration-count:1;
+
+
+/* Safari and Chrome */
+-webkit-animation:myfirst 3s none;
+-webkit-animation-direction:alternate;
+-webkit-animation-iteration-count:1; /* Safari 和 Chrome */
+}
+
+@keyframes myfirst
+{
+0%  {background:green; bottom:-56px;}
+25% {background:#999;  bottom:0px;}
+50% {background:#333;  bottom:0px;}
+75% {background:yellow; bottom:0px;}
+100%{background:blue; bottom:-56px;}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+0%  {background:green; bottom:-56px;}
+25% {background:#999; bottom:0px;}
+50% {background:#333; bottom:0px;}
+75% {background:yellow; bottom:0px;}
+100%{background:blue; bottom:-56px;}
+}
+</style>
+<body>
+	
+<div class="pay_tips_animation_up ddd">11</div>
+
+
+</body>
+</html>

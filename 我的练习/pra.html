@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // var A = "{  a: 1 , b : 'hello' }";
+    // var B = "{  'a': 1 , 'b' : 'hello' }";
+    // var C = "{'a':1,'b':'hello'}";
+    // var D = '{"a":1,"b":"hello"}';
+    // var E = '{ "a" : 1 , "b" : "hello" }';
+    // var F = '{ "a" : 1 ,\n  "b" : "hello" }';
+    // var G = '{ "a" : 1 , "b" : window.location.href="https://www.baidu.com" }';
+
+    // console.log(eval("("+A+")"));
+
+    let arr = [1,2,3,4,5]
+    let a = 0;
+    let b = arr.findIndex((e,i)=>{
+        if(e===4) return i;
+    })
+    console.log(b)
+</script>
+</body>
+</html>

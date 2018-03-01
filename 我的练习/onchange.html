@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <select name="" id="s">
+        <option value="1">回车</option>
+        <option value="2">shift+回车</option>
+        <option value="3">alt+shit+回车</option>
+    </select>
+    <input type="text" id="t">
+    <ul id="u"></ul>
+    <script>
+        var t = document.getElementById("t");
+        var s = document.getElementById("s");
+        var ul = document.getElementById("u");
+        var tv = null;
+        var sv = "1";
+        var ischange = false;
+
+        if(!ischange){
+            t.onkeydown = function(ev){
+                tv = t.value;
+                if(!ev.ctrlKey && !ev.altKey && !ev.shiftKey && ev.keyCode == 13){
+                    ul.innerHTML += "<li>"+tv+"</li>";
+                    t.value = "";
+                }
+            }
+        }  
+        
+        s.onchange =function(){
+            ischange = true;
+            sv = this.value;
+            switch(sv){
+                case "1" :
+                        t.onkeydown = function(ev){
+                            tv = t.value;
+                            if(!ev.ctrlKey && !ev.altKey && !ev.shiftKey && ev.keyCode == 13){
+                                ul.innerHTML += "<li>"+tv+"</li>";
+                                t.value = "";
+                                consol.log(1)
+                            }
+                        }
+                        break;
+                case "2" : 
+                        t.onkeydown = function(ev){
+                            tv = t.value;
+                            if( !ev.ctrlKey && !ev.altKey && ev.shiftKey && ev.keyCode == 13){
+                                ul.innerHTML += "<li>"+tv+"</li>";
+                                t.value = "";
+                                console.log(2)
+                            }
+                        }
+                        break;
+                case "3" : 
+                        t.onkeydown = function(ev){
+                            tv = t.value;
+                            if(!ev.ctrlKey && ev.altKey && ev.shiftKey && ev.keyCode == 13){
+                                ul.innerHTML += "<li>"+tv+"</li>";
+                                t.value = "";
+                                console.log(3,sv)
+                            }
+                        }
+                        break;
+                
+            }
+        }
+
+
+    </script>
+</body>
+</html>

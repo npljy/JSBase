@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="listDiv">
+            <ul class="list">
+            </ul>
+            <div class="up">
+                <div class="barUp"></div>
+            </div>
+            <div class="barDiv">
+                <div class="barDot"></div>
+            </div>
+            <div class="down">
+                <div class="barDown"></div>
+            </div>
+        </div>
+        <div>
+            <ul class="list2">
+
+            </ul>
+        </div>
+        <div>
+            <ul class="list3">
+
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="./js/data.js"></script>
+<script>
+    var list = document.querySelector(".list");
+    var list2 = document.querySelector(".list2");
+    var list3 = document.querySelector(".list3");
+    var listStr = "";
+    var list2Str = "";
+    var list3Str = "";
+    var barDiv = document.querySelector(".barDiv");
+    var barUp = document.querySelector(".up");
+    var barDown = document.querySelector(".down");
+    var barDot = document.querySelector(".barDot");
+    timer = null;
+    var sca = 0;
+
+    function arrEach(arr,str,obj){
+        arr.forEach((e,i) => {
+            str += "<li data-idx='" + i + "'>" + e.name + "</li>"; 
+        }); 
+        obj.innerHTML = str;
+    }
+    arrEach(arrCity,listStr,list);
+    listArr = Array.from(list.querySelectorAll("li"));
+
+
+    barDot.onmousedown = function (ed) {
+        clearInterval(timer);
+        var _this = this;
+        var disY = ed.pageY - _this.offsetTop;
+        document.onmousemove = function (em) {
+            var oTop = em.pageY - disY;
+            oTop < 0 && (oTop = 0);
+            oTop > barDiv.clientHeight - _this.offsetHeight && (oTop = barDiv.clientHeight - _this.offsetHeight);
+            _this.style.top = oTop + "px";
+            sca = oTop / (barDiv.clientHeight - _this.offsetHeight);
+            list.style.marginTop = sca * (list.clientHeight - list.scrollHeight) + "px";
+            return false;
+        }
+        document.onmouseup = function () {
+            document.onmouseup = document.onmousemove = null;
+        }
+    }
+    barUp.onmousedown = function () {
+        clearInterval(timer);
+        timer = setInterval(function () {
+            var nowTop = parseFloat(getComputedStyle(barDot).top) - parseFloat(getComputedStyle(barDot).top) / 10;
+            nowTop < 0 && (nowTop = 0,clearInterval(timer));
+            barDot.style.top = nowTop + "px";
+            sca = nowTop / (barDiv.clientHeight - barDot.offsetHeight);
+            list.style.marginTop = sca * (list.clientHeight - list.scrollHeight) + "px";
+            console.log(1)
+        }, 20);
+        document.onmouseup = function () {
+            clearInterval(timer);
+            document.onmouseup = null;
+        }
+    }
+
+    barDown.onmousedown = function () {
+        clearInterval(timer);
+        timer = setInterval(function () {
+            var nowTop = parseFloat(getComputedStyle(barDot).top) + (barDiv.clientHeight - barDot.offsetHeight - parseFloat(getComputedStyle(barDot).top)) / 10;
+            nowTop > barDiv.clientHeight - barDot.offsetHeight && (nowTop = barDiv.clientHeight - barDot.offsetHeight , clearInterval(timer) );
+            barDot.style.top = nowTop + "px";
+            sca = nowTop / (barDiv.clientHeight - barDot.offsetHeight);
+            list.style.marginTop = sca * (list.clientHeight - list.scrollHeight) + "px";
+            console.log(2)
+        }, 20);
+        document.onmouseup = function () {
+            clearInterval(timer);
+            document.onmouseup = null;
+        }
+    }
+
+    barDiv.onmousedown = function(ev){
+        clearInterval(timer);
+        var _this = this;
+        var disY = ev.pageY - _this.getBoundingClientRect().top;
+        var disH = barDot.offsetHeight / 2;
+    
+        timer = setInterval(function(){
+            var prevTop = parseFloat(getComputedStyle(barDot).top);
+            var nowTop = parseFloat(getComputedStyle(barDot).top) + ( disY - disH -  parseFloat(getComputedStyle(barDot).top) ) / 10;
+            nowTop < 0 && (nowTop = 0 );
+            nowTop > barDiv.clientHeight - barDot.offsetHeight && (nowTop = barDiv.clientHeight - barDot.offsetHeight);
+            parseInt(nowTop) == parseInt(prevTop) && (clearInterval(timer));
+            barDot.style.top = nowTop + "px";
+            sca = nowTop / (barDiv.clientHeight - barDot.offsetHeight);
+            list.style.marginTop = sca * (list.clientHeight - list.scrollHeight) + "px";
+            console.log(3)
+        },20);
+        
+        
+    }
+
+</script>
+
+</html>

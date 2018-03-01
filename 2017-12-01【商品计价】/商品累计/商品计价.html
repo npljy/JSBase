@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>商品计价</title>
+	<link rel="stylesheet" type="text/css" href="price.css" />
+</head>
+
+<body onselectstart="return false;">
+	<div class="wrap">
+		<div class="box" id="box">
+			<ul class="list">
+				<li>
+					<i></i>
+					<em>0</em>
+					<i></i>
+					<span>
+						单价：
+						<strong>12.5元 </strong> 小计：
+						<strong>0元</strong>
+					</span>
+				</li>
+				<li>
+					<i></i>
+					<em>0</em>
+					<i></i>
+					<span>
+						单价：
+						<strong>10.5元 </strong> 小计：
+						<strong>0元</strong>
+					</span>
+				</li>
+				<li>
+					<i></i>
+					<em>0</em>
+					<i></i>
+					<span>
+						单价：
+						<strong>8.5元 </strong> 小计：
+						<strong>0元</strong>
+					</span>
+				</li>
+				<li>
+					<i></i>
+					<em>0</em>
+					<i></i>
+					<span>
+						单价：
+						<strong>8元 </strong> 小计：
+						<strong>0元</strong>
+					</span>
+				</li>
+				<li>
+					<i></i>
+					<em>0</em>
+					<i></i>
+					<span>
+						单价：
+						<strong>14.5元 </strong> 小计：
+						<strong>0元</strong>
+					</span>
+				</li>
+			</ul>
+			<div class="info">
+				<span>商品公合计：
+					<em>0</em>件</span>
+				<span>共花费了：
+					<em>0</em>元</span>
+				<br />
+				<br />
+				<span>其中最贵的商品单价是：
+					<em>0</em>元</span>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	const box = document.getElementById("box");
+	const oul = box.querySelector("ul");
+	const lis = oul.querySelectorAll("li");
+	const lisLen = lis.length;
+	const odiv = box.querySelector("div");
+	const infoems = odiv.querySelectorAll("em");
+	const ostrg = oul.querySelectorAll("strong");
+	const ostrgLen = ostrg.length;
+
+	let sum = 0; //所有商品总件数
+	let total = 0; // 所有商品总价格
+	let max = -Infinity; //单类商品总价格
+	let idx = 0; // 花费最多的单类商品的索引
+
+	for (var i = 0; i < lisLen; i++) {
+		let ois = lis[i].querySelectorAll("i");
+		let em = lis[i].querySelector("em"); // 每类商品的件数 的 DOM 节点
+		let emnum = 0; // 单类商品的件量
+		let strongs = lis[i].querySelectorAll("strong");
+		const price = parseFloat(strongs[0].innerText); //获取单价
+
+		ois[0].idx = 0; // 为了方便下面的onclick使用
+		ois[1].idx = 1; // 为了方便下面的onclick使用
+		ois[0].onclick = ois[1].onclick = function () { into(this.idx); }
+
+		// 填入数据方法 ， 形参为当前点击按钮的索引，用于判断点的是 “+” 还是 “-”
+		function into(idx) {
+			// if idx==0 ，点击的是“-” ，且 emnum>0 因商品数不能为负 ，每点一次，商品总数 -1 ，总价格 减去1件商品的 价格
+			idx == 0 && emnum > 0 && (emnum-- , sum-- , total -= price);
+			// if idx==1 ，点击的是“+” ，每点一次，商品总数 +1 ，总价格 加上1件商品的 价格
+			idx == 1 && (emnum++ , sum++ , total += price);
+
+			em.innerText =  emnum; // 填入 件数
+			strongs[1].innerText = (price * emnum) + "元"; //填入 单类商品总价格
+			infoems[0].innerText = sum; // 填入 所有商品 件数
+			infoems[1].innerText = total; // 填入所有商品总价格
+
+			// 因为存在不确定性，所以每次点击都需要重新循环一次，重新判断一遍
+			max = -Infinity;
+			for (var i = 0; i < Math.floor(ostrgLen / 2); i++) {
+				// 根据 花费最多的单类商品总价格 ， 找出相应的单价
+				max < parseFloat(ostrg[2 * i + 1].innerText ) && ( max = parseFloat(ostrg[2 * i + 1].innerText),  idx = i * 2  );
+			}
+			// 填入 花费最多的商品的单价。当所有的商品都是0的时候，会默认显示第一个的单价，
+			// 所以加上下面的条件：当第一个商品总价也是0的时候让最贵商品单价显示为0 
+			( idx == 0 && parseFloat(ostrg[1].innerText)  == 0 ) ? infoems[2].innerText = 0 : infoems[2].innerText = parseFloat(ostrg[idx].innerText); 
+			
+		}
+	}
+</script>
+
+</html>

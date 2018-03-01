@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>if else</title>
+</head>
+<body>
+    <input id="btn1" type="text"><input type="button" id="btn2" value="快点说">
+    <script>
+        
+        var oBtn = document.getElementById('btn2');
+        var str = null;
+
+        oBtn.onclick = function()
+        {
+            var tValue = document.getElementById('btn1').value;
+            if(tValue == "js")
+            {
+                str = '太好啦!';
+            }
+            else if(tValue == "css")
+            {
+                str = 'very good';
+            }
+            else if(tValue == "html")
+            {
+                str = 'good';
+            }
+            else
+            {
+                str = "好吧";
+            };
+            alert(str);
+        }   
+    </script>
+</body>
+</html>

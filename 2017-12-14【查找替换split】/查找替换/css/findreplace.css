@@ -1,0 +1,221 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+section{
+    width: 800px;
+    height: 630px;
+    margin: 50px auto;
+    padding-top: 40px;
+    background-color: rgb(171, 221, 231);
+    background: url("../images/background.png") no-repeat;
+    overflow: hidden;
+
+}
+#logo{
+    width: 200px;
+    height: 48px;
+    margin: 0px auto;
+}
+#top{
+    width: 520px;
+    height: 274px;
+    border-radius: 10px;
+    margin: 20px auto ;
+    background-color: white;
+    padding: 27px;
+    box-shadow: 0px 0 7px RGB(152, 210, 221) ;
+    z-index: 99;
+}
+#top .top_container{
+    width: 360px;
+    height: 230px;
+    padding: 20px;
+    float: left;
+    overflow: hidden;
+}
+.bg{
+    background-color: rgb(238,248,250);
+    border: 1px solid rgb(171,221,231);
+    border-radius: 2px;
+    color: #004654;
+    font-family: 'Lantinghei SC ';
+}
+#top .top_container p{
+    line-height: 30px;
+    font-size: 14px;
+    height: 30px;
+    color: #004654;
+    width: 360px;
+    height: 240px;
+    border-width: 0;
+    background-color: rgba(0,0,0,0);
+
+    overflow: auto;
+}
+#top .top_container p span{
+    line-height: 30px;
+    background-color: green;
+    color: white;
+    height: 30px;
+    display: inline-block;
+
+}
+
+#top .top_func{
+    float: left;
+
+    width: 100px;
+    height: 270px;
+    margin-left: 17px;
+}
+#top .top_func ul{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+#top .top_func ul li{
+    width: 100px;
+    height: 65px;
+    list-style: none;
+    border-radius: 3px;
+    position: absolute;
+    padding-top: 15px;
+    cursor: pointer;
+
+}
+#top .top_func ul li img{
+    display: block;
+    margin: 0px auto;
+    width: 27px;
+    height: 27px;
+    padding-top: 0px;
+    transform: rotate(0);
+    transition: .5s;
+}
+#top .top_func ul li p{
+    font-size: 16px;
+    font-family: 'Lantinghei SC ';
+    color: white;
+    display: block;
+    height: 40px;
+    width: 100px;
+    text-align: center;
+    line-height: 40px;
+}
+#top .top_func ul .func_open{
+    background-color: rgb(144,226,242);
+
+}
+#top .top_func ul .func_find{
+    background-color: rgb(168,166,245);
+    transition: .5s;
+    /*display: none;*/
+    top:0;
+
+}
+
+#top .top_func ul .func_replace{
+    background-color: rgb(159,231,169);
+    transition: .5s;
+    /*display: none;*/
+    top:0;
+
+}
+
+
+#bottom{
+    width: 526px;
+    height: 158px;
+    position: relative;
+    top: 12px;
+    margin: 0 auto;
+    border-radius: 10px;
+    background-color: white;
+    color: white;
+    padding: 0px 22px;
+    box-shadow: 0px 0 7px rgb(147,208,221) ;
+    display: none;
+}
+#bottom div{
+    height: 40px;
+    padding-top: 25px;
+}
+#bottom div a{
+    display: block;
+    font-size: 16px;
+    width: 100px;
+    height: 40px;
+    border-radius: 3px;
+    float: left;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+#bottom div .find{
+    background-color: rgb(168,166,245);
+    margin-left: 5px;
+}
+#bottom div .replace{
+    background-color: rgb(159,231,169);
+    margin-left: 20px;
+}
+#bottom div .close{
+    color: #222222;
+    width: 14px;
+    height: 14px;
+    float: right;
+    background: url("../images/close.png");
+}
+#bottom input{
+    float: left;
+}
+#bottom #text1{
+    margin: 14px 0 0 5px;
+    width: 400px;
+    height: 48px;
+    padding-left:10px;
+    font-size: 16px;
+    /*display: none;*/
+}
+#text2{
+       margin: 14px 0 0 5px;
+       width: 190px;
+       height: 48px;
+       padding-left:10px;
+       font-size: 16px;
+       display: none;
+   }
+#text3{
+    margin: 14px 0 0 8px;
+    width: 190px;
+    height: 48px;
+    padding-left:10px;
+    font-size: 16px;
+    display: none;
+}
+#bottom #btn1{
+    width: 60px;
+    height: 40px;
+    background-color: rgb(168,166,245);
+    margin: 14px 0 0 10px;
+    float: right;
+    border-radius: 2px;
+    padding: 10px 0 0 36px;
+    cursor: pointer;
+}
+#prompt{
+    height: 30px;
+    margin-top: 10px;
+    color: red;
+    font-size: 12px;
+    text-align: center;
+    line-height: 30px;
+}
+
+#info{
+    position: absolute;
+    top: 10px;
+    left: 255px;
+    color: black;
+}

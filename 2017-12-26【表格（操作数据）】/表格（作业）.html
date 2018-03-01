@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+<style type="text/css">
+body,
+h1 {
+	margin: 0;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+input {
+	outline: none;
+}
+table {
+	border-collapse: collapse;
+	border: #bbb;
+}
+body {
+	width: 100%;
+	height: 100%;
+	/*background: url(img/2.jpg) no-repeat;*/
+}
+.tBody {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	margin-top: 30px;
+	padding: 20px 30px 40px;
+	background-color: rgba(255,255,255,.6);
+}
+.title {
+	text-align: center;
+	color: #fca113;
+	text-shadow: 0 0 2px #fcf913;
+	line-height: 50px;
+}
+table {
+	background-color: #fff;
+}
+th {
+	background-color: #ddd;
+}
+tr {
+	height: 30px;
+}
+ul {
+	padding: 5px 0;
+	width: 600px;
+	text-align: center;
+}
+td{
+	text-align: center;
+}
+td input {
+	margin: 0 2px;
+}
+li {
+	padding: 5px 0;
+	overflow: hidden;
+}
+label {
+	display: inline-block;
+}
+input[type="text"] {
+	border: 1px solid #ccc;
+	width: 80px;
+	height: 20px;
+}
+/*.active {
+	background-color: #f7cb75;
+}*/
+/*#tab tbody tr:hover {
+	background-color: #f7cb75;
+}*/
+</style>
+</head>
+<body>
+<section class="tBody">
+	<h1 class="title"></h1>
+	<ul id="header">
+		<li class="addPre">
+			<label>名字： <input type="text" name="" /></label>
+			<label>年龄： <input type="text" /></label>
+			<input type="button" value="添加" />
+		</li>
+		<li>
+			<span>排序</span>
+			<select>
+				<option value="age">年龄</option>
+				<option value="id">编号</option>
+			</select>
+			<select>
+				<option value='2'>从高到底</option>
+				<option value='1'>从低到高</option>
+			</select>
+			<input type="button" value="提交" id="sub"/>
+			<input type="button" value="批量删除" id="rmore"/>
+		</li>
+	</ul>
+	<table id="tab" width="600" align="center" border="1">
+		<thead>
+			<th>全选<input type="checkbox" id="checkAll"></th>
+			<th index="id">编号</th>
+			<th>商品</th>
+			<th index="price">年龄</th>
+			<th>操作</th>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>	
+</section>
+</body>
+
+<script>
+	var data = [
+		{
+			'id' : 1,
+			'name' : 'momo',
+			'age' : 36,
+			'checked' : false
+		},
+		{
+			'id' : 2,
+			'name' : '小恋',
+			'age' : 40,
+			'checked' : false
+		},
+		{
+			'id' : 3,
+			'name' : 'yaya',
+			'age' : 20,
+			'checked' : false
+		},
+		{
+			'id' : 4,
+			'name' : 'feifei',
+			'age' : 10,
+			'checked' : false
+		},
+		{
+			'id' : 5,
+			'name' : 'hhehe',
+			'age' : 35,
+			'checked' : false
+		}
+	];
+
+	var oTab = document.getElementById("tab");
+	var tbody = oTab.tBodies[0];
+	var addPre = document.querySelector(".addPre");
+	var oName = addPre.getElementsByTagName("input")[0];
+	var oNameVal = null;
+	var oAge = addPre.getElementsByTagName("input")[1];
+	var oAgeVal = oAge.value;
+	var oAdd = addPre.getElementsByTagName("input")[2];
+	var maxnum = 0;//数据中的最大id
+
+	var sels = document.getElementsByTagName("select");
+	var oSub = document.getElementById("sub");
+	var oRm = document.getElementById("rmore");
+	var chkAll = document.getElementById("checkAll");
+
+	//创建元素 start ↓
+	var ipt1 = document.createElement("input");
+	ipt1.type = "checkbox";
+	var td1 = document.createElement("td");
+	td1.appendChild(ipt1);
+	var td2 = document.createElement("td");
+	var td3 = document.createElement("td");
+	var td4 = document.createElement("td");
+	var td5 = document.createElement("td");
+	td5.innerHTML = '<input type="button" value="删除"/><input type="button" value="上移"><input type="button" value="下移">';
+	var oTR = document.createElement("tr");
+	oTR.appendChild(td1);
+	oTR.appendChild(td2);
+	oTR.appendChild(td3);
+	oTR.appendChild(td4);
+	oTR.appendChild(td5);
+	//创建元素 end ↑
+
+	init();
+	function init() {
+		//将data写入html的tbody中
+		data.forEach((e) => {
+			ipt1.checked = e.checked;
+			td2.innerText = e.id;
+			td3.innerText = e.name;
+			td4.innerText = e.age;
+			tbody.appendChild(oTR.cloneNode(true));
+			// console.log(oTR.cloneNode(true));
+		});
+
+		var chks = Array.from(tbody.querySelectorAll('input[type="checkbox"]'));
+		//所有的都选上之后，全选按钮选中，否则全选不旋踵
+		chks.forEach((e, i) => {
+			e.onclick = function () {
+				//将是否选中 写入data
+				data[i].checked = e.checked;
+				chks.some(e => e.checked == false) ? chkAll.checked = false : chkAll.checked = true;
+			}
+		})
+
+		//点击全选按钮选中所有，反之取消所有,并将是否选中信息写入data
+		chkAll.onclick = function () {
+			// this.checked ? chks.forEach((e,i) => {e.checked = true;data[i].checked = true;}) : chks.forEach((e,i) => {e.checked = false;data[i].checked = false;})
+			// 简化
+			chks.forEach((e, i) => { e.checked = this.checked; data[i].checked = this.checked; })
+		}
+		//排序
+		oSub.onclick = function () {
+			tbody.innerHTML = "";
+			var m1 = sels[0].value;
+			var m2 = sels[1].value;
+			//将if判断改为 运算判断，优化性能
+			m2 == "1" && data.sort(function (a, b) {
+							return parseFloat(a[m1]) - parseFloat(b[m1])
+						 });
+			
+			m2 == "2" && data.sort(function (a, b) {
+							return parseFloat(b[m1]) - parseFloat(a[m1])
+						 });
+			init();
+		}
+		//批量删除
+		oRm.onclick = function () {
+			tbody.innerHTML = "";
+			// console.log(data)
+			for (var i = 0; i < data.length; i++) {
+				if (data[i].checked) {
+					data.splice(i, 1);
+					i--;
+				}
+			}
+			data.length == 0 && (chkAll.checked = false);
+			init();
+		}
+
+		// 删除、上下移
+		var trs = Array.from(tbody.getElementsByTagName("tr"));
+		trs.forEach((e, i) => {
+			var ipts = e.getElementsByTagName("input");
+			//删除
+			ipts[1].onclick = function () {
+				tbody.innerHTML = "";
+				data.splice(i, 1);
+				init();
+				// 如果删除的当前没选中，而其余全是选中，删除当前，剩余的全是选中，则全选按钮变为选中
+				chks = Array.from(tbody.querySelectorAll('input[type="checkbox"]'));
+				chks.some(e => e.checked == false) ? chkAll.checked = false : chkAll.checked = true;
+				 // 如果全部删除，则全选按钮取消选中
+				data.length == 0 && (chkAll.checked = false);
+			}
+			// 上移
+			ipts[2].onclick = function () {
+				tbody.innerHTML = "";
+				if (i > 0) data.splice(i - 1, 0, data.splice(i, 1)[0]);
+				init();
+			}
+			//下移
+			ipts[3].onclick = function () {
+				tbody.innerHTML = "";
+				if (i < trs.length - 1) data.splice(i + 1, 0, data.splice(i, 1)[0]);
+				init();
+			}
+		});
+	}
+	// 添加
+	oAdd.onclick = function () {
+		//点击的时候获取新输入的内容
+		oNameVal = myTrim(oName.value);
+		oAgeVal = parseFloat(myTrim(oAge.value));
+
+		if (oNameVal && oAgeVal) {
+			var maxnum = 0;
+			//移入ifvs ↓ ， 优化性能
+			data.forEach(e => {
+				!e && (maxnum = 1);
+				maxnum < e.id && (maxnum = e.id); //选出最大的id
+			});
+			//移入ifvs ↑
+			var nowId = maxnum + 1;
+			//生成新数据
+			var newObj = {
+				"id": nowId,
+				"name": oNameVal,
+				"age": oAgeVal,
+				"checked": false
+			}
+			data.push(newObj);
+			chkAll.checked = false;
+			tbody.innerHTML = "";//移入if中，条件成立才执行，优化性能
+			init();//移入if中，条件成立才执行，优化性能
+		}
+
+	}
+
+	//去除两端空格
+	function myTrim(str) {
+		return str.replace(/(^\s*)|(\s*$)/g, "");
+	}
+
+</script>
+</html>

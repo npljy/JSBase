@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="全选" id="all">
+    <input type="button" value="全不选" id="none">
+    <input type="button" value="反选" id="fanxuan">
+
+    <input type="checkbox" name="" >
+    <input type="checkbox" name="" >
+    <input type="checkbox" name="" >
+
+
+    
+    <script>
+        var all = document.getElementById("all");
+        var none = document.getElementById("none");
+        var fx = document.getElementById("fanxuan");
+        var ipts = document.querySelectorAll("input[type='checkbox']");
+        var iptLen = ipts.length; 
+        
+        all.onclick = function()
+        {
+            for(var i=0 ; i< iptLen; i++)
+            {
+                ipts[i].checked = true;
+            }
+        }
+        none.onclick = function()
+        {
+            for(var i=0 ; i< iptLen; i++)
+            {
+                ipts[i].checked = false;
+            }
+        }
+        fx.onclick = function()
+        {
+            for(var i=0 ; i< iptLen; i++)
+            {
+                if(ipts[i].checked == false)
+                {
+                    ipts[i].checked = true;
+                }
+                else if(ipts[i].checked == true)
+                {
+                    ipts[i].checked = false;
+                }
+                
+            }
+        }
+    </script>
+</body>
+</html>

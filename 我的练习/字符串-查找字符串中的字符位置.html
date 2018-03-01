@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var str1 = "imiaoivmiaoivmiaoivmiaoivmiaoi";
+
+        function searchIndex(str,sw,num=0)
+        {
+            var idx = str.indexOf(sw,num);
+            var arr = [];
+            var maxStr;  
+
+            while(idx != -1)
+            {
+                arr.push(idx);
+                num = idx+1;
+                idx = str.indexOf(sw,num);           
+            }
+
+            maxStr = str.charAt(Math.max.apply(null,arr)+1) ? str.charAt(Math.max.apply(null,arr)+1) : "空" ;
+            return "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;找到的下标是:" + arr+"<br><br>&nbsp;&nbsp;&nbsp;&nbsp;最后一个后面的是:"+maxStr;   
+        }
+
+        document.write(searchIndex(str1,'i'));
+        
+
+        //利用lastIndexOf
+        var str2 = "imiaoivmiaoivmiaoivmiaoivmiaoi";
+        var s2Len = str2.length-1;
+        // console.log(str2.lastIndexOf("i",-1))
+        function searchLastIndex(str,sw,num)
+        {
+            var idx = str.lastIndexOf(sw,num);
+            var arr = [];
+            var maxStr;  
+
+            while(idx != -1 )
+            {
+                arr.push(idx);
+                num = idx-1;
+                if(num == -1 )break;
+                idx = str.lastIndexOf(sw,num);           
+            }
+            // arr.reverse(); // reverse() 方法用于颠倒数组中元素的顺序。该方法会改变原来的数组，而不会创建新的数组。
+            maxStr = str.charAt(Math.min.apply(null,arr)+1) ? str.charAt(Math.min.apply(null,arr)+1) : "空" ;
+            return "<br><br>&nbsp;&nbsp;&nbsp;&nbsp;找到的下标是:" + arr+"<br><br>&nbsp;&nbsp;&nbsp;&nbsp;最后一个后面的是:"+maxStr;   
+        }
+
+        document.write(searchLastIndex(str2,'i'));
+
+        console.log('a'.split("a"));
+    </script>
+</body>
+</html>

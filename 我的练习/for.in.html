@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>for in</title>
+</head>
+<body>
+<div id="box"></div>
+    <script>
+        let obj = {
+            width:'200px',
+            height:'200px',
+            border:'10px solid #000',
+            background:'red'
+
+        }
+
+        for( var attr in obj){
+            box.style[attr] = obj[attr];
+        }
+    </script>
+</body>
+</html>

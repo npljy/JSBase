@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="date"><br><br><br><br>
+
+<input type="button" value="0" >&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="0" >&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="0" >&nbsp;&nbsp;&nbsp;&nbsp;
+
+<script>
+    window.onload = function()
+    {
+        var ipts = document.getElementsByTagName("input");
+        var words = ["A","B","C","D","E","F","G"];
+        for(var i = 0 ; i < ipts.length ; i++)
+        {
+            ipts[i].num = 0 ;
+            ipts[i].onclick = function()
+            {
+               // alert(words[this.num]);
+                this.value = words[this.num];
+                this.num ++ ;
+                if(this.num === words.length)
+                {
+                    this.num = 0 ;
+                }
+            }
+        }
+
+    }
+</script>
+
+</body>
+</html>

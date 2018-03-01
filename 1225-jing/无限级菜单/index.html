@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			html {
+
+				width: 100%;
+				height: 100%;
+			}
+			body{
+				margin: 0px;
+				width: 100%;
+				height: 100%;
+			}
+			.main {
+				width: 100%;
+				height: 100%;
+				background: url(./image/bg.png) no-repeat;
+				background-size: 100% 100%;
+				/* overflow: hidden; */
+			}
+			.logo {
+				display: block;
+				width: 200px;
+				height: 55px;
+				background: url(./image/logo.png) no-repeat;
+				margin: 20px auto;
+			}
+			ul{
+				list-style: none;
+				font-size: 22px;
+				color: #8c949c;
+				font-weight: bold;
+				
+			}
+
+			ul li {
+				position: relative;
+				padding-left: 10px;
+				
+			}
+
+			ul li div{
+				height: 98%;
+				width: 1px;
+				border-left: 1px dotted #ccc;
+				position: absolute;
+				left: 14px;
+				top: 18px;
+			}
+
+			ul ul{
+				display: none;
+				
+			}
+
+			ul li span {
+				display: block;
+				line-height: 32px;
+				padding-left: 15px;
+				background: url(./image/icon.png) no-repeat left 500px;
+
+			}
+			
+			ul li span.add {
+				background-position: 0px -32px;
+			}
+			ul li span.line {
+				background-position: 0px 11px;
+			}
+
+
+			.tree {
+				margin-left: 300px;
+			}
+
+		</style>
+		<script>
+
+		/*
+			通过数据把结构生成出来。
+		*/
+	window.onload=function(){
+
+
+		var arr = [
+		    {
+		        title : "第一级菜单1",
+		        child : [
+		        	{title:"第二集菜单"},
+		            {title:"第二集菜单",
+		            child:[
+		            		{title:"第三集菜单"},
+		            		{title:"第三集菜单",
+		            		child:[
+		            			{title:"第四集菜单"},
+		            			{title:"第四集菜单"},
+		            			{title:"第四集菜单"}
+		            		]
+		            		},
+		            		{title:"第三集菜单"}
+		            	]
+		        	},
+		            {
+		            	title:"第二集菜单",
+		            	child:[
+		            		{title:"第三集菜单"},
+		            		{title:"第三集菜单"}
+		            	]
+		            }
+		        ]
+		    },
+		    {
+		        title : "第一级菜单2",
+		        child : [
+		        	{title:"第二集菜单"},
+		            {title:"第二集菜单",
+		            child:[
+		            		{title:"第三集菜单"},
+		            		{title:"第三集菜单",
+		            		child:[
+		            			{title:"第四集菜单"},
+		            			{title:"第四集菜单"},
+		            			{title:"第四集菜单"}
+		            		]
+		            		},
+		            		{title:"第三集菜单"}
+		            	]
+		        	},
+		            {
+		            	title:"第二集菜单",
+		            	child:[
+		            		{title:"第三集菜单"},
+		            		{title:"第三集菜单"}
+		            	]
+		            }
+		        ]
+		    },
+		    {
+		    	title:"第一集菜单3",
+		    	child : [
+		        	{title:"第二集菜单"},
+		            {title:"第二集菜单",
+		            
+		        	},
+		            {
+		            	title:"第二集菜单",
+		            	child:[
+		            		{title:"第三集菜单"},
+		            		{title:"第三集菜单"}
+		            	]
+		            }
+		        ]
+		         
+		    }
+		];
+		
+		var Oul1=document.getElementById('oUl');
+		var len=arr.length;
+		var str='';
+	
+
+		show(arr,'','');
+		console.log(arr)
+		function show(arr,str1,str2){
+			str+=str1;
+			for(var i=0;i<len;i++){				
+				if(arr[i].child==undefined){	
+					str+='<li><span>'+arr[i].title+'</span></li>'; 								
+					if(i==(arr.length-1))return str+=str2;
+				}else{
+					if(i<len-1){
+						str+='<li><span class="add">'+arr[i].title+'<div></div></span>'
+					}else{
+						str+='<li><span class="add">'+arr[i].title+'</span>';
+					}		
+					show(arr[i].child,'<ul>','</ul>');	
+					str+='</li>'							 
+				}			
+			}
+			str+=str2		
+		}
+		Oul1.innerHTML=str;
+
+		function clearadd(e){
+							var spanss=Array.from(e.querySelectorAll('.line'))
+							spanss.forEach(function(e){
+								e.className='add';
+								e.onoff=true;
+								e.nextElementSibling.style.display='none';
+							})
+							}	
+
+		span_onclick();
+		function span_onclick(){
+			var spans=[].slice.call(Oul1.getElementsByTagName('span'));
+			spans.forEach(function(e,i){
+				e.onoff=true;
+				e.onclick=function(){
+					lis=Array.from(e.parentNode.parentNode.children)
+					var _this=e;
+					lis=lis.filter(function(e){
+						if(e.querySelector('span')!=_this){return true}						
+					})
+					lis.forEach(function(e,i){
+						if(e.querySelector('span').className=='line'){
+							e.querySelector('span').className='add';
+							e.querySelector('span').onoff=true;
+							e.querySelector('ul').style.display='none'
+							clearadd(e);
+						}
+					})
+					if(e.onoff==true){
+						e.nextElementSibling.style.display='block';
+						e.className='line'
+						e.onoff=false;
+					}else{
+						e.nextElementSibling.style.display='none';
+						e.className='add'
+						e.onoff=true;	
+						clearadd(e.parentNode);
+					}					
+				}				
+			});
+
+	}
+	}
+
+
+
+		</script>
+	</head>
+
+	<body>
+		<div class="main">
+			<a href="http://www.miaov.com" class="logo"></a>
+			<div class="tree">
+				<ul id="oUl">
+					
+				</ul>
+			</div>
+
+		</div>
+	</body>
+</html>

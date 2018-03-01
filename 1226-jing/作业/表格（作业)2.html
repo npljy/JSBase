@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+<style type="text/css">
+body,
+h1 {
+	margin: 0;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+input {
+	outline: none;
+}
+table {
+	border-collapse: collapse;
+	border: #bbb;
+}
+body {
+	width: 100%;
+	height: 100%;
+	/*background: url(img/2.jpg) no-repeat;*/
+}
+.tBody {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	margin-top: 30px;
+	padding: 20px 30px 40px;
+	background-color: rgba(255,255,255,.6);
+}
+.title {
+	text-align: center;
+	color: #fca113;
+	text-shadow: 0 0 2px #fcf913;
+	line-height: 50px;
+}
+table {
+	background-color: #fff;
+}
+th {
+	background-color: #ddd;
+}
+tr {
+	height: 30px;
+}
+ul {
+	padding: 5px 0;
+	width: 600px;
+	text-align: center;
+}
+td{
+	text-align: center;
+}
+td input {
+	margin: 0 2px;
+}
+li {
+	padding: 5px 0;
+	overflow: hidden;
+}
+label {
+	display: inline-block;
+}
+input[type="text"] {
+	border: 1px solid #ccc;
+	width: 80px;
+	height: 20px;
+}
+/*.active {
+	background-color: #f7cb75;
+}*/
+/*#tab tbody tr:hover {
+	background-color: #f7cb75;
+}*/
+</style>
+</head>
+<body>
+<section class="tBody">
+	<h1 class="title"></h1>
+	<ul id="header">
+		<li class="addPre">
+			<label>名字： <input type="text" name="" /></label>
+			<label>年龄： <input type="text" /></label>
+			<input type="button" value="添加" />
+		</li>
+		<li>
+			<span>排序</span>
+			<select>
+				<option value="price">年龄</option>
+				<option value="id">编号</option>
+			</select>
+			<select>
+				<option value='2'>从高到底</option>
+				<option value='1'>从低到高</option>
+			</select>
+			<input type="button" value="提交" />
+			<input type="button" value="批量删除" />
+		</li>
+	</ul>
+	<table id="tab" width="600" align="center" border="1">
+		<thead>
+			<th>全选<input type="checkbox" id="checkAll"></th>
+			<th index="id">编号</th>
+			<th>商品</th>
+			<th index="price">年龄</th>
+			<th>操作</th>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="checkbox"></td>
+				<td>1</td>
+				<td>露露</td>
+				<td>12</td>
+				<td>
+					<input type="button" value="删除"/>
+					<input type="button" value="上移">
+					<input type="button" value="下移">
+				</td>
+			</tr>
+		</tbody>
+	</table>	
+</section>
+</body>
+
+<script>
+var dnum=[];
+var Delnum=[];
+var data = [
+    {
+        'id' : 1,
+        'name' : 'momo',
+        'price' : 36
+    },
+    {
+        'id' : 2,
+        'name' : '小恋',
+        'price' : 40
+    },
+    {
+        'id' : 3,
+        'name' : 'yaya',
+        'price' : 20
+    },
+    {
+        'id' : 4,
+        'name' : 'feifei',
+        'price' : 10
+    },
+    {
+        'id' : 5,
+        'name' : 'hhehe',
+        'price' : 35
+    }
+];
+var arr=[];
+//初始化页面
+var Trs=Array.from(document.getElementsByTagName('tr'));
+var Tab=document.getElementById('tab')
+data.forEach(function(e,i){
+	var clones=Trs[1].cloneNode(true);
+	var child=clones.children;
+	var NewR=Tab.insertRow();
+	child[1].innerHTML=e.id;
+	child[2].innerHTML=e.name;
+	child[3].innerHTML=e.price;	
+	Array.from(child).forEach(function(e,i){
+		var x=NewR.insertCell(i)
+		x.innerHTML=e.innerHTML
+	})	
+})
+Trs[1].style.display='none'
+Trs=Array.from(document.getElementsByTagName('tr'))
+Num();
+
+//获取表格信息
+function Num(){
+	Trs=Array.from(document.getElementsByTagName('tr'))
+	Trs.forEach(function(e,i){
+		if(i==0||i==1)return		
+		arr[i-2]=e.querySelector('input').checked;
+	})
+	fn();
+	al();
+	console.log(data)
+	Data();
+	console.log(data)
+}
+
+//写data数组
+function Data(){
+	data=[];
+	console.log(arr)
+	Trs.forEach(function(e,i){
+		if(i==0||i==1)return;		
+		data.push({'id' : e.children[1].innerText*1,'name' : e.children[2].innerText,'price' :e.children[3].innerText*1,'check' : arr[i-2]})
+	})
+}
+
+//创建一个新行
+var Add=document.querySelector('.addPre');
+var Add_inputs=Add.querySelectorAll('input');
+Add_inputs[2].onclick=function(){
+	if(!Add_inputs[1].value || !Add_inputs[0].value){
+		alert('请检查输入内容');
+		return
+	}
+	if(parseFloat(Add_inputs[1].value)!=Add_inputs[1].value){
+		alert('年龄格式不正确');
+		return
+	}
+	console.log(parseFloat(Add_inputs[0].value))
+	var clones=Trs[1].cloneNode(true);
+	var child=clones.children;
+	var NewR=Tab.insertRow(Trs.length);
+	child[1].innerHTML=Trs.length-1;
+	child[2].innerHTML=Add_inputs[0].value;
+	child[3].innerHTML=Add_inputs[1].value;
+	Array.from(child).forEach(function(e,i){
+		var x=NewR.insertCell(i)
+		x.innerHTML=e.innerHTML
+	})	
+	Add_inputs[0].value=Add_inputs[1].value='';	
+	Data()
+	Num()
+
+}
+
+function DelNum(Delnum){
+	Trs=Array.from(document.getElementsByTagName('tr'))
+	Delnum.forEach(function(e,i){
+		var num1=e;
+		console.log(num1)
+		Trs.forEach(function(e,i){
+			if(i==0||i==1)return;
+			if(e.children[1].innerText>=num1){--e.children[1].innerText}
+		})
+	})
+	Num();
+}
+
+//删除一行
+function Del(i){
+	Delnum=[];
+	Delnum.unshift(Trs[i].children[1].innerText);
+	Tab.deleteRow(i)
+	DelNum(Delnum);
+}
+//上移
+function Up(e,i){
+	if(i==2){
+		e.parentNode.appendChild(e)
+
+	}else{
+		e.parentNode.insertBefore(e,e.previousElementSibling)
+	}
+	Num();
+}
+//下移
+function Down(e,i){
+	if(i==(Trs.length-1)){
+		e.parentNode.insertBefore(e,e.parentNode.firstElementChild.nextElementSibling)
+	}else{
+		e.parentNode.insertBefore(e,e.nextElementSibling.nextElementSibling)
+	}
+	Num();
+}
+//判断是否全选
+function al(){
+	if(arr.every(function(e,i){
+		if(e==true){return true}
+			})){Trs[0].querySelector('input').checked=true}
+		else{
+			Trs[0].querySelector('input').checked=false
+	}
+}
+//加事件
+function fn(){
+	Trs.forEach(function(e,i){
+		if(i==0){//全选反选
+			var Btns=e.querySelector('input');
+			Btns.onclick=function(){
+				if(Btns.checked){
+					Trs.forEach(function(e,i){
+						if(i==0||i==1)return
+						var input1=e.querySelector('input');
+						input1.checked=true;
+						arr[i-2]=(input1.checked)
+					})
+				}else{
+					Trs.forEach(function(e,i){
+						if(i==0||i==1)return
+						var input1=e.querySelector('input');
+						input1.checked=false
+						arr[i-2]=(input1.checked)
+					})
+				}
+				Data();				
+			}
+			return;
+		}
+		var Btns=e.querySelectorAll('input')
+		Btns[1].onclick=function(){
+			Del(i);
+		}
+		Btns[2].onclick=function(){
+			Up(e,i);
+		}
+		Btns[3].onclick=function(){
+			Down(e,i);
+		}
+		Btns[0].onclick=function(){
+			arr[i-2]=this.checked;
+			al();
+			Data();	
+		}
+	})
+}	
+
+//批量删除
+var BtnD=document.getElementById('header').querySelectorAll('input')[4];
+BtnD.onclick=function(){
+	var arr2=[];	Delnum=[];
+	Trs.forEach(function(e,i){
+		if(e.querySelector('input').checked==true&&i!=0){
+			arr2.unshift(i)
+			Delnum.unshift(e.children[1].innerText);
+		}
+	})
+	arr2.forEach(function(e,i){
+		Tab.deleteRow(e)
+	})
+	DelNum(Delnum);
+}
+
+//排序
+var BtnS=document.getElementById('header').querySelectorAll('input')[3]
+var Select=document.querySelectorAll('select')
+BtnS.onclick=function(){
+	//获取选择的信息
+	// V1=Select[0].options[Select[0].selectedIndex].innerText;
+	// V2=Select[1].options[Select[1].selectedIndex].innerText;
+	V1=Select[0].value;
+	V2=Select[1].value;
+	dataS(V1,V2);
+}
+
+//sort排序
+function dataS(V1,V2){
+	data.sort(function(a,b){
+		console.log(V2)
+		if(V2=='2'){return a[V1]<b[V1];}
+		else{return a[V1]>b[V1]; };
+	})
+	Trs.forEach(function(e,i){
+		if(i==0||i==1)return;
+		e.querySelector('input').checked=data[i-2]['check'];
+		e.children[1].innerText=data[i-2]['id'];
+		e.children[2].innerText=data[i-2]['name'];
+		e.children[3].innerText=data[i-2]['price'];
+	})
+}
+
+</script>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>评价打分</title>
+    <style>
+        #content {
+            width: 100%;
+            height: 1000px;
+            background: skyblue;
+            overflow: hidden;
+        }
+
+        #box {
+            width: 500px;
+            height: 300px;
+            background: white;
+            margin: 200px auto;
+            border-radius: 20px;
+            border: 10px solid red;
+            text-align: center;
+            padding-top: 40px;
+            box-sizing: border-box;
+        }
+        #oul{
+            margin-left: 50px;
+        }
+        li{
+            cursor: pointer;
+            list-style:none;
+            width: 30px;   
+            height: 30px;
+            float: left;
+            padding-right: 10px;
+            background: url(img/bai.png)  no-repeat center;
+        }
+        span{
+            background: red;
+            color: white;
+            display: inline-block;
+            width: 50px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 5px;
+            visibility: hidden;
+        }
+
+        p::before{
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        .hong {
+            background: url(img/hong.png)  no-repeat center;
+        }
+        .hui{
+            background: url(img/hui.png)  no-repeat center;
+        }
+        p{
+            font-size: 22px;
+            padding: 2px 20px;
+            zoom: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <div id="box">
+            <h1>妙味课堂</h1>
+            <ul id="oul">
+                <li class="li1"></li>
+                <li class="li2"></li>
+                <li class="li3"></li>
+                <li class="li4"></li>
+                <li class="li5"></li>
+            </ul>
+            <span id="sp">评价</span>
+            <p>
+                五星好评+20字以上评价+晒图，截图发送给客服领万元红包！
+            </p>
+        </div>
+    </div>
+
+    <script>
+        var oul = document.getElementById("oul");
+        var lis = document.querySelectorAll("li");
+        var lisLen = lis.length;
+        var sp = document.getElementById("sp");
+        var sText = ["极差","一般","不错","推荐","力推"]
+        var num = 0;
+        var last = true;
+        
+        for(var i = 0 ; i < lisLen ; i++)
+        {
+            lis[i].idx = i;
+            lis[i].onclick = function()
+            {
+                last = false;//点击过之后就不会出现下面注释的情况了
+                addclick(this.idx);
+                num = this.idx;
+            }
+            lis[i].onmouseover = function()
+            {
+                addclick(this.idx);
+            }
+            lis[i].onmouseout = function()
+            {
+                addclick(num);
+                //如果是第一个，没有点击时，鼠标离开第一个星星的颜色无法改变，即addclick方法num=0的情况
+                last && (lis[0].classList.remove("hui"), sp.style.visibility = "hidden", sp.innerText = "评价") 
+            }
+        }
+
+        function addclick(num)
+        {
+            sp.style.display = "inline-block";
+            for(var j = 0 ; j < lisLen ; j++)
+            {
+                lis[j].classList.remove("hong");
+                lis[j].classList.remove("hui");
+            }
+            
+            for(var i = 0 ; i <= num ; i++)
+            {
+                sp.style.visibility = "visible";
+                sp.innerText = sText[num];
+                num < 2 ? ( lis[i].classList.add("hui") , lis[i].classList.remove("hong") ): ( lis[i].classList.add("hong") , lis[i].classList.remove("hui") ) ;
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
