@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jsonp</title>
+</head>
+<body>
+    <input type="text" id="ipt">
+    <ul id="ul"></ul>
+    <script>
+        const ipt = document.getElementById("ipt");
+        const ul = document.getElementById("ul");
+        const hd = document.getElementsByTagName("head")[0];
+        let fname = "fff";
+        ipt.onkeyup = function(){
+            
+            var sc = document.createElement("script");
+            sc.src="https://sug.so.360.cn/suggest?callback="+fname+"&encodein=utf-8&encodeout=utf-8&format=json&fields=word&word="+this.value;
+            hd.appendChild(sc);
+            sc.remove();
+        }
+        window[fname] = function(data){
+            console.log(data)
+            ul.innerHTML = "";
+            let html = "";
+            data.result.forEach(e=>{
+                html += "<li>" + e.word + "</li>";
+            })
+            ul.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

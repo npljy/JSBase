@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    用户名:<input type="text" id="user"/>
+<script>
+    
+    const user = document.getElementById('user');
+    user.onblur = function(){
+        ajax(
+           '/get',
+            'get',
+            'name='+this.value,
+            function(data){
+                console.log(JSON.parse(data));
+            }
+        );
+    }
+
+    function ajax(url,method,data,success){
+        const ajax = new XMLHttpRequest;
+        ajax.open(method,url+'?'+data,true);
+        ajax.send();
+        ajax.onload = function(){
+            success(ajax.responseText);
+        }
+    }
+
+
+</script>
+</body>
+</html>

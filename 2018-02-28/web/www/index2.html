@@ -1,0 +1,261 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="/public/css/weibo.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="nArea">
+    <!--留言-->
+    <div class="takeComment">
+        <textarea name="textarea" class="takeTextField" id="text"></textarea>
+        <div class="takeSbmComment">
+            <input type="button" id="submit" class="inputs" value=""/>
+            <span>(可按 Enter 回复)</span>
+        </div>
+    </div>
+    <!--已留-->
+    <div class="commentOn">
+        <div class="messList" id="div1" style="height:502px">
+            <!--<div class="reply">
+                <p class="replyContent">卫士，新款卫士将推出总共14种车身式样。其中， XS旅行款车型售价为32295英镑(约33.6万元)。</p>
+                <p class="operation">
+                    <span class="replyTime">2018-09-08 16:37:60</span>
+                    <span class="handle">
+                        <a href="javascript:;" class="top">0</a>
+                        <a href="javascript:;" class="down_icon">0</a>
+                        <a href="javascript:;" class="cut">删除</a>
+                    </span>
+                </p>
+            </div>-->
+        </div>
+        <div class="page" id="page">
+
+        </div>
+    </div>
+</div>
+</body>
+<script src="/public/js/ajax_1.0.js"></script>
+<script>
+    /*
+      添加数据：  /api/weibo
+      get
+        act	=	add
+        content	内容
+
+        http://www.localhost:88/weibo?act=add&content=你好
+      return
+        {
+          code : 0为成功
+          msg	 : 提示信息
+          id	 : 返回id
+          time : 返回时间戳    
+        }
+    */
+
+    const submit = document.getElementById('submit');
+    const div1 = document.getElementById('div1');
+    const text = document.getElementById('text');
+	const page = document.getElementById('page');
+	let p = 1;
+	let pcount=1;
+    submit.onclick = function(){
+		let html = '';
+		let val = text.value.trim();
+		if(!val){
+			alert('请输入内容');
+		}else{
+			ajax({
+			url:'/api/weibo',
+			data:{
+				act:'add',
+				content:val
+			},
+			success:function(data){
+				if(data.code === 0){
+				// console.log(data)
+				let div = render(val,data.time,data.id,data.like,data.dislike);
+				div1.innerHTML = div + div1.innerHTML;
+				text.value = '';
+				}
+			}
+			});
+		}
+    }
+
+
+    /*
+      http://www.localhost:88/api/weibo?act=get&page=1  
+      获取数据：  /api/weibo
+        get
+          act		get
+          page	页码(num) 从1开始
+        return
+          数据数组
+          若失败：
+            code   错误码
+            msg	   提示信息
+    */
+
+   	function renders(){
+		ajax({
+			url:'/api/weibo',
+			data:{
+				act:'get',
+				page:p
+			},
+			success:function(data){
+			
+				let html = '';
+				data.forEach(e => {
+				let div = render(e.content,e.time,e.id,e.like,e.dislike);
+				html += div;
+				});
+
+				div1.innerHTML = html;
+			}
+		});
+	}
+
+   	renders();
+   	renderPages();
+    /*
+       http://www.localhost:88/api/weibo?act=like&id=id
+      点赞：  /api/weibo
+        get
+          act		like
+          id		id
+        return
+          code   0为成功
+          msg	   提示信息
+    */
+
+    div1.onclick = function(ev){
+      	if(ev.target.className === 'top'){
+        //alert(ev.target.parentNode.dataset.index)
+			let id = ev.target.parentNode.dataset.index;
+			ajax({
+				url:'/api/weibo',
+				data:{
+					act:'like',
+					id:id
+				},
+				success:function(data){
+					// console.log(data);
+					renders();
+				}
+			})
+		}
+
+		if(ev.target.className === 'down_icon'){
+			//alert(ev.target.parentNode.dataset.index)
+			let id = ev.target.parentNode.dataset.index;
+			ajax({
+				url:'/api/weibo',
+				data:{
+				act:'dislike',
+				id:id
+				},
+				success:function(data){
+				// console.log(data);
+					renders();
+				}
+			})
+		}
+
+
+		if(ev.target.className === 'cut'){
+		//alert(ev.target.parentNode.dataset.index)
+			
+			let id = ev.target.parentNode.dataset.index;
+			ajax({
+				url:'/api/weibo',
+				data:{
+					act:'del',
+					id:id
+				},
+				success:function(){
+					renders();
+					renderPages();
+					setTimeout(()=>{
+						if(p > pcount){
+							p=Math.ceil(pcount/6);
+						}  
+						renders();
+					},50)
+				}
+			})
+
+		}
+	}
+	page.onclick = function(ev){
+		if(ev.target.className === 'pagenum'){
+			//alert(ev.target.parentNode.dataset.index)
+			p = parseInt(ev.target.innerText);
+			ajax({
+				url:'/api/weibo',
+				data:{
+					act:'get',
+					page:p
+				},
+				success:function(data){
+					let html = '';
+					data.forEach(e => {
+					let div = render(e.content,e.time,e.id,e.like,e.dislike);
+					html += div;
+					});
+					div1.innerHTML = html;
+				}
+			});
+
+		}
+	}
+
+
+	function renderPages(){
+		let html = "";
+		ajax({
+			url:'/api/weibo',
+			data:{
+				act:'get_page_count',
+			},
+			success:function(data){
+				pcount = data.count;
+				for(let i = 0 ; i < pcount ; i++){
+					html += "<a class='pagenum'>"+(i+1)+"</a>"
+				}
+				page.innerHTML = html;
+
+			}
+        })
+		
+	}
+
+    function render(val,time,id,like=0,dislike=0){
+		renderPages();
+      	let date = new Date(time);
+      	let str = date.getFullYear()+ '-' + toDou(date.getMonth()+1) +'-'+toDou(date.getDate())+' '+toDou(date.getHours()) + ':'+ toDou(date.getMinutes())+':'+ toDou(date.getSeconds())
+
+		let html = `
+				<div class="reply">
+						<p class="replyContent">${val}</p>
+						<p class="operation">
+							<span class="replyTime">${str}</span>
+							<span class="handle" data-index="${id}">
+								<a href="javascript:;" class="top">${like}</a>
+								<a href="javascript:;" class="down_icon">${dislike}</a>
+								<a href="javascript:;" class="cut">删除</a>
+							</span>
+						</p>
+				</div>
+		`;
+      	return html;
+    }
+
+    function toDou(n){
+      return n<10?'0'+n:''+n;
+    }
+  
+</script>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    用户名:<input type="text" id="user"/>
+<script>
+    
+    /*
+        {
+            name:chaoxue,
+            pass:123
+        }
+
+        name=chaoxue&pass=123
+    */
+
+    const user = document.getElementById('user');
+    user.onblur = function(){
+        ajax({
+            url:'/get',
+            data:{
+                name:this.value
+            },
+            success:function(data){
+                console.log(data);
+            }
+        });
+    }
+
+    //url,method,data,success
+    function ajax(json){
+        var opt = {
+            url:'',
+            data:{},
+            type:'get',
+            success:function(){}
+        }
+        //有配置走配置，没配置走默认
+        Object.assign(opt,json);
+        var ajax = new XMLHttpRequest;
+
+        //把对象转成字符串
+        var arr = [];
+        for(var attr in opt.data){
+            arr.push(attr + '=' + opt.data[attr]);
+        }
+        opt.data = arr.join('&');
+        
+        ajax.open(opt.type,opt.url+'?'+opt.data,true);
+        ajax.send();
+        ajax.onload = function(){
+            opt.success(ajax.responseText);
+        }
+    }
+
+
+</script>
+</body>
+</html>

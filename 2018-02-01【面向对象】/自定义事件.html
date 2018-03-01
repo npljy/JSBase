@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义事件</title>
+</head>
+<body>
+    <script>
+        class DefineEvent{
+            constructor(){
+                this.store = {};
+            }
+
+            addEvent(type,fn){
+                this.store[type] = this.store[type] || [];
+                this.store[type].push(fn); 
+                this.store[type] = [...new Set(this.store[type])];
+            }
+
+            trigger(type){
+                this.store[type].forEach( fns=>{
+                    fns();
+                });
+            }
+
+        }
+
+        let d1 = new DefineEvent;
+        d1.addEvent("点击",function fn1(){
+            alert("11");
+        });
+        d1.addEvent("点击",function fn1(){
+            alert("多余的11");
+        });
+        d1.addEvent("点击",function fn2(){
+            alert("22");
+        });
+
+        d1.trigger("点击");
+    </script>
+</body>
+</html>

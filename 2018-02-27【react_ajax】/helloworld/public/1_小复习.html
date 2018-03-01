@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    用户名:<input type="text" id="user"/>
+<script>
+    const user = document.getElementById('user');
+    user.onblur = function(){
+        /*
+            /get
+
+            name:"chaoxue"
+            pass:123456
+
+            返回:
+            {
+                code:0,
+                msg:一些描述信息
+            }
+
+            encodeURI()
+        */
+        const ajax = new XMLHttpRequest;
+        // ajax.open('get','/get?name='+this.value);
+        ajax.open('post','/post');
+        ajax.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+        ajax.send('username='+this.value);
+        ajax.onload = function(){
+            console.log(JSON.parse(ajax.responseText));
+        }
+    }
+</script>
+</body>
+</html>

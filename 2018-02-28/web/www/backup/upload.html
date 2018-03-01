@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="author" content="Reddy.Huang <i@0u0b.com>"/>
+    <title>文件上传</title>
+    <style>
+        .top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: dodgerblue;
+        }
+    </style>
+</head>
+<body>
+<div class="top"></div>
+<!--<form action="/api/upload" method="post" enctype="multipart/form-data">-->
+<input type="file" name="file" id="file">
+<input type="submit" id="btn">
+<!--</form>-->
+<script>
+  let file = document.getElementById('file');
+  let btn = document.getElementById('btn');
+
+  btn.onclick = function () {
+    let xhr = new XMLHttpRequest();
+    xhr.open('post', '/api/upload');
+    let formData = new FormData();
+    formData.append('file', file.files[0]);
+    let top  = document.getElementsByClassName('top')[0];
+    xhr.upload.onprogress = function (ev) {
+      top.style.width = (ev.loaded/ev.total) * 100 + '%';
+    };
+    xhr.send(formData);
+    xhr.onload = function () {
+      console.log(xhr.responseText);
+      setTimeout(function () {
+        top.style.width = '0';
+      }, 1000);
+    }
+  }
+</script>
+</body>
+</html>

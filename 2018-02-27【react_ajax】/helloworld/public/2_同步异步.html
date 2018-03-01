@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    用户名:<input type="text" id="user"/>
+<script>
+    /*
+        同步:
+            必须等到上面的代码执行完成，才会执行下面的代码
+
+        异步:
+            不用等到上面的代码执行完成，直接执行下面的代码
+    */
+    const user = document.getElementById('user');
+    user.onblur = function(){
+        const ajax = new XMLHttpRequest;
+        ajax.open('get','/sleep?name='+this.value,false);
+        ajax.send('username='+this.value);
+    
+        // ajax.onload = function(){
+        // }
+        // console.log(ajax.responseText);
+        console.log(JSON.parse(ajax.responseText));
+        console.log(123);
+    }
+</script>
+</body>
+</html>

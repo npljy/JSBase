@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        {
+            name:chaoxue,
+            pass:123
+        }
+
+        name=chaoxue&pass=123     [name=chaoxue,pass=123]
+    */
+
+    let obj = {
+        name:'chaoxue',
+        pass:123
+    }
+
+    let arr = [];
+
+    for(let attr in obj){
+        arr.push(attr+'='+obj[attr]);
+    }   
+
+    console.log(arr.join('&'));
+
+</script>
+</body>
+</html>

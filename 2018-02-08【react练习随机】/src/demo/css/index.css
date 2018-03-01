@@ -1,0 +1,89 @@
+body,
+p {
+	margin: 0;
+}
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+img {
+	border: none;
+	vertical-align: top;
+}
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+.clearfix {
+	zoom: 1;
+}
+#wrap {
+	width: 1000px;
+	height: 700px;
+	background: url(../img/bg.png) no-repeat;
+	margin: 30px auto;
+}
+#head {
+	width: 100%;
+	height: 210px;
+	margin: 0 auto;
+	text-align: center;
+}
+#head img {
+	width: 200px;
+	height: 48px;
+	margin-top: 56px;
+}
+#btn {
+	width: 100%;
+	text-align: center;
+}
+#btn span {
+	display: inline-block;
+	width: 148px;
+	height: 38px;
+	font: 18px/38px helvetica;
+	color: #332d52;
+	border: 1px solid #4f497e;
+	background: #c4c2de;
+	margin: 33px 30px 0;
+	border-radius: 20px;
+	cursor: pointer;
+}
+#btn .active {
+	color: #fff;
+	border: 1px solid #998ccb;
+	background: #332d52;
+}
+.list {
+	width: 840px;
+	height: 446px;
+	margin: 0 auto;
+}
+.list li {
+	float: left;
+	width: 150px;
+	height: 163px;
+	margin: 27px 30px 33px;
+	z-index: 1;
+}
+.list img {
+	width: 150px;
+	height: 150px;
+	box-shadow: 0 0 8px #5d569a;
+}
+.list p {
+	width: 110px;
+	height: 30px;
+	margin: -17px auto 0;
+	background: #fff;
+	border-radius: 13px;
+	font: 14px/30px Arial,"宋体";
+	color: #7662a6;
+	text-align: center;
+	position: relative;
+	z-index: 2;
+	box-shadow: 0 0 6px rgba(0, 0, 0, .4);
+}
