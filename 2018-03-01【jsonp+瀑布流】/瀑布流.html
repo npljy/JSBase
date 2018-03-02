@@ -9,22 +9,39 @@
             margin: 0;
             padding: 0;
         }
+        ul{
+            margin: 0 auto;
+            position: relative;
+        }
         li{
             list-style: none;
             position: absolute;
+            transition: 1s;
+        }
+        #load{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: red;
+            opacity: 0;
+            display: none;
+            transition: 1s;
+        }
+        #load p{
+            margin: 0 auto;
+            text-align: center;
+            font-weight: bolder;
+            font-size: 30px;
         }
     </style>
 </head>
 
 <body>
-
-    <div>
-        <ul id="ul">
-            <!-- picturs -->
-        </ul>
-    </div>
-    <div>
-        <p>……</p>
+    <ul id="ul">
+        <!-- picturs -->
+    </ul>
+    <div id="load">
+        <p>………………………………</p>
     </div>
     <script>
         //  封装jsonp
@@ -73,22 +90,29 @@
         }
 
         const ul = document.getElementById("ul");
+        const load = document.getElementById("load");
         let w = 232; //每个图片宽度
         let pl = 10; //padding-left
         let pagenum = 0; //页码
         let ww = document.documentElement.clientWidth;
         let len = Math.floor(ww / (w + pl));
+        ul.style.width = len * (w +pl) + "px";
         let arrT = [];
         let arrL = [];
         for (let i = 0; i < len; i++) {
             arrT.push(0);
             arrL.push(i * (w + pl));
         }
+        let onoff = false;
+        // 找最小值
         function minIdx(){
             return arrT.findIndex(e=>e===Math.min.apply(null,arrT));
         }
         render();
         function render(){
+            onoff = true;
+            load.style.opacity = 1;
+            load.style.display = "block";
             jsonp({
                 url:"http://www.wookmark.com/api/json/popular?",
                 attrs:{
@@ -112,8 +136,44 @@
                             arrT[mi] += (li.offsetHeight*1)+10; 
                         }
                     })
+                    onoff = false;
+                    setTimeout(function(){
+                        load.style.opacity = 0;
+                        setTimeout(function(){
+                            load.style.display = "none";
+                        },500) 
+                    },500)
                 }
             })
+        }
+
+        window.onresize = function(){
+            ww = document.documentElement.clientWidth;
+            arrT.length = arrL.length = 0;
+            len = Math.floor(ww / (w + pl));
+            for (let i = 0; i < len; i++) {
+                arrT.push(0);
+                arrL.push(i * (w + pl));
+            }
+            ul.style.width = len * (w +pl) + "px";
+            lis = Array.from(document.getElementsByTagName("li"));
+            lis.forEach(e=>{
+                let mi = minIdx();
+                e.style.left = arrL[mi] + "px";
+                e.style.top = arrT[mi] + "px";
+                arrT[mi] += (e.offsetHeight*1)+10; 
+                console.log(e.offsetHeight)
+            })
+        }
+
+        window.onscroll = function(){
+            let mi = minIdx();
+            if(arrT[mi] < window.innerHeight + window.pageYOffset){
+                if(!onoff){
+                    pagenum++;
+                    render();
+                }
+            }
         }
     </script>
 </body>
