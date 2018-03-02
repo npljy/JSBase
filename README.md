@@ -1,6 +1,8 @@
 # niepengsmile.github.io
 学习的时候写的一些小练习
 ## 目录
+- [属性操作](https://github.com/niepengsmile/JSBase/blob/master/%E5%89%8D%E6%9C%9F%E7%BB%83%E4%B9%A0%E6%B1%87%E6%80%BB/%E8%8F%9C%E5%8D%95%E8%AE%BE%E7%BD%AE-getAttribute.html)
+- [模拟短信](https://github.com/niepengsmile/JSBase/blob/master/%E5%89%8D%E6%9C%9F%E7%BB%83%E4%B9%A0%E6%B1%87%E6%80%BB/%E6%A8%A1%E6%8B%9F%E7%9F%AD%E4%BF%A1-%E4%BC%98%E5%8C%96.html)
 - [2017-11-24【多组图片切换】](https://github.com/niepengsmile/JSBase/tree/master/2017-11-24%E3%80%90%E5%A4%9A%E7%BB%84%E5%9B%BE%E7%89%87%E5%88%87%E6%8D%A2%E3%80%91)
     - [多图切换-改变display](https://github.com/niepengsmile/JSBase/blob/master/2017-11-24%E3%80%90%E5%A4%9A%E7%BB%84%E5%9B%BE%E7%89%87%E5%88%87%E6%8D%A2%E3%80%91/%E5%A4%9A%E5%9B%BE%E5%88%87%E6%8D%A2-%E6%94%B9%E5%8F%98display.html) 
     - [多图切换-改变src](https://github.com/niepengsmile/JSBase/blob/master/2017-11-24%E3%80%90%E5%A4%9A%E7%BB%84%E5%9B%BE%E7%89%87%E5%88%87%E6%8D%A2%E3%80%91/%E5%A4%9A%E5%9B%BE%E5%88%87%E6%8D%A2-%E6%94%B9%E5%8F%98src.html) 
