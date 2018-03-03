@@ -1,4 +1,4 @@
-# niepengsmile.github.io
+# https://github.com/niepengsmile/JSBase
 学习的时候写的一些小练习
 ## 目录
 - [属性操作](https://github.com/niepengsmile/JSBase/blob/master/%E5%89%8D%E6%9C%9F%E7%BB%83%E4%B9%A0%E6%B1%87%E6%80%BB/%E8%8F%9C%E5%8D%95%E8%AE%BE%E7%BD%AE-getAttribute.html)
