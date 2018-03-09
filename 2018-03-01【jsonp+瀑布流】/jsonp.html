@@ -13,7 +13,6 @@
         const hd = document.getElementsByTagName("head")[0];
         let fname = "fff";
         ipt.onkeyup = function(){
-            
             var sc = document.createElement("script");
             sc.src="https://sug.so.360.cn/suggest?callback="+fname+"&encodein=utf-8&encodeout=utf-8&format=json&fields=word&word="+this.value;
             hd.appendChild(sc);
