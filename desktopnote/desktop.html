@@ -148,7 +148,7 @@
     }
 </style>
 
-    <div class="nb-note" style="display:none">
+    <div class="nb-note" style="visibility:hidden">
         <div class="nb-note-title nb-clear">
             <span class="nb-new">+</span>
             <span class="nb-title-name">无标题</span>
@@ -184,30 +184,24 @@
         var body = document.querySelector("body");
         var note = Array.from(document.querySelectorAll(".nb-note"));
         var nbmenudiv = document.querySelector(".nb-menu");
-
+         // 便签 ，随机位置 数量不限 ↓
+        // var count = 0;
+        // 便签 ，随机位置 数量不限 ↑
         var nbNotes = document.querySelectorAll(".Notes");
         var newnote = note[note.length-1].cloneNode(true);
-        
-        nbnote();
-        function nbnote(){
-            note = Array.from(document.querySelectorAll(".nb-note"));
-            newnote.style.display= "block";
-            nbNotes.forEach(e=>{
-                e.ondblclick = function(){
-                    if(note.length<=1){
-                        // 便签 ，随机位置 数量不限 ↓
-                        var nbx = Math.random()*window.innerWidth;
-                        var nby = Math.random()*window.innerHeight;
-                        // 便签 ，随机位置 数量不限 ↑
-                        newnote.style.left = nbx > window.innerWidth - 300 ? window.innerWidth - 300 : nbx + "px";
-                        newnote.style.top = nby > window.innerHeight -300 ? window.innerHeight -300 : nby + "px";
-                        body.insertBefore(newnote,note[note.length-1]);
-                    }
-                    note = Array.from(document.querySelectorAll(".nb-note"));
-                    foeach();
+        newnote.style.visibility= "visible";
+        nbNotes.forEach(e=>{
+            e.ondblclick = function(){
+                note = Array.from(document.querySelectorAll(".nb-note"));
+                if(note.length<=1){
+                    newnote.style.right = parseInt(getComputedStyle(note[note.length-1]).right) + "px";
+                    newnote.style.top = parseInt(getComputedStyle(note[note.length-1]).top) + "px";  
+                    body.insertBefore(newnote,note[note.length-1]);
                 }
-            });
-        }
+                note = Array.from(document.querySelectorAll(".nb-note"));
+                foeach();
+            }
+        });
 
         foeach();
         function foeach(){
@@ -231,8 +225,14 @@
                 
                 newBtn.onclick = function(){
                     var newNote = note[note.length-1].cloneNode(true);
-                    newNote.style.display= "block";
-                                
+                    newNote.style.visibility= "visible";
+                    // 便签 ，随机位置 数量不限 ↓
+                    // count++;
+                    // if(count>11)return;
+                    // newNote.style.right = parseInt(getComputedStyle(note[note.length-1]).right) + ( note[note.length-1].scrollWidth + 15) *(count%4) + "px";
+                    // newNote.style.top = parseInt(getComputedStyle(note[note.length-1]).top) + (note[note.length-1].scrollHeight + 15) * Math.floor(count/4) + "px";
+                    // 便签 ，随机位置 数量不限 ↑
+                    
                     // 便签 ，随机位置 数量不限 ↓
                     var nbx = Math.random()*window.innerWidth;
                     var nby = Math.random()*window.innerHeight;
@@ -255,14 +255,6 @@
                     this.style.display = "none";
                     titname.style.display = "inline-block";
                     titname.innerText = str;
-                }
-                nipt.onkeydown = function(ek){
-                    if(ek.keyCode === 13){
-                        var str = this.value;
-                        this.style.display = "none";
-                        titname.style.display = "inline-block";
-                        titname.innerText = str;
-                    }
                 }
                 e.onmousedown = function(){
                     note.forEach(e=>e.style.zIndex = 0)
@@ -299,6 +291,9 @@
                 nclose.onclick = function(){
                     this.parentElement.parentElement.parentElement.remove();
                     note = Array.from(document.querySelectorAll(".nb-note"));
+                     // 便签 ，随机位置 数量不限 ↓
+                    // if(note.length <=1)count=0;
+                    // 便签 ，随机位置 数量不限 ↑
                 }
             });
         }
