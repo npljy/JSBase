@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue for</title>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="val,key in arr">{{key}}:{{val}}</li>
+        </ul>
+        <ul>
+            <li v-for="val,key in arr2">{{val.name}}</li>
+        </ul>
+        <ul>
+            <li v-for="val,key in obj">{{val}}</li>
+        </ul>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                h:'<p>你好，世界</p>',
+                arr:[1,2,3,4],
+                arr2:[{name:'aa'},{name:'bb'},{name:'cc'}],
+                obj:{
+                    name:'dd',
+                    job:'web',
+                    age:20
+                }
+            }
+        })
+    </script>
+</body>
+</html>

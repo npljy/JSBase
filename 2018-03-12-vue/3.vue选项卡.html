@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  
+    <title>vue选项卡</title>
+</head>
+<body>
+    <div id="app">
+        <button 
+            v-for="(val,key) in arr"
+            @click = 'tog(key)'
+        >{{val.t}}</button>
+        <div v-for="(val,key) in arr" v-if="val.d">{{val.c}}</div>
+        <input type="checkbox" v-model="m" value="aaa"> 
+        <input type="checkbox" v-model="m" value="bbb"> 
+        <input type="checkbox" v-model="m" value="ccc"> 
+        <div >{{m}}</div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                arr:[{t:'one',d:true,c:'111'},{t:'two',d:false,c:'222'},{t:'three',d:false,c:'333'}],
+                m:[]
+            },
+            methods:{
+                tog(key){
+                    this.arr.forEach((e,i)=>{
+                        e.d=false;
+                        if(i===key){
+                            e.d = true;
+                        }
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue 练习</title>
+    <style>
+        .red{
+            background: red;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>{{h}}:{{num}}</div>
+        <div :class="r" :title="arr[0].name"></div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                h:'你好，世界',
+                num:20,
+                arr:[{name:'兰兰'},2,3,4],
+                r:'red'
+
+            }
+        })
+    </script>
+</body>
+</html>
