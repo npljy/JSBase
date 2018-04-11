@@ -20,6 +20,7 @@
         }
 
         function newfn(fn){
+            if(typeof fn !== 'function') return;
             let son = {};
             fn.call(son);
             if(fn.prototype){
@@ -29,7 +30,7 @@
         }
         let son1 = newfn(Parent);
         son1.walk();
-        
+
     </script>
 </body>
 </html>
