@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div class="div">
+
+    </div>
+<script>
+    (function(global,factory){
+       "use strict"
+        factory(global);
+    })(typeof window !== 'undefind'?window:this,function(global,noGlobal){
+        function jQuery(){
+            return new baichuan;
+        }
+        jQuery.prototype = {
+            constructor:jQuery,
+            css:function(){
+                console.log('css来了');
+            }
+        } 
+        let baichuan = jQuery.init = function(){
+
+        }
+        baichuan.prototype = jQuery.prototype;
+        global.$ = jQuery();
+    })
+
+
+</script>
+</body>
+</html>

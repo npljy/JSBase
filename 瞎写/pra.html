@@ -6,39 +6,32 @@
 </head>
 <body>
 <script>
-    // var A = "{  a: 1 , b : 'hello' }";
-    // var B = "{  'a': 1 , 'b' : 'hello' }";
-    // var C = "{'a':1,'b':'hello'}";
-    // var D = '{"a":1,"b":"hello"}';
-    // var E = '{ "a" : 1 , "b" : "hello" }';
-    // var F = '{ "a" : 1 ,\n  "b" : "hello" }';
-    // var G = '{ "a" : 1 , "b" : window.location.href="https://www.baidu.com" }';
 
-    // console.log(eval("("+A+")"));
+        function sidEffecting(ary) {
+            console.log(ary); //  [3,1,2]
+            ary[0] = ary[2];
+            console.log(ary); 
+        }
+        /*
+            此处 c 有默认参数，即 c 有默认值，
+            此时arguments对象中的值不会跟踪参数的值（反之亦然）。
+            即，改变arguments的值不会改变参数的值
+            相反, arguments反映了调用时提供的参数：
+        */
 
-    // let arr = [1,2,3,4,5]
-    // let a = 0;
-    // let b = arr.findIndex((e,i)=>{
-    //     if(e===4) return i;
-    // })
-    // console.log(...arr)
+        function bar(a,b,c=3) { 
+            c = 10;
+            console.log(arguments); // [3,1,2]
+            sidEffecting(arguments);// arguments 还是指传进来的时候的值，c值为1  即 [3,1,2]
+            arguments[0] = arguments[2] ;
+            console.log(arguments); // [2,1,2]
+            console.log(a,b,c); // 3,1,10
+            return a + b + c;
+        }
+       console.log( bar(3,1,2)); // 14
 
-    // function sidEffecting(ary) { 
-    //     console.log(ary)
-    //     ary[0] = ary[2]; 
-    //     console.log(ary)
-    // } 
 
-    // function bar(a,b,c=3) { 
-    //     c = 10 
-    //     sidEffecting(arguments); 
-    //     return a + b + c; 
-    // } 
 
-    // bar(1,1,1); 
-   
-    var min = Math.min(), max = Math.max();
-    console.log(min,max)
 
 </script>
 </body>

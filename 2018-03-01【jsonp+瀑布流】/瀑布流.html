@@ -60,7 +60,7 @@
             Object.assign(opt, obj);
             // 随机方法名，防止被缓存
             let fname = "jsonpFn" + (Math.random() + "").replace(".", "") + (+new Date());
-            //设置callback字段的 方法名，即jsonp的方法名
+            //给attrs添加callback（这个callback是opt中callback的值）属性，设置callback字段的 方法名，即jsonp的方法名
             opt.attrs[opt.callback] = fname;
             let arr = [];
             // 将字段变为 a=b 格式

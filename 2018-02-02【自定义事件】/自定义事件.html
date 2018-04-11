@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /*
+        自定义事件几个要素
+            1.事件函数存储队列
+            2.事件监听器
+            3.事件触发器
+
+        使用自定义事件的好处
+            自定义事件相当于是 观察者模式，可以把复杂逻辑解耦，
+            代码可以写的很清晰，而且很容易复用。
+
+            this.$emit(a)
+
+
+        box.add('down',fn1)
+        box.add('down',fn2)
+        box.add('down',fn3)
+        box.add('move',fnx)
+        box.add('move',fny)
+
+
+        {
+           down:[fn1,fn2,fn3],
+           move:[fnx,fny]
+        }
+
+        fn1(),fn2(),fn3()
+    */
+
+    class DefineEvent {
+        constructor(){
+            this.storage = {}
+        }
+        //给数组添加函数和事件名
+        on(type,cb){
+            //有事件就走这个事件数组，没有创建一个新的数组
+            this.storage[type] = this.storage[type] || [];
+            this.storage[type].push(cb);
+
+            //保证不重复。
+            this.storage[type] = [...new Set(this.storage[type])];
+
+            // if(!this.storage[type].some(e=>cb.name)){
+            //     this.storage[type].push(cb);
+            // }
+        }
+        //在某个情况下循环调用绑定的事件函数
+        trigger(type){
+            //如果没绑就不循环调用
+            if(!this.storage[type])return;
+            //找到绑定的事件函数数组，循环调用
+            this.storage[type].forEach(fns => {
+                fns.call(this);
+            });
+        }
+
+        del(type,fn){
+            //过滤要解绑的函数
+            this.storage[type] = this.storage[type].filter(e=>{
+                return fn.name != e.name;
+            });
+        }
+
+    };
+
+    let d = new DefineEvent();
+
+
+    // d.on('点击',function(){
+    //     alert('我点了');
+    // });
+    d.on('点击',function(){
+        d.del('上滚',fnn);
+    });
+
+    //a
+    d.on('上滚',fnn);
+    function fnn(){
+        alert('上滚了');
+    }
+
+    //b
+    d.on('上滚',function(){
+        alert('上滚了2');
+    });
+
+
+    // d.on('下滚',function(){
+    //     alert('下滚了');
+    // })
+
+
+
+
+
+
+    
+    document.onmousewheel = function(ev){
+        if(ev.wheelDelta > 0){
+            d.trigger('上滚');
+        }else{
+            d.trigger('下滚');
+        }
+    }
+
+    document.onclick = function(){
+        d.trigger('点击');
+    }
+    // d.trigger('点击');
+
+    // console.log(d)
+
+</script>
+</body>
+</html>

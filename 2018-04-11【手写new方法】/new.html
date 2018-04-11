@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Parent(){
+            this.name="1";
+            this.say = function(){
+                console.log("say")
+            }
+        }
+        Parent.prototype = {
+            walk:function(){
+                console.log("walk")
+            }
+        }
+
+        function newfn(fn){
+            let son = {};
+            fn.call(son);
+            if(fn.prototype){
+                son.__proto__ = fn.prototype;
+            }
+            return son;
+        }
+        newfn(Parent).walk();
+    </script>
+</body>
+</html>
