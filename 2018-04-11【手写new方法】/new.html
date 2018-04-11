@@ -23,9 +23,7 @@
             if(typeof fn !== 'function') return;
             let son = {};
             fn.call(son);
-            if(fn.prototype){
-                son.__proto__ = fn.prototype;
-            }
+            son.__proto__ = fn.prototype;
             return son;
         }
         let son1 = newfn(Parent);
