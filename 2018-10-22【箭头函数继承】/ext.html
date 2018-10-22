@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        function Person(name) {
+            this.name = name
+        }
+        Person.prototype.name = "ABC";
+        var s = new Person("abc")
+        var t = Person("abc") // 方法默认返回undefined
+        console.log(s.name)
+        console.log(t.name) // 相当于  undefined.name  所以报错
+    </script>
+</body>
+
+</html>

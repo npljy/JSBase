@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // console.log(a);  // 暂存死区
+        let a = () => {
+            var a = 10;
+            console.log(a) //函数未执行
+        }
+        console.log(a) // 函数 a
+    </script>
+</body>
+
+</html>
