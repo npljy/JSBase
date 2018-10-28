@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>异步的宏任务和微任务</title>
+</head>
+
+<body>
+    <h1>引用网址为 <a href="https://www.javascriptcn.com/read-32618.html">js循环</a></h1>
+
+    <script>
+        // 异步里面有宏任务和微任务，异步任务执行开始会先开始微任务
+            
+        setTimeout(function() {        
+            console.log("0000")    
+        }, 0)     console.log("正常流--111");
+
+             //  new Promise 是创建之后立刻执行的；
+
+            
+        var a = new Promise((resolve, reject) => {        
+            resolve();    
+        });
+
+            
+        a.then(() => {        
+            console.log("2222");    
+        })     console.log("正常流--3333");
+        //结果顺序为  1 ,3 ,2,0
+    </script>
+</body>
+
+</html>
+--------------------- 作者：yakunyang（2016） 来源：CSDN 原文：https://blog.csdn.net/qq_40774743/article/details/80502727 版权声明：本文为博主原创文章，转载请附上博文链接！
