@@ -10,11 +10,17 @@
 <body>
     <script>
         // console.log(a);  // 暂存死区
-        let a = () => {
-            var a = 10;
-            console.log(a) //函数未执行
+        function fn() {
+            let a = 10;
+            console.log(1, this) //函数未执行
+            b = () => {
+                console.log(2, this)
+            }
+            b()
         }
-        console.log(a) // 函数 a
+        fn.call({
+            x: 100
+        })
     </script>
 </body>
 
