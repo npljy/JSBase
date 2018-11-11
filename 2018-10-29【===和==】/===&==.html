@@ -5,18 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>高阶函数</title>
+    <title>===&==</title>
 </head>
 
 <body>
     <script>
-        function minus(m) {
-            return function(n) {
-                return m - n
+        何时使用 === 和 ==
+
+            if (obj.a == null) {
+                // 相当于  obj.a===null || obj.a ===undefined , JQuery中就是这么使用的，其余时候全部用 ===
             }
-        }
-        let a = minus(8)(3)
-        console.log(a) // 5
     </script>
 </body>
 
