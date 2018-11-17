@@ -47,5 +47,5 @@
         }
     }
 
-    new Numberic().add(1,2)
+    new Numberic().add(1,2,3,4)
     
