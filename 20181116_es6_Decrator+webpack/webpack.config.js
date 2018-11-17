@@ -9,8 +9,11 @@ const config = {
     output:{
         path:path.resolve(__dirname,'dist'),
         // 占位符 写法[name]
-        // [chunkhash] 根据内容生成一个hash值，内容不变，hash不变
-        filename:'[name]-[chunkhash].js'
+        // [hash] 因为这是工程级别的，即每次修改任何一个文件，所有文件名的hash都将改变，所有文件使用同一个hash值。
+        //      所以一旦修改了任何一个文件，整个项目的文件缓存都将失效
+        // [chunkhash] 具有相互依赖关系的文件打包在同一个模块，使用相同的hash值
+        // [contenthash] 是针对文件内容级别的，只有你自己模块的内容变了，那么hash值才改变
+        filename:'[name]-[contenthash].js'
     },
     module:{
         rules:[
