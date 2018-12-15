@@ -61,6 +61,7 @@
       color:yellow;
       text-align: left;
       font-size: 20px;
+      overflow-y: auto;
     }
     #tips{
       position: absolute;
@@ -121,6 +122,27 @@
     .btn:hover{
       border: 1px solid red;
     }
+    #play{
+      position: absolute;
+      right: 200px;
+      top: 10px;
+      width: 60px;
+      height: 60px;
+      line-height: 24px;
+      border-radius: 100%;
+      background: url(btn.png) no-repeat;
+      background-position: 0 0;
+      cursor: pointer;
+    }
+    #play:hover{
+      background-position: -60px 0;
+    }
+    #play.playing{
+      background-position: 0 -60px !important;
+    }
+    #play:hover.playing{
+      background-position: -60px -60px !important;
+    }
   </style>
 </head>
 <body>
@@ -141,6 +163,10 @@
     <div id="lucky" class="btn">中大奖</div>
     <div id="update" class="btn">录入名单</div>
     <div id="submit" class="btn">更新名单</div>
+    <div id="play"></div>
+    <audio id="myaudio" src="erxiao.mp3" autoplay preload="auto" style="display: none;">
+      您的浏览器不支持 audio 标签。
+    </audio>
   </div>
   <script>
     let names = '谭子业\n靳睿杰\n梁利杉\n李静波\n李宇佳\n李思怡\n菅壹\n张俊俊\n康晓龙\n高晓春\n刘佳怡\n燕晓琳\n颜如玉\n田晋荣\n刘佳辉\n李崇毅\n张钰婷\n魏康\n刘辉\n史嘉慧\n武雅鑫\n赵媛媛\n张宇杰\n梁雨乐\n孟繁森\n张泽懿\n马承鎏\n侯笑\n杨卓\n张琪\n张柔嘉\n齐茹菲\n李傲君\n薛逗逗\n刘茂天\n高杰瑞\n吕雪功\n董裕民\n戎蓉\n郝嘉骏\n徐嘉瑞'
@@ -158,15 +184,20 @@
     let nameIpt = document.getElementById('name-ipt')
     let nameArea = document.getElementById("name-area")
     let tips = document.getElementById('tips')
+    let myaudio = document.getElementById('myaudio')
+    let play = document.getElementById('play')
     let nameLen = nameArr.length
     let timer = null
     let onoff = false
+    let isPlayed = false
     let listObj = {}
     let num = 0
     let n = 0
     let ulStr1 = ''
     let ulStr2= ''
     let speed = 0
+
+  
 
     initList()
     function initList(){
@@ -181,6 +212,13 @@
       })
       nameUl1.innerHTML = ulStr1
       nameUl2.innerHTML = ulStr2
+      myaudio.volume = 0.4
+    }
+
+    play.onclick = function(){
+      isPlayed = true
+      myaudio.paused ? myaudio.play() : myaudio.pause()
+      myaudio.paused ? play.className='' : play.className='playing'
     }
 
     tips.onclick = function(){
@@ -209,6 +247,8 @@
     }
 
     start.onclick = function(){
+      !isPlayed && myaudio.paused && myaudio.play()
+      myaudio.paused ? play.className='' : play.className='playing'
       onoff = true
       speed = speedIpt.value
       if( !nameArr.length){
@@ -235,6 +275,10 @@
         str += attr + '&nbsp;&nbsp;&nbsp;' + listObj[attr] + '&nbsp;次<br />'
       }
       list.innerHTML = str
+    }
+
+    window.onload = function(){
+      myaudio.paused ? play.className='' : play.className='playing'
     }
   </script>
 </body>

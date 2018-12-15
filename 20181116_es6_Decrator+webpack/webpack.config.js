@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+
 const config = {
     mode:'development',
     devtool:'inline-source-map',
@@ -36,7 +37,7 @@ const config = {
         // 在output的目录中生成一个名字为filename的文件
         // 这个文件自动引用 打包之后的文件链接
         new HtmlWebpackPlugin({
-            filename:'index1.html',
+            filename:'index.html',
             template:path.resolve(__dirname,'index.html')
         }),
         // 每次打包,自动清除之前的打包文件
@@ -45,7 +46,13 @@ const config = {
             verbose: true,
             dry: false
         }),
-    ]
+    ],
+    devServer:{
+        hot: true, // 告诉 dev-server 我们在使用 HMR
+	    // contentBase: path.resolve(__dirname),
+	    publicPath: '/',
+	    port: 8989
+    }
 }
 
 module.exports = config;
