@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var arr = [
+      {tag: 'a', name: 1, age: 2},
+      {tag: 'b', name: 3, age: 4},
+      {tag: 'a', name: 5, age: 6},
+      {tag: 'b', name: 7, age: 8},
+      {tag: 'c', name: 7, age: 8},
+      {tag: 'b', name: 1, age: 2},
+      {tag: 'b', name: 3, age: 4},
+      {tag: 'd', name: 5, age: 6},
+      {tag: 'b', name: 7, age: 8},
+      {tag: 'd', name: 7, age: 8},
+    ]
+
+    const groupBy = (arr, key) => 
+    arr.reduce((t, v, i) => {
+      let findIndex = t.concat().findIndex(e => e[key] === v.tag)
+      if ( findIndex > -1) {
+        t[findIndex].arr = t[findIndex].arr.concat([{name: v.name, age: v.age}])
+      } else {
+        t.length += 1
+        t[t.length - 1] = {}
+        t[t.length - 1][key] = v[key]
+        t[t.length - 1].arr = [].concat([{name: v.name, age: v.age}])
+      }
+      return t
+    }, [])
+// 根据相同的key的值分组
+    console.log(groupBy(arr, 'tag'))
+
+  </script>
+</body>
+</html>
